@@ -23,8 +23,7 @@
             <span class="menu-header-text">Orders</span>
         </li>
         @include('layouts.app.menu-item', [
-            'link' => route('auth.loginr
-            '),
+            'link' => route('auth.login'),
             'text' => 'Tambah Order',
             'icon' => 'tf-icons bx bx-add-to-queue',
         ])
@@ -46,12 +45,11 @@
                 </li>
             </ul>
         </li>
-        <li class="menu-item">
-            <a href="daftar-customer.html" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-group"></i>
-                <div>Daftar Customer</div>
-            </a>
-        </li>
+        @include('layouts.app.menu-item', [
+            'link' => route('authed.customer.index'),
+            'text' => 'Daftar Customer',
+            'icon' => 'tf-icons bx bx-add-to-queue',
+        ])
         <!-- Components -->
         <li class="menu-header small text-uppercase"><span class="menu-header-text">Journals</span></li>
         <!-- Cards -->

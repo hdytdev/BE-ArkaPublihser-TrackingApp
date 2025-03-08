@@ -10,4 +10,5 @@ Route::name('auth.')->group(function () {
 
 Route::name('authed.')->middleware([AppAuthMiddleware::class])->group(function () {
     Volt::route('/', 'dashboard')->name('dashboard');
+    Volt::route('customers','customer.index')->name('customer.index');
 });
