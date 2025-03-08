@@ -1,16 +1,19 @@
 <?php
 
-use function Livewire\Volt\{state,mount};
+use function Livewire\Volt\{state, mount, placeholder};
 use App\Customer\CustomerServiceInterface;
-state(['query'=>"","customers"=>[]]);
+state(['customers' => []]);
+state(['search'])->url(as: 'q', history: true, keep: true);
 
-
-$search = function(){
-    $this->query = "Asuuu";
+$search = function () {
+    $this->query = 'Asuuu';
 };
+
+placeholder('Loading....');
+
 #GET DATA FROOM CUSTOMER SERVICE
-mount(function(CustomerServiceInterface $customer){
-    $this->customers = $customer->getFullDetail();
+mount(function (CustomerServiceInterface $customer) {
+    $this->customers = $customer->withSearch($this->search)->getFullDetail();
 });
 
 ?>
@@ -25,12 +28,16 @@ mount(function(CustomerServiceInterface $customer){
                     <div class="search-bar w-100">
                         <div>
                             <h6 class="mb-2">Nyari siapa gaiss?</h6>
-                            <input wire:model="query" type="text" class="form-control" placeholder="Cari Customer">
+                            <input wire:loading.attr="disabled" wire:model.lazy="search" type="text"
+                                class="form-control" placeholder="Cari Customer">
                         </div>
                     </div>
-                    {{$query}}
                     <div class="d-flex flex-direction-end align-items-end">
-                        <button wire:click="search" type="button" class="btn btn-primary px-4 all-order_btn-search w-auto">Cari</button>
+                        <button wire:loading.attr="disabled" wire:click="search" type="button"
+                            class="btn btn-primary px-4 all-order_btn-search w-auto">
+                            <span wire:loading.class="d-none">Cari</span>
+                            <span wire:loading>Loading...</span>
+                        </button>
                     </div>
                 </form>
             </div>
@@ -51,7 +58,6 @@ mount(function(CustomerServiceInterface $customer){
                     </div>
                 </div>
                 <div class="table-responsive text-nowrap">
-                    @dd($customers)
                     <table class="table">
                         <thead>
                             <tr class="text-nowrap">
