@@ -16,7 +16,9 @@ return new class extends Migration {
             $table->double('apc_charge')->default(0);
             $table->string('long_process_time')->default("3 Month");
             $table->string('index');
+            $table->string("focus_and_scope");
             $table->string('journal_link');
+            $table->string("accreditation")->default('-');
             $table->enum('category', [
                 'internal',
                 'external',

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Article;
 use App\Models\Customer;
 use App\Models\Journal;
 use App\Models\PackageOrder;
@@ -16,19 +17,23 @@ return new class extends Migration {
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Journal::class)->constrained('journals');
+            $table->string("id_order")->unique();
             $table->foreignIdFor(Customer::class)->constrained("customers");
-            $table->string('title');
-            $table->string('author_name');
-            $table->foreignIdFor(PackageOrder::class)->constrained('package_orders');
-            $table->foreignIdFor(PublicationStatus::class)->constrained('publication_statuses');
-            $table->string(column: 'link_publish')->nullable();
-            $table->date('submit_date');
-            $table->timestamp('order_date');
-            $table->date('estimated_publish');
-            $table->date('publish_date')->nullable();
-            $table->string('loa_file')->nullable();
-            $table->string('article_file');
+            $table->enum('status_term_1', [
+                "PAD",
+                "UNPAID"
+            ])->default("UNPAID");
+            $table->enum('status_term_2', [
+                "PAD",
+                "UNPAID"
+            ])->default("UNPAID");
+            $table->enum('status_term_3', [
+                "PAD",
+                "UNPAID"
+            ])->default("UNPAID");
+            $table->string("receipt_file")->nullable();
+            $table->string("invoice_file")->nullable();
+            $table->string("payment_link")->nullble();
             $table->timestamps();
         });
     }
