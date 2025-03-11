@@ -53,12 +53,12 @@
         <!-- Components -->
         <li class="menu-header small text-uppercase"><span class="menu-header-text">Journals</span></li>
         <!-- Cards -->
-        <li class="menu-item">
-            <a href="add-journal.html" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-book-add"></i>
-                <div>Tambah Jurnal</div>
-            </a>
-        </li>
+         @include('layouts.app.menu-item', [
+            'link' => route('authed.journal.add'),
+            'text' => 'Tambah Jurnal',
+            'icon' => 'tf-icons bx bx-book-add',
+        ])
+
         <li class="menu-item">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-list-ul"></i>

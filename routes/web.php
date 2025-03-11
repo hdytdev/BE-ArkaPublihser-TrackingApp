@@ -11,4 +11,11 @@ Route::name('auth.')->group(function () {
 Route::name('authed.')->middleware([AppAuthMiddleware::class])->group(function () {
     Volt::route('/', 'dashboard')->name('dashboard');
     Volt::route('customers','customer.index')->name('customer.index');
+
+
+    Route::prefix('journal')->name('journal.')->group(function(){
+        Volt::route('/', 'journal.list')->name('index');
+        Volt::route('/new', 'journal.add')->name('add');
+
+    });
 });

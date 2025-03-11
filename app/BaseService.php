@@ -16,8 +16,10 @@ abstract class BaseService
         }
     }
     abstract function setTableName(): string;
-    public function getAll()
+    public function save(array $data)
     {
-        //
+        $data['created_at'] = now();
+        $data['updated_at'] = now();
+        $this->db->insert($data);
     }
 }
