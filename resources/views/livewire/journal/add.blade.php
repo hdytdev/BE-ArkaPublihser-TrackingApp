@@ -28,14 +28,34 @@ new class extends Component {
         $validated = $this->validate();
         try {
             $journalServiceInterface->save($validated);
-            session()->flash('success', 'Journal berhasil di tambahkan');
+            $this->dispatch('notification',true);
         } catch (\Throwable $th) {
             session()->flash('error', 'Journal Gagal di tambahkan');
+            $this->dispatch('notification',false);
         }
     }
 };
 
 ?>
+@script
+    <script>
+        $wire.on("notification", (e) => {
+            if(e){
+                Swal.fire({
+                title: "Success",
+                text: "Data berhasil di ditambahkan",
+                icon: "success",
+            })
+            }else{
+                Swal.fire({
+                title: "Gagal!",
+                text: "Data Gagal di ditambahkan",
+                icon: "error",
+            })
+            }
+        })
+    </script>
+@endscript
 <!-- Content -->
 <div>
     <div class="page-title pt-3 mb-1">
@@ -50,11 +70,7 @@ new class extends Component {
 
                         <div class="card-header pb-0">
                             <h5 class="card-title">Isi Detail Jurnal</h5>
-                            @session('success')
-                                <div class="alert alert-success">
-                                    {{ session('success') }}
-                                </div>
-                            @endsession
+
                         </div>
 
                         <form wire:submit.prevent="save" class="row  px-4">
@@ -109,7 +125,8 @@ new class extends Component {
                                                 'is-invalid' => $errors->has('long_process_time'),
                                                 'font-bold' => true,
                                                 'form-control',
-                                            ]) id="long_process_time" placeholder="Lama prosess" />
+                                            ]) id="long_process_time"
+                                            placeholder="Lama prosess" />
                                         <div class="invalid-feedback">
                                             @error('long_process_time')
                                                 {{ $message }}

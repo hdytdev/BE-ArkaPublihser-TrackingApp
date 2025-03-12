@@ -66,7 +66,7 @@
             </a>
             <ul class="menu-sub">
                 <li class="menu-item">
-                    <a href="daftar-jurnal-internal.html" class="menu-link">
+                    <a wire:navigate href="{{route('authed.journal.index')}}" class="menu-link">
                         <div>Jurnal Internal</div>
                     </a>
                 </li>

@@ -14,7 +14,7 @@ Route::name('authed.')->middleware([AppAuthMiddleware::class])->group(function (
 
 
     Route::prefix('journal')->name('journal.')->group(function(){
-        Volt::route('/', 'journal.list')->name('index');
+        Volt::route('', 'journal.list')->name('index');
         Volt::route('/new', 'journal.add')->name('add');
 
     });
