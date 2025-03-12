@@ -6,7 +6,8 @@ use App\Services\interface\JournalServiceInterface;
 //component for list journal
 new class extends Component {
     use WithPagination;
-    public function rendering($view, JournalServiceInterface $journalServiceInterface)
+    public $category;
+    public function rendering($view)
     {
         $view->title('Journal Internal');
     }
@@ -14,7 +15,9 @@ new class extends Component {
     function with(JournalServiceInterface $journalServiceInterface)
     {
         return [
-            'journal' => ($this->journal = $journalServiceInterface->fetchWithPaginate()),
+            'journal' => ($this->journal = $journalServiceInterface
+            ->fetchByCategory($this->category)
+            ->paginate(5)),
         ];
     }
 
@@ -43,7 +46,7 @@ new class extends Component {
 
 <div>
     <div class="page-title pt-3 mb-1 d-flex justify-content-between align-items-center mb-4">
-        <h4 class="mb-0">Daftar Jurnal Internal</h4>
+        <h4 class="mb-0">Daftar Jurnal {{ $category }}</h4>
         <a wire:navigate href="{{ route('authed.journal.add') }}"
             class="btn btn-primary px-3 all-order_btn-search w-auto">
             <span class="align-middle">Tambah Jurnal</span>
@@ -77,7 +80,7 @@ new class extends Component {
                             </tr>
                         </thead>
                         <tbody>
-                            @if ($journal)
+                            @if ($journal->count() > 0)
                                 @foreach ($journal as $item)
                                     <tr>
                                         <th scope="row">{{ $loop->iteration }}</th>
@@ -104,7 +107,9 @@ new class extends Component {
                                 @endforeach
                             @else
                                 <tr>
-                                    <th class="text-center" colspan="10">Not Data</th>
+                                    <th class="text-center" colspan="10">
+                                        Tidak ada journal {{ucwords($category)}}
+                                    </th>
                                 </tr>
                             @endif
 

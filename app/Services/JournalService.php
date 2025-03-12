@@ -4,6 +4,7 @@ namespace App\Services;
 use App\BaseService;
 use App\Services\interface\JournalServiceInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Query\Builder;
 class JournalService extends BaseService implements JournalServiceInterface
 {
     /**
@@ -13,8 +14,8 @@ class JournalService extends BaseService implements JournalServiceInterface
     {
         return "journals";
     }
-    public function fetchWithPaginate($perPage = 5): LengthAwarePaginator{
-        return $this->db->paginate($perPage);
+    public function fetchByCategory($category = 'internal'): Builder{
+        return $this->db->where('category',$category);
     }
     public function delete(string $id){
         if( $item = $this->db->find($id) ){

@@ -66,17 +66,17 @@
             </a>
             <ul class="menu-sub">
                 <li class="menu-item">
-                    <a wire:navigate href="{{route('authed.journal.index')}}" class="menu-link">
+                    <a wire:navigate href="{{route('authed.journal.index',['category'=>"internal"])}}" class="menu-link">
                         <div>Jurnal Internal</div>
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a href="daftar-jurnal-eksternal.html" class="menu-link">
+                    <a wire:navigate href="{{route('authed.journal.index',['category'=>"exsternal"])}}" class="menu-link">
                         <div>Jurnal Eksternal</div>
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a href="daftar-jurnal-scopus.html" class="menu-link">
+                    <a wire:navigate href="{{route('authed.journal.index',['category'=>"scopus"])}}" class="menu-link">
                         <div>Jurnal Scopus</div>
                     </a>
                 </li>
