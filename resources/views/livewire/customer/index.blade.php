@@ -1,24 +1,24 @@
 <?php
 
-use function Livewire\Volt\{state, mount, placeholder};
-use App\Customer\CustomerServiceInterface;
-state(['customers' => []]);
-state(['search'])->url(as: 'q', history: true, keep: true);
+// use function Livewire\Volt\{state, mount, placeholder};
+// use App\Customer\CustomerServiceInterface;
+// state(['customers' => []]);
+// state(['search'])->url(as: 'q', history: true, keep: true);
 
-$search = function () {
-    $this->query = 'Asuuu';
-};
+// $search = function () {
+//     $this->query = 'Asuuu';
+// };
 
-placeholder('Loading....');
+// placeholder('Loading....');
 
-#GET DATA FROOM CUSTOMER SERVICE
-mount(function (CustomerServiceInterface $customer) {
-    $this->customers = $customer->withSearch($this->search)->getFullDetail();
-});
+// #GET DATA FROOM CUSTOMER SERVICE
+// mount(function (CustomerServiceInterface $customer) {
+//     $this->customers = $customer->withSearch($this->search)->getFullDetail();
+// });
 
 ?>
 <div>
-    <x-page-title toolbarLink="/customer/new" toolbarTitle="Add New Customer">
+    <x-page-title toolbarLink="{{route('authed.customer.add')}}" toolbarTitle="Add New Customer">
         Home
     </x-page-title>
     <div class="row mb-3">
