@@ -102,6 +102,7 @@ new class extends Component {
                                                     <span class="visually-hidden">Loading...</span>
                                                 </div>
                                             </button>
+                                            <a wire:navigate class="btn btn-sm btn-warning" href="{{route('authed.journal.edit',['journal_id'=>$item->id])}}">Edit</a>
                                         </td>
                                     </tr>
                                 @endforeach

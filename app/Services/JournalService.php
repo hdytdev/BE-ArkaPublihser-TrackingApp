@@ -14,13 +14,24 @@ class JournalService extends BaseService implements JournalServiceInterface
     {
         return "journals";
     }
-    public function fetchByCategory($category = 'internal'): Builder{
-        return $this->db->where('category',$category);
+    public function fetchByCategory($category = 'internal'): Builder
+    {
+        return $this->db->where('category', $category);
     }
-    public function delete(string $id){
-        if( $item = $this->db->find($id) ){
-            return $this->db->where(['id'=>$id])->delete();
+    public function delete(string $id)
+    {
+        if ($item = $this->db->find($id)) {
+            return $this->db->where(['id' => $id])->delete();
         }
-       return;
+        return;
+    }
+    public function findById(string $id)
+    {
+        return $this->db->find($id);
+    }
+    public function update(string $id, mixed $datas = [])
+    {
+        $data = $this->db->where('id', $id)->update($datas);
+        return $data;
     }
 }

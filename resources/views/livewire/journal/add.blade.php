@@ -2,6 +2,8 @@
 use Livewire\Volt\Component;
 use App\Services\interface\JournalServiceInterface;
 new class extends Component {
+    public $journal_id = null;
+
     public $name = null;
     public $apc_charge = null;
     public $long_process_time = null;
@@ -10,6 +12,9 @@ new class extends Component {
     public $journal_link = null;
     public $accreditation = null;
     public $category = null;
+
+    public $current;
+
     public function rules()
     {
         return [
@@ -23,15 +28,43 @@ new class extends Component {
             'category' => 'required',
         ];
     }
+    public function mount(JournalServiceInterface $journal)
+    {
+        if ($this->journal_id) {
+            $item = $journal->findById($this->journal_id);
+            if (!$item) {
+                return redirect()->route('authed.journal.add');
+            }
+            $this->current = $item;
+            $this->name = $item->name;
+            $this->apc_charge = $item->apc_charge;
+            $this->long_process_time = $item->long_process_time;
+            $this->index = $item->index;
+            $this->accreditation = $item->accreditation;
+            $this->category = $item->category;
+            $this->focus_and_scope = $item->focus_and_scope;
+            $this->journal_link = $item->journal_link;
+        }
+    }
+    public function back()
+    {
+        return redirect()->route('authed.journal.index', [
+            'category' => 'internal',
+        ]);
+    }
     public function save(JournalServiceInterface $journalServiceInterface)
     {
         $validated = $this->validate();
         try {
-            $journalServiceInterface->save($validated);
-            $this->dispatch('notification',true);
+            if ($this->journal_id && $this->current) {
+                $journalServiceInterface->update($this->journal_id, $validated);
+            } else {
+                $journalServiceInterface->save($validated);
+            }
+            $this->dispatch('notification', true);
         } catch (\Throwable $th) {
             session()->flash('error', 'Journal Gagal di tambahkan');
-            $this->dispatch('notification',false);
+            $this->dispatch('notification', false);
         }
     }
 };
@@ -40,18 +73,18 @@ new class extends Component {
 @script
     <script>
         $wire.on("notification", (e) => {
-            if(e){
+            if (e) {
                 Swal.fire({
-                title: "Success",
-                text: "Data berhasil di ditambahkan",
-                icon: "success",
-            })
-            }else{
+                    title: "Success",
+                    text: "Data berhasil di ditambahkan",
+                    icon: "success",
+                })
+            } else {
                 Swal.fire({
-                title: "Gagal!",
-                text: "Data Gagal di ditambahkan",
-                icon: "error",
-            })
+                    title: "Gagal!",
+                    text: "Data Gagal di ditambahkan",
+                    icon: "error",
+                })
             }
         })
     </script>
@@ -59,7 +92,11 @@ new class extends Component {
 <!-- Content -->
 <div>
     <div class="page-title pt-3 mb-1">
-        <h4>Tambah Jurnal</h4>
+        @if ($journal_id)
+            <h4>Edit Jurnal</h4>
+        @else
+            <h4>Tambah Jurnal</h4>
+        @endif
     </div>
 
     <div class="row">
@@ -69,7 +106,13 @@ new class extends Component {
                     <div class="card mb-4">
 
                         <div class="card-header pb-0">
-                            <h5 class="card-title">Isi Detail Jurnal</h5>
+                            <h5 class="card-title">
+                                @if ($journal_id)
+                                    Ubah
+                                @else
+                                    Isi
+                                @endif Detail Jurnal
+                            </h5>
 
                         </div>
 
@@ -205,7 +248,8 @@ new class extends Component {
                                             <span wire:loading="save">Loading..</span>
                                             Submit
                                         </button>
-                                        <button type="reset" class="btn btn-outline-secondary">Cancel</button>
+                                        <button wire:click="back" type="reset"
+                                            class="btn btn-outline-secondary">Cancel</button>
                                     </div>
                                 </div>
                             </div>
