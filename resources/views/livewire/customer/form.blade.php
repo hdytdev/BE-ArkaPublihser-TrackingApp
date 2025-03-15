@@ -19,9 +19,7 @@ state([
     'jabatan' => null,
 ]);
 
-mount(function () {
-    
-});
+mount(function () {});
 
 $save = function () {
     $this->validate();
@@ -36,84 +34,25 @@ $save = function () {
         <div class="col-lg-12 col-md-12 order-1">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="card mb-4">
-                        <h5 class="card-header pb-0">Isi Detail Customer</h5>
+                    <x-card title="Add New Customer">
                         <div class="row px-4">
                             <div class="col-md-6">
-                                <div class="card-body px-0">
-                                    <div class="mb-3">
-                                        <label for="" class="form-label">Nama Customer</label>
-                                        <input wire:model="nama" type="text" @class(['form-control', 'is-invalid' => $errors->has('nama')])
-                                            id="" placeholder="" />
-                                        @error('nama')
-                                            <p class="invalid-feedback">
-                                                {{ $message }}
-                                            </p>
-                                        @enderror
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="" class="form-label">No Telepon</label>
-                                        <input @class(['form-control', 'is-invalid' => $errors->has('no_telp')]) wire:model="no_telp" type="text"
-                                            class="form-control" id="" placeholder="" />
-                                        @error('no_telp')
-                                            <p class="invalid-feedback">
-                                                {{ $message }}
-                                            </p>
-                                        @enderror
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="" class="form-label">Email</label>
-                                        <input @class(['form-control', 'is-invalid' => $errors->has('email')]) wire:model="email" type="text"
-                                            class="form-control" id="" placeholder="" />
-                                        @error('email')
-                                            <p class="invalid-feedback">
-                                                {{ $message }}
-                                            </p>
-                                        @enderror
-                                    </div>
-                                </div>
+                                <x-input placeholder="Nama Customer" label="Nama Customer" name="nama" type="text" />
+                                <x-input placeholder="Nomor Telepon" label="Nomor Telepon" name="no_telp" type="text" />
+                                <x-input label="Alamat Email" name="email" type="email" />
                             </div>
                             <div class="col-md-6">
-                                <div class="card-body px-0">
-                                    <div class="mb-3">
-                                        <label for="" class="form-label">Asal Daerah</label>
-                                        <input @class(['form-control', 'is-invalid' => $errors->has('asal_daerah')]) wire:model="asal_daerah" type="text"
-                                            class="form-control" id="" placeholder="" />
-                                        @error('asal_daerah')
-                                            <p class="invalid-feedback">
-                                                {{ $message }}
-                                            </p>
-                                        @enderror
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="" class="form-label">Instansi</label>
-                                        <input @class(['form-control', 'is-invalid' => $errors->has('instansi')]) wire:model="instansi" type="text"
-                                            class="form-control" id="" placeholder="" />
-                                        @error('instansi')
-                                            <p class="invalid-feedback">
-                                                {{ $message }}
-                                            </p>
-                                        @enderror
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="" class="form-label">Jabatan</label>
-                                        <input @class(['form-control', 'is-invalid' => $errors->has('jabatan')]) wire:model="jabatan" type="text"
-                                            class="form-control" id="" placeholder="" />
-                                        @error('jabatan')
-                                            <p class="invalid-feedback">
-                                                {{ $message }}
-                                            </p>
-                                        @enderror
-                                    </div>
-                                    <div class="mt-2 d-flex justify-content-end">
-                                        <button wire:click="save" type="submit"
-                                            class="btn btn-primary me-2">Submit</button>
-                                        <button type="reset" class="btn btn-outline-secondary">Cancel</button>
-                                    </div>
+                                <x-input label="Asal Daerah" name="asal_daerah" type="text" />
+                                <x-input label="Instansi" name="instansi" type="text" />
+                                <x-input label="Jabatan" name="jabatan" type="text" />
+                                <div class="mt-2 d-flex justify-content-end">
+                                    <button wire:click="save" type="submit"
+                                        class="btn btn-primary me-2">Submit</button>
+                                    <button type="reset" class="btn btn-outline-secondary">Cancel</button>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </x-card>
                 </div>
             </div>
         </div>

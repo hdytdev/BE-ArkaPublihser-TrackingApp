@@ -48,7 +48,7 @@ new class extends Component {
     }
     public function back()
     {
-        return redirect()->route('authed.journal.index', [
+        return redirect()->route('journal.index', [
             'category' => 'internal',
         ]);
     }

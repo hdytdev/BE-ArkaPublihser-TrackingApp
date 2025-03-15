@@ -15,7 +15,7 @@
     <ul class="menu-inner py-1">
         <!-- Dashboard -->
         @include('layouts.app.menu-item', [
-            'link' => route('authed.dashboard'),
+            'link' => route('dashboard'),
             'text' => 'Dashboard',
             'icon' => 'tf-icons bx bx-home-circle',
         ])
@@ -46,7 +46,7 @@
             </ul>
         </li>
         @include('layouts.app.menu-item', [
-            'link' => route('authed.customer.index'),
+            'link' => route('customer.index'),
             'text' => 'Daftar Customer',
             'icon' => 'tf-icons bx bx-add-to-queue',
         ])
@@ -54,7 +54,7 @@
         <li class="menu-header small text-uppercase"><span class="menu-header-text">Journals</span></li>
         <!-- Cards -->
          @include('layouts.app.menu-item', [
-            'link' => route('authed.journal.add'),
+            'link' => route('journal.add'),
             'text' => 'Tambah Jurnal',
             'icon' => 'tf-icons bx bx-book-add',
         ])
@@ -66,17 +66,17 @@
             </a>
             <ul class="menu-sub">
                 <li class="menu-item">
-                    <a wire:navigate href="{{route('authed.journal.index',['category'=>"internal"])}}" class="menu-link">
+                    <a wire:navigate href="{{route('journal.index',['category'=>"internal"])}}" class="menu-link">
                         <div>Jurnal Internal</div>
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a wire:navigate href="{{route('authed.journal.index',['category'=>"exsternal"])}}" class="menu-link">
+                    <a wire:navigate href="{{route('journal.index',['category'=>"exsternal"])}}" class="menu-link">
                         <div>Jurnal Eksternal</div>
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a wire:navigate href="{{route('authed.journal.index',['category'=>"scopus"])}}" class="menu-link">
+                    <a wire:navigate href="{{route('journal.index',['category'=>"scopus"])}}" class="menu-link">
                         <div>Jurnal Scopus</div>
                     </a>
                 </li>
