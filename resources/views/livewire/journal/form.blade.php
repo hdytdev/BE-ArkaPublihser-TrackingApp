@@ -59,7 +59,7 @@ new class extends Component {
             if ($this->journal_id && $this->current) {
                 $journalServiceInterface->update($this->journal_id, $validated);
             } else {
-                $journalServiceInterface->save($validated);
+                $journalServiceInterface->new($validated);
             }
             $this->dispatch('notification', true);
         } catch (\Throwable $th) {
@@ -234,7 +234,7 @@ new class extends Component {
                                             id="inputGroupSelect01">
                                             <option selected>Choose...</option>
                                             <option value="internal">Jurnal Internal</option>
-                                            <option value="external">Jurnal Eksternal</option>
+                                            <option value="exsternal">Jurnal Eksternal</option>
                                             <option value="scopus">Jurnal Scopus</option>
                                         </select>
                                         <div class="invalid-feedback">

@@ -2,21 +2,20 @@
 
 namespace App\Services;
 use App\BaseService;
+use App\Models\Journal;
 use App\Services\interface\JournalServiceInterface;
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
-use Illuminate\Database\Query\Builder;
 class JournalService extends BaseService implements JournalServiceInterface
 {
     /**
      * Create a new class instance.
      */
-    public function setTableName(): string
+    public function setModel(): string
     {
-        return "journals";
+        return Journal::class;
     }
-    public function fetchByCategory($category = 'internal'): Builder
+    public function fetchByCategory($category = 'internal')
     {
-        return $this->db->where('category', $category);
+        return $this->db::where("category", $category);
     }
     public function delete(string $id)
     {
@@ -31,7 +30,11 @@ class JournalService extends BaseService implements JournalServiceInterface
     }
     public function update(string $id, mixed $datas = [])
     {
-        $data = $this->db->where('id', $id)->update($datas);
+        $data = $this->db::find($id)->update($datas);
         return $data;
+    }
+    public function new($data)
+    {
+        return $this->db->create($data);
     }
 }

@@ -1,13 +1,13 @@
 <?php
 use function Livewire\Volt\{mount, state, rules};
-
+use App\Services\CustomerService;
 rules([
-    'nama' => 'required',
-    'no_telp' => 'required',
-    'asal_daerah' => 'required',
-    'instansi' => 'required',
-    'email' => 'required',
-    'jabatan' => 'required',
+    'nama' => 'required|max:80',
+    'no_telp' => 'required|min:12|max:12',
+    'asal_daerah' => 'required|max:120',
+    'instansi' => 'required|max:120',
+    'email' => 'required|unique:customers,email',
+    'jabatan' => 'required|max:20',
 ]);
 
 state([
@@ -21,8 +21,9 @@ state([
 
 mount(function () {});
 
-$save = function () {
-    $this->validate();
+$save = function (CustomerService $customerService) {
+    $data = $this->validate();
+    $customerService->create($data);
 };
 
 ?>
@@ -37,8 +38,10 @@ $save = function () {
                     <x-card title="Add New Customer">
                         <div class="row px-4">
                             <div class="col-md-6">
-                                <x-input placeholder="Nama Customer" label="Nama Customer" name="nama" type="text" />
-                                <x-input placeholder="Nomor Telepon" label="Nomor Telepon" name="no_telp" type="text" />
+                                <x-input placeholder="Nama Customer" label="Nama Customer" name="nama"
+                                    type="text" />
+                                <x-input placeholder="Nomor Telepon" label="Nomor Telepon" name="no_telp"
+                                    type="text" />
                                 <x-input label="Alamat Email" name="email" type="email" />
                             </div>
                             <div class="col-md-6">
@@ -46,9 +49,13 @@ $save = function () {
                                 <x-input label="Instansi" name="instansi" type="text" />
                                 <x-input label="Jabatan" name="jabatan" type="text" />
                                 <div class="mt-2 d-flex justify-content-end">
-                                    <button wire:click="save" type="submit"
-                                        class="btn btn-primary me-2">Submit</button>
-                                    <button type="reset" class="btn btn-outline-secondary">Cancel</button>
+
+                                    <button  wire:click="save" type="submit"
+                                        class="btn btn-primary me-2">
+                                        <div wire:loading class="spinner-border spinner-border-sm" role="status"></div>
+                                          <span wire:loading.class="d-none">Submit</span>
+                                    </button>
+                                    <a href="{{route("customer.index")}}" class="btn btn-outline-secondary btn-link">Cancel</a>
                                 </div>
                             </div>
                         </div>

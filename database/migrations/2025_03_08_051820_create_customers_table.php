@@ -17,7 +17,7 @@ return new class extends Migration {
             $table->string('no_telp');
             $table->string('asal_daerah');
             $table->string('instansi');
-            $table->string('email');
+            $table->string('email')->unique();
             $table->string('jabatan');
             $table->timestamps();
         });

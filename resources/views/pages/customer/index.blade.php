@@ -1,12 +1,20 @@
 <?php
+use function Livewire\Volt\{with,  usesPagination};
+use App\Services\interface\CustomerServiceInterface;
 use function Laravel\Folio\name;
-
 name('customer.index');
+usesPagination('livewire::bootstrap');
+with(
+    fn(CustomerServiceInterface $customerServiceInterface) => [
+        'customers' => $customerServiceInterface->fetchAll(),
+    ],
+);
+
 ?>
 
 
 <x-app-layout>
-    <x-page-title toolbarLink="{{route('customer.add')}}" toolbarTitle="Add New Customer">
+    <x-page-title toolbarLink="{{ route('customer.add') }}" toolbarTitle="Add New Customer">
         Home
     </x-page-title>
     @volt
@@ -66,45 +74,32 @@ name('customer.index');
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>Table cell</td>
-                                        <td>Table cell</td>
-                                        <td>Table cell</td>
-                                        <td>Table cell</td>
-                                        <td>Table cell</td>
-                                        <td>Table cell</td>
-                                        <td>Table cell</td>
-                                        <td>Table cell</td>
-                                        <td>Table cell</td>
-                                        <td>Table cell</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td>Table cell</td>
-                                        <td>Table cell</td>
-                                        <td>Table cell</td>
-                                        <td>Table cell</td>
-                                        <td>Table cell</td>
-                                        <td>Table cell</td>
-                                        <td>Table cell</td>
-                                        <td>Table cell</td>
-                                        <td>Table cell</td>
-                                        <td>Table cell</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td>Table cell</td>
-                                        <td>Table cell</td>
-                                        <td>Table cell</td>
-                                        <td>Table cell</td>
-                                        <td>Table cell</td>
-                                        <td>Table cell</td>
-                                        <td>Table cell</td>
-                                        <td>Table cell</td>
-                                        <td>Table cell</td>
-                                        <td>Table cell</td>
-                                    </tr>
+                                    @if ($customers && $customers->count() < 1)
+                                        <tr>
+                                            <th rowspan="12">Tidak ada data</th>
+                                        </tr>
+                                    @else
+                                        @foreach ($customers as $item)
+                                            <tr>
+                                                <th scope="row">
+                                                    {{$loop->iteration}}
+                                                </th>
+                                                <td>{{ $item->customer_id }}</td>
+                                                <td>{{ $item->created_at }}</td>
+                                                <td>{{ $item->nama }}</td>
+                                                <td>Table cell</td>
+                                                <td>Table cell</td>
+                                                <td>Table cell</td>
+                                                <td>Table cell</td>
+                                                <td>Table cell</td>
+                                                <td>Table cell</td>
+                                                <td>Table cell</td>
+                                                <td>Table cell</td>
+                                            </tr>
+                                        @endforeach
+                                    @endif
+
+
                                 </tbody>
                             </table>
                         </div>

@@ -13,11 +13,11 @@ new class extends Component {
     {
         $view->title('Journal Internal');
     }
-    #[Locked]
     function with(JournalServiceInterface $journalServiceInterface)
     {
+        $data = $this->journal = $journalServiceInterface->fetchByCategory($this->category)->paginate(5);
         return [
-            'journal' => ($this->journal = $journalServiceInterface->fetchByCategory($this->category)->paginate(5)),
+            'journal' => $data,
         ];
     }
 
@@ -101,7 +101,7 @@ new class extends Component {
                                             <button wire:confirm="Apakah anda yakin?"
                                                 wire:click="delete({{ $item->id }})" class="btn btn-sm btn-danger">
                                                 <i wire:loading.class="d-none" class="tf-icons bx bx-trash"></i>
-                                                <div wire:loading class="spinner-border spinner-border-sm"
+                                                <div wire:loading wire:loading.target="delete" class="spinner-border spinner-border-sm"
                                                     role="status">
                                                     <span class="visually-hidden">Loading...</span>
                                                 </div>

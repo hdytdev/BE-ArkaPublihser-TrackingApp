@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use App\Customer\CustomerServiceInterface;
 use App\Services\CustomerService;
+use App\Services\interface\CustomerServiceInterface;
 use App\Services\interface\JournalServiceInterface;
 use App\Services\JournalService;
 use Illuminate\Support\ServiceProvider;
