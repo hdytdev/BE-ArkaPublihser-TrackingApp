@@ -1,17 +1,33 @@
 <?php
-use function Livewire\Volt\{with,  usesPagination};
+use function Livewire\Volt\{with, computed, state, usesPagination};
 use App\Services\interface\CustomerServiceInterface;
 use function Laravel\Folio\name;
 name('customer.index');
+#STATE FOR SEARCH
+state(['search'])->url();
 usesPagination('livewire::bootstrap');
-with(
-    fn(CustomerServiceInterface $customerServiceInterface) => [
-        'customers' => $customerServiceInterface->fetchAll(),
-    ],
-);
-
+//search query
+$search = computed(function () {
+    return $this->search;
+});
+//get data with search query
+with(function (CustomerServiceInterface $customerServiceInterface) {
+    return [
+        'customers' => $customerServiceInterface->fetchAllWithSearch($this->search ?? ''),
+    ];
+});
+//action for delete data
+$delete = function ($id, CustomerServiceInterface $customerServiceInterface) {
+    $deleted = $customerServiceInterface->delete($id);
+    if ($deleted) {
+        $this->dispatch('success', true);
+    }
+};
+//reset search
+$reset_search = function () {
+    $this->search = '';
+};
 ?>
-
 
 <x-app-layout>
     <x-page-title toolbarLink="{{ route('customer.add') }}" toolbarTitle="Add New Customer">
@@ -22,7 +38,7 @@ with(
             <div class="row mb-3">
                 <div class="col-lg-12 col-md-4">
                     <div class="card p-4">
-                        <form action="" class="all-order_form-search d-flex justify-content-between w-100">
+                        <div class="all-order_form-search d-flex justify-content-between w-100">
                             <div class="search-bar w-100">
                                 <div>
                                     <h6 class="mb-2">Nyari siapa gaiss?</h6>
@@ -30,14 +46,16 @@ with(
                                         class="form-control" placeholder="Cari Customer">
                                 </div>
                             </div>
-                            <div class="d-flex flex-direction-end align-items-end">
+                            <div class="d-flex gap-2 flex-direction-end align-items-end">
                                 <button wire:loading.attr="disabled" wire:click="search" type="button"
                                     class="btn btn-primary px-4 all-order_btn-search w-auto">
                                     <span wire:loading.class="d-none">Cari</span>
-                                    <span wire:loading>Loading...</span>
+                                    <div wire:target="search,reset_search" wire:loading
+                                        class="spinner-border spinner-border-sm" role="status"></div>
                                 </button>
+                                <button wire:click="reset_search" class="btn btn-outline-secondary">Reset</button>
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -76,57 +94,64 @@ with(
                                 <tbody>
                                     @if ($customers && $customers->count() < 1)
                                         <tr>
-                                            <th rowspan="12">Tidak ada data</th>
+                                            <th class="text-center" rowspan="12">Tidak ada data</th>
                                         </tr>
                                     @else
                                         @foreach ($customers as $item)
                                             <tr>
                                                 <th scope="row">
-                                                    {{$loop->iteration}}
+                                                    {{ $customers->firstItem() + $loop->iteration - 1 }}
                                                 </th>
-                                                <td>{{ $item->customer_id }}</td>
-                                                <td>{{ $item->created_at }}</td>
+                                                <td>
+                                                    <span class="badge bg-secondary">{{ $item->customer_id }}</span>
+                                                </td>
+                                                <td>{{ $item->registration_date }}</td>
                                                 <td>{{ $item->nama }}</td>
-                                                <td>Table cell</td>
-                                                <td>Table cell</td>
-                                                <td>Table cell</td>
-                                                <td>Table cell</td>
-                                                <td>Table cell</td>
-                                                <td>Table cell</td>
-                                                <td>Table cell</td>
-                                                <td>Table cell</td>
+                                                <td>{{ $item->no_telp }}</td>
+                                                <td>
+                                                    {{ $item->email }}
+                                                </td>
+                                                <td>{{ $item->asal_daerah }}</td>
+                                                <td>{{ $item->instansi }}</td>
+                                                <td>{{ $item->jabatan }}</td>
+                                                <td>
+                                                    <span class="badge bg-primary">6</span>
+                                                </td>
+                                                <td>
+                                                    <x-button-icon icon="tf-icons bx bx-trash"
+                                                        wire_target="delete('{{ $item->id }}')" />
+                                                    <button class="btn btn-sm btn-warning">
+                                                        <i class="tf-icons bx bx-pencil"></i>
+                                                    </button>
+                                                </td>
                                             </tr>
                                         @endforeach
                                     @endif
-
-
                                 </tbody>
                             </table>
                         </div>
                         <div class="all-order_card-footer">
-                            <nav aria-label="Order Pagination">
-                                <ul class="pagination order-pagination">
-                                    <li class="page-item">
-                                        <a class="page-link prev" href="#" aria-label="Previous">
-                                            <span aria-hidden="true">&laquo;</span>
-                                        </a>
-                                    </li>
-                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item">
-                                        <a class="page-link next" href="#" aria-label="Next">
-                                            <span aria-hidden="true">&raquo;</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </nav>
+                            {{ $customers->links() }}
                         </div>
                     </div>
                     <!--/ Responsive Table -->
 
                 </div>
             </div>
+            @script
+                <script>
+                    $wire.on('success', (e) => {
+                        Swal.fire({
+                            title: "Success",
+                            icon: "success",
+                            text: "Data berhasil dihapus"
+                        })
+                    })
+                </script>
+            @endscript
+
+
         </div>
+
     @endvolt
 </x-app-layout>
