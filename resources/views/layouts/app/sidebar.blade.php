@@ -23,7 +23,7 @@
             <span class="menu-header-text">Orders</span>
         </li>
         @include('layouts.app.menu-item', [
-            'link' => route('auth.login'),
+            'link' => route('order.new'),
             'text' => 'Tambah Order',
             'icon' => 'tf-icons bx bx-add-to-queue',
         ])

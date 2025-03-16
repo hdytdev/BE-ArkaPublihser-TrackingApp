@@ -33,6 +33,7 @@ class JournalService extends BaseService implements JournalServiceInterface
         $data = $this->db::find($id)->update($datas);
         return $data;
     }
+
     public function new($data)
     {
         return $this->db->create($data);

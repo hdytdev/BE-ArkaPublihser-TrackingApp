@@ -33,6 +33,9 @@ class CustomerService extends BaseService implements CustomerServiceInterface
     {
         return Str::upper("CUS-" . uniqid());
     }
+    public function findById(string $id){
+        return $this->db::find($id);
+    }
     public function delete(string $id): bool
     {
         return $this->db::find($id)->delete();

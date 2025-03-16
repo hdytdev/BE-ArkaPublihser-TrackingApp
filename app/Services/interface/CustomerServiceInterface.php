@@ -8,4 +8,6 @@ interface CustomerServiceInterface
 
     function fetchAllWithSearch(string $query);
     public function delete(string $id): bool;
+    public function findById(string $id);
+    public function all();
 }

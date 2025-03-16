@@ -132,9 +132,9 @@ $reset_search = function () {
                                                 <td>
                                                     <x-button-icon icon="tf-icons bx bx-trash"
                                                         wire_target="delete('{{ $item->id }}')" />
-                                                    <button class="btn btn-sm btn-warning">
+                                                    <a wire:navigate href="{{route("customer.edit",['id'=>$item->id])}}" class="btn btn-sm btn-warning">
                                                         <i class="tf-icons bx bx-pencil"></i>
-                                                    </button>
+                                                    </a>
                                                 </td>
                                             </tr>
                                         @endforeach

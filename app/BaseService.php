@@ -16,5 +16,8 @@ abstract class BaseService
             $this->db = app($model);
         }
     }
+    public function all(){
+        return $this->db::all();
+    }
     abstract function setModel(): string;
 }
