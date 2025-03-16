@@ -23,10 +23,46 @@ mount(function () {});
 
 $save = function (CustomerService $customerService) {
     $data = $this->validate();
-    $customerService->create($data);
+    if($customerService->create($data)){
+        $this->dispatch('saved',true);
+        $this->reset();
+    }else{
+        $this->dispatch('saved',false);
+    }
 };
 
 ?>
+@script
+
+<script>
+    $wire.on('saved',(v)=>{
+        if(v){
+            Swal.fire({
+                icon : "success",
+                text : "Data berhasil ditambahkan"
+            }).then(()=>{
+                Swal.fire({
+                    icon : "question",
+                    showCancelButton : true,
+                    confirmButtonText : "Ya! Tambah Yang lain",
+                    cancelButtonText : "Tidak! Terimakasih",
+                    text : "Apakah Ingin menambahkan data lagi?",
+                }).then((e)=>{
+                    if(!e.isConfirmed){
+                        window.location.href = "{{route('customer.index')}}"
+                    }
+                })
+            })
+        }else{
+            Swal.fire({
+                icon : "error",
+                text : "Data Gagal ditambahkan"
+            })
+        }
+    })
+</script>
+
+@endscript
 <div>
     <div class="page-title pt-3 mb-1">
         <h4>Tambah Customer</h4>
@@ -40,7 +76,7 @@ $save = function (CustomerService $customerService) {
                             <div class="col-md-6">
                                 <x-input placeholder="Nama Customer" label="Nama Customer" name="nama"
                                     type="text" />
-                                <x-input placeholder="Nomor Telepon" label="Nomor Telepon" name="no_telp"
+                                <x-input type="tel" placeholder="Nomor Telepon" label="Nomor Telepon" name="no_telp"
                                     type="text" />
                                 <x-input label="Alamat Email" name="email" type="email" />
                             </div>

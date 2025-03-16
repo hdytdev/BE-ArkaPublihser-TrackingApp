@@ -4,7 +4,7 @@
         {{$slot ?? $title}}
     </h4>
     @if ($toolbarLink && $toolbarTitle)
-        <a href="{{$toolbarLink}}" class="btn btn-primary px-3 all-order_btn-search w-auto">
+        <a wire:navigate href="{{$toolbarLink}}" class="btn btn-primary px-3 all-order_btn-search w-auto">
             <span class="align-middle">{{$toolbarTitle}}</span>
         </a>
     @endif

@@ -66,15 +66,17 @@ $reset_search = function () {
                     <div class="card">
                         <div class="card-header d-flex justify-content-between">
                             <h5 class="mb-0">Daftar Customer</h5>
-                            <div class="d-flex order-controller">
+                            {{-- <div class="d-flex order-controller">
                                 <form action="" class="d-flex h-fit month-filter">
                                     <input type="month" class="form-control h-fit">
                                     <button type="submit" class="btn btn-primary h-fit text-nowrap">Filter by
                                         Month</button>
                                 </form>
-                            </div>
+                            </div> --}}
                         </div>
+
                         <div class="table-responsive text-nowrap">
+
                             <table class="table">
                                 <thead>
                                     <tr class="text-nowrap">
@@ -91,10 +93,20 @@ $reset_search = function () {
                                         <th>Menu</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody class="text-center">
                                     @if ($customers && $customers->count() < 1)
                                         <tr>
-                                            <th class="text-center" rowspan="12">Tidak ada data</th>
+                                            <td class="text-center" colspan="12">
+                                                @if ($search)
+                                                    <p class="alert alert-warning">
+                                                        Tidak ada data yang cocok <b>{{ $search }}</b>
+                                                        <a wire:click="reset_search" href="javascript:void()">Reset</a>
+                                                    </p>
+                                                @else
+                                                    Tidak ada data
+                                                @endif
+
+                                            </td>
                                         </tr>
                                     @else
                                         @foreach ($customers as $item)
