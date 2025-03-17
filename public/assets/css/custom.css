@@ -1,0 +1,94 @@
+.logo-ap img {
+    width: 190px;
+}
+
+.dash-icon img {
+    width: 50px;
+    height: 50px;
+}
+
+.text-lora {
+    font-family: 'Lora', sans-serif;
+}
+
+.page-title-directory {
+    display: flex !important;
+    align-items: center !important;
+    gap: 5px;
+}
+
+.page-title-directory h6 {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.page-title-directory a i {
+    font-size: 24px;
+}
+
+.form-notes {
+    font-size: 12px;
+}
+
+.btn-primary:hover {
+    background-color: #FF5400 !important;
+    border-color: #FF5400 !important;
+}
+
+.gutter-costum {
+    --bs-gutter-x: 1.025rem;
+    --bs-gutter-y: 1.025rem;
+}
+
+.all-order_btn-search {
+    height: fit-content !important;
+}
+
+.all-order_form-search {
+    gap: 10px;
+}
+
+.all-order_form-search .search-bar {
+    width: 40%;
+}
+
+.search-controller {
+    width: 60%;
+    justify-content: space-between;
+    gap: 10px !important;
+}
+
+.h-fit {
+    height: fit-content !important;
+}
+
+.month-filter {
+    gap: 10px;
+}
+
+.order-controller {
+    gap: 10px;
+    align-items: center;
+}
+
+.order-pagination {
+    height: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+.order-pagination .page-item .page-link {
+    border: 1px solid #FF5400 !important;
+    background-color: #fff;
+    color: #222;
+}
+
+.page-link.prev, .page-link.next {
+    background-color: #FF5400 !important;
+    color: #fff !important;
+}
+
+.all-order_card-footer {
+    display: flex;
+    justify-content: end;
+    padding: 1.5rem 1.5rem;
+}
