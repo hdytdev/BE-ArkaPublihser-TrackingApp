@@ -36,7 +36,7 @@
 
     @include('shared.layout-js-assets')
     @livewireScripts
-    <script>
+    <script data-navigate-track>
         Livewire.directive('konfirmasi', ({
             el,
             directive,
