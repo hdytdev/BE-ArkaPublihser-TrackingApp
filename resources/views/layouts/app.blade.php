@@ -1,3 +1,4 @@
+@props(['pageTitle' => null])
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,6 +14,9 @@
 </head>
 
 <body>
+    <div class="alert alert-danger" wire:offline>
+        Sedang Offline
+    </div>
     <x-layouts.wrapper>
         <x-layouts.aside>
             <x-app-menu />
@@ -22,9 +26,13 @@
             <div class="content-wrapper">
                 <div class="container-xxl flex-grow-1 container-p-y">
                     @if ($pageTitle)
-                        <div class="page-title py-2">
-                            <h4>{{ $pageTitle }}</h4>
-                        </div>
+                        {{ $pageTitle }}
+                    @else
+                        @if ($title ?? false)
+                            <div class="page-title py-2">
+                                <h4>{{ $title }}</h4>
+                            </div>
+                        @endif
                     @endif
                     {{ $slot }}
                 </div>
@@ -50,10 +58,10 @@
                 $conf = await Swal.fire({
                     showClass: {
                         popup: `
-                            animate__animated
-                            animate__flipInX
-                            animate__faster
-                            `
+                        animate__animated
+                        animate__flipInX
+                        animate__faster
+                        `
                     },
                     allowOutsideClick: false,
                     hideClass: {
@@ -77,7 +85,8 @@
                     let match = methodWithParams.match(/^([\w]+)\((.*)\)$/);
                     if (match) {
                         let method = match[1];
-                        let params = match[2].split(',').map(param => param.trim().replace(/['"]/g,'')); // Parsing parameter
+                        let params = match[2].split(',').map(param => param.trim().replace(/['"]/g,
+                            '')); // Parsing parameter
                         WireCompoennt.call(method, ...params);
                     } else {
                         WireCompoennt.call(methodWithParams);

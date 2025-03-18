@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Interface\CustomerRepositoryInterface;
 use App\Interface\CustomerServiceInterface;
 use App\Interface\StatisticServiceInterface;
+use App\Repositories\CustomerRepository;
 use App\Services\CustomerService;
 use App\Services\StatisticService;
 use Illuminate\Support\ServiceProvider;
@@ -15,8 +17,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->singleton(StatisticServiceInterface::class,StatisticService::class);
-        $this->app->singleton(CustomerServiceInterface::class,CustomerService::class);
 
     }
 

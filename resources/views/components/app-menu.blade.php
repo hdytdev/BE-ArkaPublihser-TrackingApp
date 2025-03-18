@@ -8,14 +8,14 @@
         <x-layouts.nav-link link="">Invoice Maker</x-layouts.nav-link>
     </x-slot>
 </x-layouts.menu-dropdown>
-<x-layouts.nav-link icon="tf-icons bx bx-group" link="">Daftar Customer</x-layouts.nav-link>
+<x-layouts.nav-link  icon="tf-icons bx bx-group" link="{{route('admin.customer')}}">Daftar Customer</x-layouts.nav-link>
 <x-menu-header>Journals</x-menu-header>
 <x-layouts.nav-link icon=" tf-icons bx bx-book-add" link="">Tambah Jurnal</x-layouts.nav-link>
 <x-layouts.menu-dropdown name="Daftar Jurnal" icon="tf-icons bx bx-list-ul">
     <x-slot name="submenu">
-        <x-layouts.nav-link link="">Journal Internal</x-layouts.nav-link>
-        <x-layouts.nav-link link="">Journal External</x-layouts.nav-link>
-        <x-layouts.nav-link link="">Journal Scopus</x-layouts.nav-link>
+        <x-layouts.nav-link link="{{route('admin.journal',['category'=>'internal'])}}">Journal Internal</x-layouts.nav-link>
+        <x-layouts.nav-link link="{{route('admin.journal',['category'=>'external'])}}">Journal External</x-layouts.nav-link>
+        <x-layouts.nav-link link="{{route('admin.journal',['category'=>'scopus'])}}">Journal Scopus</x-layouts.nav-link>
     </x-slot>
 </x-layouts.menu-dropdown>
 <!-- Misc -->

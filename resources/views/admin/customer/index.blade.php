@@ -1,3 +1,7 @@
 <x-app-layout title="Customer">
-    @livewire("customer.show-customer")
+
+
+    @livewire("show-customer")
+
+
 </x-app-layout>
