@@ -25,4 +25,14 @@ class Journal extends Model
     'issn',
     'publisher'
   ];
+  public function article(){
+    return $this->hasMany(Article::class);
+}
+
+public function getJournalFullNameAttribute(){
+  return sprintf("%s:%s",$this->abbreviation,$this->name);
+}
+public function getFocusAndScopeAttribute(){
+  return sprintf("%s & %s",$this->focus,$this->scope);
+}
 }

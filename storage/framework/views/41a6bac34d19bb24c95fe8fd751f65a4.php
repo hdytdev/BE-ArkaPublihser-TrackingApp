@@ -68,31 +68,35 @@
             <tbody>
 
 
-              @if (!empty($orders))
-                @foreach ($orders as $item)
+              <!--[if BLOCK]><![endif]--><?php if(!empty($orders)): ?>
+                <!--[if BLOCK]><![endif]--><?php $__currentLoopData = $orders; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <tr>
                   <th scope="row">1</th>
-                  <td>{{ $item->order_number }}</td>
+                  <td><?php echo e($item->order_number); ?></td>
                   <td>
-                    {{$item->article->title}}
+                    <?php echo e($item->article->title); ?>
+
                   </td>
                   <td>
-                    {{$item->customer->name}}
+                    <?php echo e($item->customer->name); ?>
+
                   </td>
                   <td>
-                    {{$item->created_at}}
+                    <?php echo e($item->created_at); ?>
+
                   </td>
                   <td>
-                    {{$item->package}}
+                    <?php echo e($item->package); ?>
+
                   </td>
-                  <td>{{ $item->notes[0]?->orderStatus?->name }}</td>
+                  <td><?php echo e($item->notes[0]?->orderStatus?->name); ?></td>
                   <td>
-                    @if ($item->statusPembayaran)
+                    <!--[if BLOCK]><![endif]--><?php if($item->statusPembayaran): ?>
                         <span class="badge bg-success">Berhasil</span>
-                        @else
+                        <?php else: ?>
                         <span class="badge bg-warning">Pending</span>
 
-                    @endif
+                    <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
                   </td>
                   <td>
                     <div class="dropdown">
@@ -101,8 +105,8 @@
                         <i class="bx bx-dots-vertical-rounded"></i>
                       </button>
                       <div class="dropdown-menu all-order_dropdown-menu">
-                        <a href="{{route('admin.order.detail',[
-                        'order_id'=>$item->id])}}" class="btn btn-detail text-primary d-flex items-center">
+                        <a href="<?php echo e(route('admin.order.detail',[
+                        'order_id'=>$item->id])); ?>" class="btn btn-detail text-primary d-flex items-center">
                           <i class='bx bx-info-circle'></i>
                           <span>Lihat Detail</span>
                         </a>
@@ -118,8 +122,8 @@
                     </div>
                   </td>
                 </tr>
-                @endforeach
-              @endif
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><!--[if ENDBLOCK]><![endif]-->
+              <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
 
             </tbody>
           </table>
@@ -148,3 +152,4 @@
     </div>
   </div>
 </div>
+<?php /**PATH D:\PROJ\Laravel\JurnalTrackingApp\resources\views/livewire/order-lists.blade.php ENDPATH**/ ?>

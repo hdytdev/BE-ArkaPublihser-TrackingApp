@@ -27,4 +27,19 @@ class Order extends Model
     return $this->hasMany(OrderTermin::class);
   }
 
+  public function notes(){
+    return $this->hasMany(OrderNotes::class)->orderByDesc('created_at');
+  }
+
+  public function getStatusPembayaranAttribute(){
+    $termin_paid = $this->termin->filter(function($item){
+      return true ===  $item->is_paid;
+    });
+    if($termin_paid->count() >= $this->total_termin) {
+      return true;
+    }
+    return false;
+
+  }
+
 }

@@ -21,9 +21,21 @@ class Article extends Model
         'loa_file',
         'submit_date'
     ];
-
+    public function casts(){
+        return [
+            'estimated_publish_date' => 'date',
+            'submit_date' => 'date',
+            'publish_date' => "date:Y-m-d"
+        ];
+    }
     public function order(){
         return $this->belongsTo(Order::class);
+    }
+    public function journal(){
+        return $this->belongsTo(Journal::class);
+    }
+    public function fileHistory(){
+        return $this->hasMany(FileHistory::class);
     }
 
 }

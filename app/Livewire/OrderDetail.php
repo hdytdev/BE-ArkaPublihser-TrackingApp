@@ -12,7 +12,7 @@ class OrderDetail extends Component
 
     function getDetail(){
 
-      $order = Order::with(['article','customer','termin'])->find($this->order_id);
+      $order = Order::with(['article'=>['fileHistory','journal'],'customer','termin','notes.orderStatus'])->find($this->order_id);
       return $order;
     }
 

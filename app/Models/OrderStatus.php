@@ -11,7 +11,7 @@ class OrderStatus extends Model
     /** @use HasFactory<\Database\Factories\OrderStatusFactory> */
     use HasFactory,HasUuids;
     public $fillable = ['name'];
-    public function casts(){
-      return [];
+    public function notes(){
+      return $this->hasMany(OrderNotes::class);
     }
 }

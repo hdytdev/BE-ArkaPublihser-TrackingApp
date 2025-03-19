@@ -13,7 +13,6 @@
     @livewireStyles
     <link data-navigate-track href="{{ asset('assets/css/select2.css') }}" rel="stylesheet" />
     <link data-navigate-track rel="stylesheet" href="{{ asset('assets/css/select2bs.css') }}">
-    <link data-navigate-track rel="stylesheet" href="{{ asset('assets/css/custom.css') }}" />
 </head>
 
 <body>

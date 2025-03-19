@@ -17,7 +17,7 @@
                                 <p class="mb-0">:</p>
                             </div>
                             <div class="journal_info-info">
-                                <h6 class="mb-0">Educenter: Jurnal Ilmiah Pendidikan</h6>
+                                <h6 class="mb-0">{{ $order->article->journal->journalFullName }}</h6>
                             </div>
                         </li>
                         <li class="d-flex align-items-start">
@@ -26,7 +26,7 @@
                                 <p class="mb-0">:</p>
                             </div>
                             <div class="journal_info-info">
-                                <h6 class="mb-0">DOAJ</h6>
+                                <h6 class="mb-0">{{ $order->article->journal->accreditation }}</h6>
                             </div>
                         </li>
                         <li class="d-flex align-items-start">
@@ -35,7 +35,7 @@
                                 <p class="mb-0">:</p>
                             </div>
                             <div class="journal_info-info">
-                                <h6 class="mb-0">Pendidikan</h6>
+                                <h6 class="mb-0">{{ $order->article->journal->focusAndScope }}</h6>
                             </div>
                         </li>
                         <li class="d-flex align-items-start">
@@ -44,9 +44,9 @@
                                 <p class="mb-0">:</p>
                             </div>
                             <div class="journal_info-info">
-                                <h6 class="mb-0">Analisis Ketahanan Fans Liverpool Dalam Menahan Pressure Publik
-                                    Karena Lama
-                                    Tidak Juara EPL Sejak 1989-1990</h6>
+                                <h6 class="mb-0">
+                                    {{ $order->article->title }}
+                                </h6>
                             </div>
                         </li>
                         <li class="d-flex align-items-start">
@@ -65,8 +65,7 @@
                                 <p class="mb-0">:</p>
                             </div>
                             <div class="journal_info-info">
-                                <h6 class="mb-0">
-                                    belum terbit</h6>
+                                <h6 class="mb-0">{{ $order->article->publish_date }}</h6>
                             </div>
                         </li>
                         <li class="d-flex align-items-start">
@@ -75,8 +74,7 @@
                                 <p class="mb-0">:</p>
                             </div>
                             <div class="journal_info-info">
-                                <h6 class="mb-0">
-                                    12 Januari 2090</h6>
+                                <h6 class="mb-0">{{ $order->article->estimated_publish_date }}</h6>
                             </div>
                         </li>
                         <li class="d-flex align-items-start">
@@ -85,8 +83,7 @@
                                 <p class="mb-0">:</p>
                             </div>
                             <div class="journal_info-info">
-                                <h6 class="mb-0">
-                                    belum submit</h6>
+                                <h6 class="mb-0">{{ $order->article->submit_date }}</h6>
                             </div>
                         </li>
                     </ul>
@@ -100,18 +97,18 @@
                             <i class='bx bx-cloud-download'></i>
                             <span>Download LoA</span>
                         </button>
-                        <button class="btn active">
+                        <a href="{{ $order->article->journal->journal_link }}" class="btn inactive">
                             <i class='bx bx-link'></i>
                             <span>
                                 Link Journal
                             </span>
-                        </button>
-                        <button class="btn inactive">
+                        </a>
+                        <a href="{{ $order->article->journal->journal_link }}" class="btn inactive">
                             <i class='bx bx-link'></i>
                             <span>
                                 Link Publish
                             </span>
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -245,111 +242,45 @@
                     </div>
                     <div class="card-body m-0 p-0">
                         <div class="accordion mt-3" id="accordionExample">
-                            <div class="card accordion-item detail-order_accordion-item">
-                                <h2 class="accordion-header" id="headingTwo">
-                                    <button type="button" class="accordion-button collapsed"
-                                        data-bs-toggle="collapse" data-bs-target="#accordionOne"
-                                        aria-expanded="false" aria-controls="accordionTwo">
-                                        12-12-2025
-                                    </button>
-                                </h2>
-                                <div id="accordionOne" class="accordion-collapse collapse"
-                                    aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                                    <div class="accordion-body journal-notes">
-                                        <div class="d-flex notes-item">
-                                            <h6>Progress:</h6>
-                                            <h6>Editing</h6>
-                                        </div>
-                                        <div class="d-flex notes-item">
-                                            <h6>Notes:</h6>
-                                            <p>Mohon lakukan pembayaran termin 3 sebelum kami melanjutkan progress
-                                                publikasi</p>
-                                        </div>
-                                        <div class="notes-control d-flex justify-content-end">
-                                            <button data-bs-toggle="modal" data-bs-target="#editNote"
-                                                class="btn btn-edit text-primary d-flex items-center">
-                                                <i class='bx bx-edit-alt'></i>
-                                                <span>Edit</span>
-                                            </button>
-                                            <button data-bs-toggle="modal" data-bs-target="#deleteNote"
-                                                class="btn btn-delete text-danger d-flex items-center">
-                                                <i class='bx bx-trash'></i>
-                                                <span>Delete</span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card accordion-item detail-order_accordion-item">
-                                <h2 class="accordion-header" id="headingTwo">
-                                    <button type="button" class="accordion-button collapsed"
-                                        data-bs-toggle="collapse" data-bs-target="#accordionTwo"
-                                        aria-expanded="false" aria-controls="accordionTwo">
-                                        12-12-2025
-                                    </button>
-                                </h2>
-                                <div id="accordionTwo" class="accordion-collapse collapse"
-                                    aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                                    <div class="accordion-body journal-notes">
-                                        <div class="d-flex notes-item">
-                                            <h6>Progress:</h6>
-                                            <h6>Editing</h6>
-                                        </div>
-                                        <div class="d-flex notes-item">
-                                            <h6>Notes:</h6>
-                                            <p>Mohon lakukan pembayaran termin 3 sebelum kami melanjutkan progress
-                                                publikasi</p>
-                                        </div>
-                                        <div class="notes-control d-flex justify-content-end">
-                                            <button data-bs-toggle="modal" data-bs-target="#editNote"
-                                                class="btn btn-edit text-primary d-flex items-center">
-                                                <i class='bx bx-edit-alt'></i>
-                                                <span>Edit</span>
-                                            </button>
-                                            <button data-bs-toggle="modal" data-bs-target="#deleteNote"
-                                                class="btn btn-delete text-danger d-flex items-center">
-                                                <i class='bx bx-trash'></i>
-                                                <span>Delete</span>
-                                            </button>
+
+                            @foreach ($order->notes as $item)
+                                <div class="card accordion-item detail-order_accordion-item">
+                                    <h2 class="accordion-header" id="headingTwo">
+                                        <button type="button" class="accordion-button collapsed"
+                                            data-bs-toggle="collapse"
+                                            data-bs-target="#accordion-{{ $loop->iteration }}" aria-expanded="false"
+                                            aria-controls="accordionTwo">
+                                            {{ $item->createdAtFormated }}
+                                        </button>
+                                    </h2>
+                                    <div id="accordion-{{ $loop->iteration }}" class="accordion-collapse collapse"
+                                        aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                                        <div class="accordion-body journal-notes">
+                                            <div class="d-flex notes-item">
+                                                <h6>Progress:</h6>
+                                                <h6 style="color:{{ $item->orderStatus->color }}">
+                                                    {{ $item->orderStatus->name }}</h6>
+                                            </div>
+                                            <div class="d-flex notes-item">
+                                                <h6>Notes:</h6>
+                                                <p>{{ $item->note }}</p>
+                                            </div>
+                                            <div class="notes-control d-flex justify-content-end">
+                                                <button data-bs-toggle="modal" data-bs-target="#editNote"
+                                                    class="btn btn-edit text-primary d-flex items-center">
+                                                    <i class='bx bx-edit-alt'></i>
+                                                    <span>Edit</span>
+                                                </button>
+                                                <button data-bs-toggle="modal" data-bs-target="#deleteNote"
+                                                    class="btn btn-delete text-danger d-flex items-center">
+                                                    <i class='bx bx-trash'></i>
+                                                    <span>Delete</span>
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="card accordion-item detail-order_accordion-item">
-                                <h2 class="accordion-header" id="headingThree">
-                                    <button type="button" class="accordion-button collapsed"
-                                        data-bs-toggle="collapse" data-bs-target="#accordionThree"
-                                        aria-expanded="false" aria-controls="accordionThree">
-                                        12-12-2025
-                                    </button>
-                                </h2>
-                                <div id="accordionThree" class="accordion-collapse collapse"
-                                    aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-                                    <div class="accordion-body journal-notes">
-                                        <div class="d-flex notes-item">
-                                            <h6>Progress:</h6>
-                                            <h6>Editing</h6>
-                                        </div>
-                                        <div class="d-flex notes-item">
-                                            <h6>Notes:</h6>
-                                            <p>Mohon lakukan pembayaran termin 3 sebelum kami melanjutkan progress
-                                                publikasi</p>
-                                        </div>
-                                        <div class="notes-control d-flex justify-content-end">
-                                            <button data-bs-toggle="modal" data-bs-target="#editNote"
-                                                class="btn btn-edit text-primary d-flex items-center">
-                                                <i class='bx bx-edit-alt'></i>
-                                                <span>Edit</span>
-                                            </button>
-                                            <button data-bs-toggle="modal" data-bs-target="#deleteNote"
-                                                class="btn btn-delete text-danger d-flex items-center">
-                                                <i class='bx bx-trash'></i>
-                                                <span>Delete</span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
                         <div class="d-flex justify-content-end mt-3">
                             <button data-bs-toggle="modal" data-bs-target="#addNote"
@@ -372,60 +303,27 @@
                 </div>
                 <div class="card-body">
                     <div class="file-history">
-                        <div class="file-list d-flex justify-content-between align-items-center">
-                            <div class="file-name">
-                                <h6 class="mb-0">Naskah Awal</h6>
-                                <p>12-2-2025</p>
+                        @foreach ($order->article->fileHistory as $file)
+                            <div class="file-list d-flex justify-content-between align-items-center">
+                                <div class="file-name">
+                                    <h6 class="mb-0">{{ $file->name }}</h6>
+                                    <p>{{ $file->createdAtFormated }}</p>
+                                </div>
+                                <div class="file-controller d-flex">
+                                    <a href="" class="file-download">
+                                        <i class='bx bx-cloud-download'></i>
+                                    </a>
+                                    <button data-bs-toggle="modal" data-bs-target="#editFile" class="file-download">
+                                        <i class='bx bx-edit-alt'></i>
+                                    </button>
+                                    <button data-bs-toggle="modal" data-bs-target="#deleteFile" href=""
+                                        class="file-delete">
+                                        <i class='bx bx-trash'></i>
+                                    </button>
+                                </div>
                             </div>
-                            <div class="file-controller d-flex">
-                                <a href="" class="file-download">
-                                    <i class='bx bx-cloud-download'></i>
-                                </a>
-                                <button data-bs-toggle="modal" data-bs-target="#editFile" class="file-download">
-                                    <i class='bx bx-edit-alt'></i>
-                                </button>
-                                <button data-bs-toggle="modal" data-bs-target="#deleteFile" href=""
-                                    class="file-delete">
-                                    <i class='bx bx-trash'></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="file-list d-flex justify-content-between align-items-center">
-                            <div class="file-name">
-                                <h6 class="mb-0">Naskah Awal</h6>
-                                <p>12-2-2025</p>
-                            </div>
-                            <div class="file-controller d-flex">
-                                <a href="" class="file-download">
-                                    <i class='bx bx-cloud-download'></i>
-                                </a>
-                                <button data-bs-toggle="modal" data-bs-target="#editFile" class="file-download">
-                                    <i class='bx bx-edit-alt'></i>
-                                </button>
-                                <button data-bs-toggle="modal" data-bs-target="#deleteFile" href=""
-                                    class="file-delete">
-                                    <i class='bx bx-trash'></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="file-list d-flex justify-content-between align-items-center">
-                            <div class="file-name">
-                                <h6 class="mb-0">Naskah Awal</h6>
-                                <p>12-2-2025</p>
-                            </div>
-                            <div class="file-controller d-flex">
-                                <a href="" class="file-download">
-                                    <i class='bx bx-cloud-download'></i>
-                                </a>
-                                <button data-bs-toggle="modal" data-bs-target="#editFile" class="file-download">
-                                    <i class='bx bx-edit-alt'></i>
-                                </button>
-                                <button data-bs-toggle="modal" data-bs-target="#deleteFile" href=""
-                                    class="file-delete">
-                                    <i class='bx bx-trash'></i>
-                                </button>
-                            </div>
-                        </div>
+                        @endforeach
+
                     </div>
                     <div class="d-flex justify-content-end mt-3">
                         <button data-bs-toggle="modal" data-bs-target="#addFile"
