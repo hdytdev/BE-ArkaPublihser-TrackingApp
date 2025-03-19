@@ -11,8 +11,9 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     @livewireStyles
-    <link data-navigate-track href="{{asset('assets/css/select2.css')}}" rel="stylesheet" />
-    <link data-navigate-track rel="stylesheet" href="{{asset("assets/css/select2bs.css")}}">
+    <link data-navigate-track href="{{ asset('assets/css/select2.css') }}" rel="stylesheet" />
+    <link data-navigate-track rel="stylesheet" href="{{ asset('assets/css/select2bs.css') }}">
+    <link data-navigate-track rel="stylesheet" href="{{ asset('assets/css/custom.css') }}" />
 </head>
 
 <body>
@@ -46,7 +47,7 @@
 
     @include('shared.layout-js-assets')
     @livewireScripts
-    <script data-navigate-track src="{{asset('assets/js/select-2.js')}}"></script>
+    <script data-navigate-track src="{{ asset('assets/js/select-2.js') }}"></script>
 
     <script data-navigate-track>
         Livewire.directive('konfirmasi', ({

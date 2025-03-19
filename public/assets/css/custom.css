@@ -1,94 +1,351 @@
 .logo-ap img {
-    width: 190px;
+  width: 190px;
 }
 
 .dash-icon img {
-    width: 50px;
-    height: 50px;
+  width: 50px;
+  height: 50px;
 }
 
 .text-lora {
-    font-family: 'Lora', sans-serif;
+  font-family: "Lora", sans-serif;
 }
 
 .page-title-directory {
-    display: flex !important;
-    align-items: center !important;
-    gap: 5px;
+  display: flex !important;
+  align-items: center !important;
+  gap: 5px;
 }
 
 .page-title-directory h6 {
-    margin: 0 !important;
-    padding: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 .page-title-directory a i {
-    font-size: 24px;
+  font-size: 24px;
 }
 
 .form-notes {
-    font-size: 12px;
+  font-size: 12px;
 }
 
 .btn-primary:hover {
-    background-color: #FF5400 !important;
-    border-color: #FF5400 !important;
+  background-color: #ff5400 !important;
+  border-color: #ff5400 !important;
 }
 
 .gutter-costum {
-    --bs-gutter-x: 1.025rem;
-    --bs-gutter-y: 1.025rem;
+  --bs-gutter-x: 1.025rem;
+  --bs-gutter-y: 1.025rem;
 }
 
 .all-order_btn-search {
-    height: fit-content !important;
+  height: fit-content !important;
 }
 
 .all-order_form-search {
-    gap: 10px;
+  gap: 10px;
 }
 
 .all-order_form-search .search-bar {
-    width: 40%;
+  width: 40%;
 }
 
 .search-controller {
-    width: 60%;
-    justify-content: space-between;
-    gap: 10px !important;
+  width: 60%;
+  justify-content: space-between;
+  gap: 10px !important;
 }
 
 .h-fit {
-    height: fit-content !important;
+  height: fit-content !important;
 }
 
 .month-filter {
-    gap: 10px;
+  gap: 10px;
 }
 
 .order-controller {
-    gap: 10px;
-    align-items: center;
+  gap: 10px;
+  align-items: center;
 }
 
 .order-pagination {
-    height: 100% !important;
-    padding: 0 !important;
-    margin: 0 !important;
-}
-.order-pagination .page-item .page-link {
-    border: 1px solid #FF5400 !important;
-    background-color: #fff;
-    color: #222;
+  height: 100% !important;
+  padding: 0 !important;
+  margin: 0 !important;
 }
 
-.page-link.prev, .page-link.next {
-    background-color: #FF5400 !important;
-    color: #fff !important;
+.order-pagination .page-item .page-link {
+  border: 1px solid #ff5400 !important;
+  background-color: #fff;
+  color: #222;
+}
+
+.page-link.prev,
+.page-link.next {
+  background-color: #ff5400 !important;
+  color: #fff !important;
 }
 
 .all-order_card-footer {
-    display: flex;
-    justify-content: end;
-    padding: 1.5rem 1.5rem;
+  display: flex;
+  justify-content: end;
+  padding: 1.5rem 1.5rem;
+}
+
+.menu-container {
+  gap: 10px;
+}
+
+.all-order_dropdown-menu {
+  display: flex;
+  flex-direction: column;
+  padding: 10px !important;
+  gap: 6px !important;
+}
+
+.btn-detail,
+.btn-edit {
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  padding: 6px 8px !important;
+  gap: 5px;
+}
+
+.btn-detail:hover,
+.btn-edit:hover {
+  background-color: #ff550024 !important;
+}
+
+.btn-delete {
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  padding: 6px 8px !important;
+  gap: 5px;
+}
+
+.btn-delete:hover {
+  background-color: #ff000024 !important;
+}
+
+.card-title {
+  font-size: 1rem !important;
+  font-family: "Inter", sans-serif;
+  color: #0b3962;
+  display: flex;
+  align-items: center !important;
+  gap: 5px;
+  text-transform: uppercase;
+}
+
+.card-title span {
+  font-weight: 600;
+  margin: 0;
+  padding: 0;
+}
+
+.journal_info-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.journal_info-list li {
+  gap: 10px;
+}
+
+.journal_info-title {
+  width: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0 !important;
+}
+
+.journal_info-title h6 {
+  font-size: 14px;
+  color: #222;
+  font-weight: 600;
+}
+
+.journal_info-info h6 {
+  font-size: 14px;
+  color: #222;
+  font-weight: 400;
+  flex-shrink: 0 !important;
+  line-height: 22px;
+}
+
+.separator {
+  height: 1px;
+  border: 1px solid #ddd;
+  border-style: dashed;
+  width: 100%;
+  margin-top: 28px;
+}
+
+.stretched-dashed {
+  border-top: 1px dashed;
+  border-image: repeating-linear-gradient(to right,
+          #ddd 0,
+          #ddd 10px,
+          transparent 10px,
+          transparent 20px);
+  border-image-slice: 1;
+}
+
+.journal-info_btn-group {
+  gap: 10px;
+}
+
+.journal-info_btn-group .btn {
+  padding-left: 14px;
+  padding-right: 14px;
+}
+
+.journal-info_btn-group .btn i {
+  font-size: 24px;
+}
+
+.journal-info_btn-group .btn.active {
+  font-size: 14px !important;
+  background-color: #fff;
+  border: 1px solid #ff935d;
+  color: #ff5400;
+}
+
+.journal-info_btn-group .btn.active:hover {
+  background-color: #ff5400;
+  transition: all 300ms;
+  color: #fff;
+}
+
+.journal-info_btn-group .btn.inactive {
+  font-size: 14px !important;
+  background-color: #fff;
+  border: 1px solid #bbbbbb;
+  color: #222;
+}
+
+.journal-info_btn-group .btn.inactive:hover {
+  background-color: #ddd;
+  transition: all 300ms;
+}
+
+.accordion-button {
+  padding: 10px 14px;
+  border-radius: 14px;
+  color: #3d3d3d;
+  font-size: 14px !important;
+}
+
+.accordion-item:first-of-type .accordion-button, .accordion > .card:not(:last-of-type), .accordion-button.collapsed, .accordion > .card:last-of-type{
+  border-radius: 14px !important;
+}
+
+.detail-order_accordion-item {
+  border: 1px solid #ddd !important;
+  box-shadow: none !important;
+}
+
+.detail-order_accordion-item.active {
+  border: 1px solid #ff5400 !important;
+}
+
+.journal-notes {
+  padding-top: 5px !important;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.journal-notes .notes-item {
+  gap: 5px;
+  justify-content: flex-start;
+}
+
+.journal-notes .notes-item h6{
+  color: #3d3d3d;
+  font-size: 14px !important;
+  margin: 0 !important;
+}
+
+.journal-notes .notes-item p {
+  font-size: 14px !important;
+  line-height: 18px !important;
+  color: #444;
+  font-weight: 400;
+}
+
+.accordion-button:not(.collapsed) {
+  color: #ff5400;
+}
+
+.file-history {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.file-name h6 {
+  font-size: 14px !important;
+  font-weight: 600;
+  color: #444;
+  text-transform: uppercase;
+}
+
+.file-name p {
+  font-size: 12px;
+  margin-top: 5px;
+  margin-bottom: 0 !important;
+}
+
+.file-controller {
+  display: flex;
+  gap: 8px;
+
+}
+
+.file-download i {
+  font-size: 24px;
+  color: #444;
+}
+
+.file-download i:hover {
+  color: #ff5400;
+  transition: all 300ms;
+}
+
+.file-delete i {
+  font-size: 20px;
+  color: #444;
+}
+
+.file-delete i:hover {
+  color: #eb0000;
+  transition: all 300ms;
+}
+
+.text-sm {
+  font-size: 14px !important;
+}
+
+.gap-10 {
+  gap: 6px;
+}
+
+.btn-primary:active, .btn-primary:focus {
+  background-color: #ff540090;
+  border-color: #ff5400;
+}
+
+.file-download, .file-delete {
+  outline: none !important;
+  border: none !important;
+  background: none;
 }

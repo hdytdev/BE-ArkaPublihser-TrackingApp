@@ -21,4 +21,9 @@ class Article extends Model
         'loa_file',
         'submit_date'
     ];
+
+    public function order(){
+        return $this->belongsTo(Order::class);
+    }
+
 }

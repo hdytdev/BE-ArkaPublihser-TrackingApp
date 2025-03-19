@@ -13,4 +13,7 @@ class OrderTermin extends Model
     'term',
     'is_paid',
   ];
+  public function order(){
+    return $this->belongsTo(Order::class);
+  }
 }

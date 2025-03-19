@@ -15,4 +15,16 @@ class Order extends Model
     'order_date',
     'total_termin'
   ];
+
+  public function article(){
+    return $this->hasOne(Article::class);
+  }
+  public function customer(){
+    return $this->belongsTo(Customer::class);
+  }
+
+  public function termin(){
+    return $this->hasMany(OrderTermin::class);
+  }
+
 }

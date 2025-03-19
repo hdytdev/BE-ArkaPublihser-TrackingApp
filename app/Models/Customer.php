@@ -27,4 +27,7 @@ class Customer extends Model
     public function  institution(){
         return $this->belongsTo(Institution::class);
     }
+    public function  customer(){
+        return $this->hasMany(Order::class);
+    }
 }

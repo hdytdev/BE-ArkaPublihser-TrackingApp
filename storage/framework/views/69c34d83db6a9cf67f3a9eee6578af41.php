@@ -41,7 +41,8 @@ unset($__defined_vars); ?>
     <?php echo \Livewire\Mechanisms\FrontendAssets\FrontendAssets::styles(); ?>
 
     <link data-navigate-track href="<?php echo e(asset('assets/css/select2.css')); ?>" rel="stylesheet" />
-    <link data-navigate-track rel="stylesheet" href="<?php echo e(asset("assets/css/select2bs.css")); ?>">
+    <link data-navigate-track rel="stylesheet" href="<?php echo e(asset('assets/css/select2bs.css')); ?>">
+    <link data-navigate-track rel="stylesheet" href="<?php echo e(asset('assets/css/custom.css')); ?>" />
 </head>
 
 <body>
