@@ -45,7 +45,7 @@
                             </div>
                             <div class="journal_info-info">
                                 <h6 class="mb-0">
-                                  <?php echo e($order->article->title); ?>
+                                    <?php echo e($order->article->title); ?>
 
                                 </h6>
                             </div>
@@ -57,7 +57,9 @@
                             </div>
                             <div class="journal_info-info">
                                 <h6 class="mb-0">
-                                    John Wayne, John D Luffy, Johny Bravo</h6>
+                                <?php echo e($order->article->authors); ?>
+
+                                </h6>
                             </div>
                         </li>
                         <li class="d-flex align-items-start">
@@ -84,7 +86,7 @@
                                 <p class="mb-0">:</p>
                             </div>
                             <div class="journal_info-info">
-                              <h6 class="mb-0"><?php echo e($order->article->submit_date); ?></h6>
+                                <h6 class="mb-0"><?php echo e($order->article->submit_date); ?></h6>
                             </div>
                         </li>
                     </ul>
@@ -98,12 +100,12 @@
                             <i class='bx bx-cloud-download'></i>
                             <span>Download LoA</span>
                         </button>
-                        <button class="btn active">
+                        <a href="<?php echo e($order->article->journal->journal_link); ?>" class="btn inactive">
                             <i class='bx bx-link'></i>
                             <span>
                                 Link Journal
                             </span>
-                        </button>
+                        </a>
                         <a href="<?php echo e($order->article->journal->journal_link); ?>" class="btn inactive">
                             <i class='bx bx-link'></i>
                             <span>
@@ -190,7 +192,8 @@
                             </div>
                             <div class="journal_info-info">
                                 <h6 class="mb-0">
-                                    Editing Queue
+                                    <?php echo e($order->notes[0]->orderStatus->name); ?>
+
                                 </h6>
                             </div>
                         </li>
@@ -217,11 +220,11 @@
                     </ul>
                     <div class="separator stretched-dashed"></div>
                     <div class="journal-info_btn-group d-flex justify-content-end mt-4">
-                        <button class="btn inactive">
+                        <button wire:click="download_kwitansi" class="btn inactive">
                             <i class='bx bx-cloud-download'></i>
                             <span>Download Kwitansi</span>
                         </button>
-                        <button class="btn active">
+                        <button wire:click="download_invoice" class="btn active">
                             <i class='bx bx-cloud-download'></i>
                             <span>Download Invoice</span>
                         </button>
@@ -236,107 +239,38 @@
             </div>
         </div>
         <div class="col-lg-4">
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-title mb-0">
-                        <i class='bx bx-notepad'></i>
-                        <span>
-                            Notes
-                        </span>
-                    </div>
-                    <div class="card-body m-0 p-0">
-                        <div class="accordion mt-3" id="accordionExample">
+            <?php
+$__split = function ($name, $params = []) {
+    return [$name, $params];
+};
+[$__name, $__params] = $__split('journal-detail.notes-list', ['orderId' => $order->id,'order_id' => $order->id]);
 
-                            <!--[if BLOCK]><![endif]--><?php $__currentLoopData = $order->notes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                            <div class="card accordion-item detail-order_accordion-item">
-                              <h2 class="accordion-header" id="headingTwo">
-                                  <button type="button" class="accordion-button collapsed"
-                                      data-bs-toggle="collapse" data-bs-target="#accordion-<?php echo e($loop->iteration); ?>"
-                                      aria-expanded="false" aria-controls="accordionTwo">
-                                      <?php echo e($item->createdAtFormated); ?>
+$__html = app('livewire')->mount($__name, $__params, 'lw-2136502880-0', $__slots ?? [], get_defined_vars());
 
-                                  </button>
-                              </h2>
-                              <div id="accordion-<?php echo e($loop->iteration); ?>" class="accordion-collapse collapse"
-                                  aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                                  <div class="accordion-body journal-notes">
-                                      <div class="d-flex notes-item">
-                                          <h6>Progress:</h6>
-                                          <h6 style="color:<?php echo e($item->orderStatus->color); ?>"><?php echo e($item->orderStatus->name); ?></h6>
-                                      </div>
-                                      <div class="d-flex notes-item">
-                                          <h6>Notes:</h6>
-                                          <p><?php echo e($item->note); ?></p>
-                                      </div>
-                                      <div class="notes-control d-flex justify-content-end">
-                                          <button data-bs-toggle="modal" data-bs-target="#editNote"
-                                              class="btn btn-edit text-primary d-flex items-center">
-                                              <i class='bx bx-edit-alt'></i>
-                                              <span>Edit</span>
-                                          </button>
-                                          <button data-bs-toggle="modal" data-bs-target="#deleteNote"
-                                              class="btn btn-delete text-danger d-flex items-center">
-                                              <i class='bx bx-trash'></i>
-                                              <span>Delete</span>
-                                          </button>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><!--[if ENDBLOCK]><![endif]-->
-                        </div>
-                        <div class="d-flex justify-content-end mt-3">
-                            <button data-bs-toggle="modal" data-bs-target="#addNote"
-                                class="btn btn-primary text-sm d-flex align-items-center gap-10">
-                                <span>Tambah Notes</span>
-                                <i class='bx bx-add-to-queue'></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card mt-4">
-                <div class="card-header">
-                    <div class="card-title mb-0">
-                        <i class='bx bx-file'></i>
-                        <span>
-                            File History
-                        </span>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="file-history">
-                      <!--[if BLOCK]><![endif]--><?php $__currentLoopData = $order->article->fileHistory; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $file): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                      <div class="file-list d-flex justify-content-between align-items-center">
-                        <div class="file-name">
-                            <h6 class="mb-0"><?php echo e($file->name); ?></h6>
-                            <p><?php echo e($file->createdAtFormated); ?></p>
-                        </div>
-                        <div class="file-controller d-flex">
-                            <a href="" class="file-download">
-                                <i class='bx bx-cloud-download'></i>
-                            </a>
-                            <button data-bs-toggle="modal" data-bs-target="#editFile" class="file-download">
-                                <i class='bx bx-edit-alt'></i>
-                            </button>
-                            <button data-bs-toggle="modal" data-bs-target="#deleteFile" href=""
-                                class="file-delete">
-                                <i class='bx bx-trash'></i>
-                            </button>
-                        </div>
-                    </div>
-                      <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><!--[if ENDBLOCK]><![endif]-->
+echo $__html;
 
-                    </div>
-                    <div class="d-flex justify-content-end mt-3">
-                        <button data-bs-toggle="modal" data-bs-target="#addFile"
-                            class="btn btn-primary text-sm d-flex align-items-center gap-10">
-                            <span>Tambah File</span>
-                            <i class='bx bx-add-to-queue'></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
+unset($__html);
+unset($__name);
+unset($__params);
+unset($__split);
+if (isset($__slots)) unset($__slots);
+?>
+            <?php
+$__split = function ($name, $params = []) {
+    return [$name, $params];
+};
+[$__name, $__params] = $__split('journal-detail.file-history-list', ['articleId' => $order->article->id,'article_id' => $order->article->id]);
+
+$__html = app('livewire')->mount($__name, $__params, 'lw-2136502880-1', $__slots ?? [], get_defined_vars());
+
+echo $__html;
+
+unset($__html);
+unset($__name);
+unset($__params);
+unset($__split);
+if (isset($__slots)) unset($__slots);
+?>
         </div>
     </div>
 </div>

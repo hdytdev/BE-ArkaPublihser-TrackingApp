@@ -56,7 +56,8 @@
                             </div>
                             <div class="journal_info-info">
                                 <h6 class="mb-0">
-                                    John Wayne, John D Luffy, Johny Bravo</h6>
+                                {{$order->article->authors}}
+                                </h6>
                             </div>
                         </li>
                         <li class="d-flex align-items-start">
@@ -186,7 +187,7 @@
                             </div>
                             <div class="journal_info-info">
                                 <h6 class="mb-0">
-                                    Editing Queue
+                                    {{$order->notes[0]->orderStatus->name}}
                                 </h6>
                             </div>
                         </li>
@@ -213,11 +214,11 @@
                     </ul>
                     <div class="separator stretched-dashed"></div>
                     <div class="journal-info_btn-group d-flex justify-content-end mt-4">
-                        <button class="btn inactive">
+                        <button wire:click="download_kwitansi" class="btn inactive">
                             <i class='bx bx-cloud-download'></i>
                             <span>Download Kwitansi</span>
                         </button>
-                        <button class="btn active">
+                        <button wire:click="download_invoice" class="btn active">
                             <i class='bx bx-cloud-download'></i>
                             <span>Download Invoice</span>
                         </button>
@@ -232,108 +233,12 @@
             </div>
         </div>
         <div class="col-lg-4">
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-title mb-0">
-                        <i class='bx bx-notepad'></i>
-                        <span>
-                            Notes
-                        </span>
-                    </div>
-                    <div class="card-body m-0 p-0">
-                        <div class="accordion mt-3" id="accordionExample">
-
-                            @foreach ($order->notes as $item)
-                                <div class="card accordion-item detail-order_accordion-item">
-                                    <h2 class="accordion-header" id="headingTwo">
-                                        <button type="button" class="accordion-button collapsed"
-                                            data-bs-toggle="collapse"
-                                            data-bs-target="#accordion-{{ $loop->iteration }}" aria-expanded="false"
-                                            aria-controls="accordionTwo">
-                                            {{ $item->createdAtFormated }}
-                                        </button>
-                                    </h2>
-                                    <div id="accordion-{{ $loop->iteration }}" class="accordion-collapse collapse"
-                                        aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                                        <div class="accordion-body journal-notes">
-                                            <div class="d-flex notes-item">
-                                                <h6>Progress:</h6>
-                                                <h6 style="color:{{ $item->orderStatus->color }}">
-                                                    {{ $item->orderStatus->name }}</h6>
-                                            </div>
-                                            <div class="d-flex notes-item">
-                                                <h6>Notes:</h6>
-                                                <p>{{ $item->note }}</p>
-                                            </div>
-                                            <div class="notes-control d-flex justify-content-end">
-                                                <button data-bs-toggle="modal" data-bs-target="#editNote"
-                                                    class="btn btn-edit text-primary d-flex items-center">
-                                                    <i class='bx bx-edit-alt'></i>
-                                                    <span>Edit</span>
-                                                </button>
-                                                <button data-bs-toggle="modal" data-bs-target="#deleteNote"
-                                                    class="btn btn-delete text-danger d-flex items-center">
-                                                    <i class='bx bx-trash'></i>
-                                                    <span>Delete</span>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
-                        <div class="d-flex justify-content-end mt-3">
-                            <button data-bs-toggle="modal" data-bs-target="#addNote"
-                                class="btn btn-primary text-sm d-flex align-items-center gap-10">
-                                <span>Tambah Notes</span>
-                                <i class='bx bx-add-to-queue'></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card mt-4">
-                <div class="card-header">
-                    <div class="card-title mb-0">
-                        <i class='bx bx-file'></i>
-                        <span>
-                            File History
-                        </span>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="file-history">
-                        @foreach ($order->article->fileHistory as $file)
-                            <div class="file-list d-flex justify-content-between align-items-center">
-                                <div class="file-name">
-                                    <h6 class="mb-0">{{ $file->name }}</h6>
-                                    <p>{{ $file->createdAtFormated }}</p>
-                                </div>
-                                <div class="file-controller d-flex">
-                                    <a href="" class="file-download">
-                                        <i class='bx bx-cloud-download'></i>
-                                    </a>
-                                    <button data-bs-toggle="modal" data-bs-target="#editFile" class="file-download">
-                                        <i class='bx bx-edit-alt'></i>
-                                    </button>
-                                    <button data-bs-toggle="modal" data-bs-target="#deleteFile" href=""
-                                        class="file-delete">
-                                        <i class='bx bx-trash'></i>
-                                    </button>
-                                </div>
-                            </div>
-                        @endforeach
-
-                    </div>
-                    <div class="d-flex justify-content-end mt-3">
-                        <button data-bs-toggle="modal" data-bs-target="#addFile"
-                            class="btn btn-primary text-sm d-flex align-items-center gap-10">
-                            <span>Tambah File</span>
-                            <i class='bx bx-add-to-queue'></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
+            <livewire:journal-detail.notes-list
+              :order_id="$order->id"
+            />
+            <livewire:journal-detail.file-history-list
+              :article_id="$order->article->id"
+            />
         </div>
     </div>
 </div>

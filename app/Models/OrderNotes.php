@@ -15,7 +15,8 @@ class OrderNotes extends Model
     public $fillable = [
       'order_status_id',
       'note',
-      'order_id'
+      'order_id',
+      'time'
     ];
 
     public function order(){
