@@ -3,7 +3,13 @@
     'form-label',
     'text-danger' => $errors->has($name)
   ]); ?>" for="<?php echo e($name); ?>" class="form-label"><?php echo e($label); ?></label>
-  <input
+ <!--[if BLOCK]><![endif]--><?php if(isset($note)): ?>
+ <p class="form-notes mb-2">
+  <?php echo e($note); ?>
+
+ </p>
+ <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
+ <input
       wire:model="<?php echo e($name); ?>"
       type="<?php echo e($type); ?>"
       name="<?php echo e($name); ?>"

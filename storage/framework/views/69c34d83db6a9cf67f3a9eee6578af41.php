@@ -40,6 +40,8 @@ unset($__defined_vars); ?>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <?php echo \Livewire\Mechanisms\FrontendAssets\FrontendAssets::styles(); ?>
 
+    <link data-navigate-track href="<?php echo e(asset('assets/css/select2.css')); ?>" rel="stylesheet" />
+    <link data-navigate-track rel="stylesheet" href="<?php echo e(asset("assets/css/select2bs.css")); ?>">
 </head>
 
 <body>
@@ -168,6 +170,8 @@ unset($__defined_vars); ?>
 
     <?php echo $__env->make('shared.layout-js-assets', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
     <?php echo \Livewire\Mechanisms\FrontendAssets\FrontendAssets::scripts(); ?>
+
+    <script data-navigate-track src="<?php echo e(asset('assets/js/select-2.js')); ?>"></script>
 
     <script data-navigate-track>
         Livewire.directive('konfirmasi', ({

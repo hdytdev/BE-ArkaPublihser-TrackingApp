@@ -3,7 +3,9 @@ use App\Livewire\CustomerList;
 use App\Livewire\Dashboard;
 use App\Livewire\FormCustomer;
 use App\Livewire\FormJournal;
+use App\Livewire\FormOrder;
 use App\Livewire\JournalList;
+use App\Livewire\OrderLists;
 use Illuminate\Support\Facades\Route;
 use Livewire\Livewire;
 
@@ -23,5 +25,10 @@ Route::prefix("admin")->name('admin.')->group(function () {
     Route::get('/tambah-journal', FormJournal::class)->name('journal.new');
     Route::get('/edit-journal/{id?}', FormJournal::class)->name('journal.edit');
     Route::get('/journal/{category?}', JournalList::class)->name('journal');
+
+
+    Route::get('/order', OrderLists::class)->name('order');
+    Route::get('/new-order', FormOrder::class)->name('order.new');
+
 
 });

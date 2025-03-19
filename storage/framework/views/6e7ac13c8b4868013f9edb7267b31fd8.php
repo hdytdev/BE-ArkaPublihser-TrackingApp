@@ -39,14 +39,14 @@
 <?php endif; ?>
 <?php if (isset($component)) { $__componentOriginal53d595a95a61fd6b7162a9a817bc0539 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal53d595a95a61fd6b7162a9a817bc0539 = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.layouts.nav-link','data' => ['icon' => 'tf-icons bx bx-add-to-queue','link' => '']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.layouts.nav-link','data' => ['icon' => 'tf-icons bx bx-add-to-queue','link' => ''.e(route('admin.order.new')).'']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('layouts.nav-link'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['icon' => 'tf-icons bx bx-add-to-queue','link' => '']); ?>Tambah Order <?php echo $__env->renderComponent(); ?>
+<?php $component->withAttributes(['icon' => 'tf-icons bx bx-add-to-queue','link' => ''.e(route('admin.order.new')).'']); ?>Tambah Order <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginal53d595a95a61fd6b7162a9a817bc0539)): ?>
 <?php $attributes = $__attributesOriginal53d595a95a61fd6b7162a9a817bc0539; ?>
@@ -69,14 +69,14 @@
      <?php $__env->slot('submenu', null, []); ?> 
         <?php if (isset($component)) { $__componentOriginal53d595a95a61fd6b7162a9a817bc0539 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal53d595a95a61fd6b7162a9a817bc0539 = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.layouts.nav-link','data' => ['link' => '']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.layouts.nav-link','data' => ['link' => ''.e(route('admin.order')).'']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('layouts.nav-link'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['link' => '']); ?>Daftar Order <?php echo $__env->renderComponent(); ?>
+<?php $component->withAttributes(['link' => ''.e(route('admin.order')).'']); ?>Daftar Order <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginal53d595a95a61fd6b7162a9a817bc0539)): ?>
 <?php $attributes = $__attributesOriginal53d595a95a61fd6b7162a9a817bc0539; ?>
@@ -156,14 +156,14 @@
 <?php endif; ?>
 <?php if (isset($component)) { $__componentOriginal53d595a95a61fd6b7162a9a817bc0539 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal53d595a95a61fd6b7162a9a817bc0539 = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.layouts.nav-link','data' => ['icon' => ' tf-icons bx bx-book-add','link' => '']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.layouts.nav-link','data' => ['icon' => ' tf-icons bx bx-book-add','link' => ''.e(route('admin.journal.new')).'']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('layouts.nav-link'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['icon' => ' tf-icons bx bx-book-add','link' => '']); ?>Tambah Jurnal <?php echo $__env->renderComponent(); ?>
+<?php $component->withAttributes(['icon' => ' tf-icons bx bx-book-add','link' => ''.e(route('admin.journal.new')).'']); ?>Tambah Jurnal <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginal53d595a95a61fd6b7162a9a817bc0539)): ?>
 <?php $attributes = $__attributesOriginal53d595a95a61fd6b7162a9a817bc0539; ?>

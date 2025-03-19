@@ -3,7 +3,12 @@
     'form-label',
     'text-danger' => $errors->has($name)
   ]) for="{{ $name }}" class="form-label">{{ $label }}</label>
-  <input
+ @isset($note)
+ <p class="form-notes mb-2">
+  {{$note}}
+ </p>
+ @endisset
+ <input
       wire:model="{{$name}}"
       type="{{ $type }}"
       name="{{ $name }}"
