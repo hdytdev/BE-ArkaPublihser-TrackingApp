@@ -16,7 +16,7 @@ $message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>"
-      placeholder="<?php echo e($placeholder); ?>"
+      placeholder="<?php echo e(empty($placeholder) ? $label : $placeholder); ?>"
       value="<?php echo e(old($name)); ?>"
   />
   <!--[if BLOCK]><![endif]--><?php $__errorArgs = [$name];

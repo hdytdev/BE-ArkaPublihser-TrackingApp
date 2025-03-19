@@ -9,7 +9,7 @@
       name="{{ $name }}"
       id="{{ $name }}"
       class="form-control @error($name) is-invalid @enderror"
-      placeholder="{{ $placeholder }}"
+      placeholder="{{ empty($placeholder) ? $label : $placeholder }}"
       value="{{ old($name) }}"
   />
   @error($name)

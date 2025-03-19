@@ -2,7 +2,7 @@
     <x-slot name="pageTitle">
         <div class="page-title pt-3 mb-1 d-flex justify-content-between align-items-center mb-4">
             <h4 class="mb-0">Daftar Jurnal Internal</h4>
-            <a href="add-journal.html" class="btn btn-primary px-3 all-order_btn-search w-auto">
+            <a wire:navigate href="{{route('admin.journal.new')}}" class="btn btn-primary px-3 all-order_btn-search w-auto">
                 <span class="align-middle">Tambah Jurnal</span>
             </a>
         </div>
@@ -54,6 +54,14 @@
                                           class="btn btn-sm btn-danger">
                                             Hapus
                                           </button>
+                                          <a
+                                            wire:navigate
+
+                                            href="{{route('admin.journal.edit',['id'=>$item->id])}}"
+
+                                          class="btn btn-sm btn-warning">
+                                            Edit
+                                          </a>
                                         </th>
                                     </tr>
                                 @endforeach

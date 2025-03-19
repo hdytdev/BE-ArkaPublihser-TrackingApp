@@ -13,22 +13,27 @@ class JournalList extends Component
 
   public function getJournal()
   {
-    return Journal::where(function ($query) {
+    $journal = Journal::where(function ($query) {
       $query->where('category', $this->category);
     })->paginate(15);
+    if ($journal && $journal->count() < 1) {
+      redirect(route('admin.journal'));
+    }
+    return $journal;
   }
-  public function delete($id){
+  public function delete($id)
+  {
     $deleted = Journal::find($id)->delete();
-    if($deleted) {
+    if ($deleted) {
       return true;
     }
   }
   public function render()
   {
-    return view('livewire.journal-list',[
+    return view('livewire.journal-list', [
       'journals' => $this->getJournal(),
     ])->title(
-      "Journal $this->category"
-    );
+        "Journal $this->category"
+      );
   }
 }

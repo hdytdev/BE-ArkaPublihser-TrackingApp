@@ -20,7 +20,8 @@ Route::prefix("admin")->name('admin.')->group(function () {
     Route::get('/customer/new',FormCustomer::class)->name('customer.new');
     Route::get('/edit-customer/{id?}',FormCustomer::class)->name('customer.edit');
 
-    Route::get('/journal/new', FormJournal::class)->name('journal.new');
+    Route::get('/tambah-journal', FormJournal::class)->name('journal.new');
+    Route::get('/edit-journal/{id?}', FormJournal::class)->name('journal.edit');
     Route::get('/journal/{category?}', JournalList::class)->name('journal');
 
 });
