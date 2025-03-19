@@ -5,6 +5,7 @@ use App\Livewire\FormCustomer;
 use App\Livewire\FormJournal;
 use App\Livewire\FormOrder;
 use App\Livewire\JournalList;
+use App\Livewire\OrderDetail;
 use App\Livewire\OrderLists;
 use Illuminate\Support\Facades\Route;
 use Livewire\Livewire;
@@ -30,5 +31,6 @@ Route::prefix("admin")->name('admin.')->group(function () {
     Route::get('/order', OrderLists::class)->name('order');
     Route::get('/new-order', FormOrder::class)->name('order.new');
 
+    Route::get('/order-detail/{order_id}', OrderDetail::class)->name('order.detail');
 
 });

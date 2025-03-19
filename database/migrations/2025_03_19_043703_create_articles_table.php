@@ -13,7 +13,7 @@ return new class extends Migration {
     Schema::create('articles', function (Blueprint $table) {
       $table->uuid('id')->primary();
       $table->foreignUuid('journal_id')->constrained('journals');
-      $table->foreignUuid("order_id")->unique()->constrained('orders')->cascadeOnUpdate()->restrictOnDelete();
+      $table->foreignUuid("order_id")->constrained('orders')->cascadeOnUpdate()->restrictOnDelete();
       $table->string('title')->index();
       $table->string('article_link')->nullable();
       $table->string('authors');

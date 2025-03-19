@@ -2,7 +2,8 @@
     <div class="col-md-12">
         <div class="card mb-4">
             <h5 class="card-header pb-0">Isi Detail Pesanan</h5>
-            <div class="row px-4">
+            <form wire:submit.prevent="cek" class="row px-4">
+                <?php echo csrf_field(); ?>
                 <div class="col-md-6">
                     <div class="card-body px-0">
                         <div class="mb-3">
@@ -138,7 +139,12 @@ unset($__errorArgs, $__bag); ?><!--[if ENDBLOCK]><![endif]-->
 <?php $component = $__componentOriginalc1d2405c7f8100d77292f2d0299ccd96; ?>
 <?php unset($__componentOriginalc1d2405c7f8100d77292f2d0299ccd96); ?>
 <?php endif; ?>
-                        <?php if (isset($component)) { $__componentOriginalc1d2405c7f8100d77292f2d0299ccd96 = $component; } ?>
+                        <div x-data="{ uploading: false, progress: 0 }" x-on:livewire-upload-start="uploading = true"
+                            x-on:livewire-upload-finish="uploading = false"
+                            x-on:livewire-upload-cancel="uploading = false"
+                            x-on:livewire-upload-error="uploading = false"
+                            x-on:livewire-upload-progress="progress = $event.detail.progress">
+                            <?php if (isset($component)) { $__componentOriginalc1d2405c7f8100d77292f2d0299ccd96 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginalc1d2405c7f8100d77292f2d0299ccd96 = $attributes; } ?>
 <?php $component = App\View\Components\Form\Input::resolve(['type' => 'file','name' => 'article_file','label' => 'File Artikel'] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('form.input'); ?>
@@ -158,6 +164,12 @@ unset($__errorArgs, $__bag); ?><!--[if ENDBLOCK]><![endif]-->
 <?php $component = $__componentOriginalc1d2405c7f8100d77292f2d0299ccd96; ?>
 <?php unset($__componentOriginalc1d2405c7f8100d77292f2d0299ccd96); ?>
 <?php endif; ?>
+                            <div x-show="uploading">
+                              <div class="progress-bar progress-bar-striped" role="progressbar" x-bind:style="`width: ${progress}%`;" x-bind:aria-valuenow="progress" aria-valuemin="0" aria-valuemax="100" x-text="`${progress}%`">
+                              </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -259,12 +271,13 @@ unset($__errorArgs, $__bag); ?><!--[if ENDBLOCK]><![endif]-->
 <?php unset($__componentOriginalc1d2405c7f8100d77292f2d0299ccd96); ?>
 <?php endif; ?>
                         <div class="mt-2 d-flex justify-content-end">
-                            <button wire:click="cek" type="submit" class="btn btn-primary me-2">Submit</button>
+                            <button wire:loading.attr="disabled" wire:target="article_file,cek" type="submit"
+                                class="btn btn-primary me-2">Submit</button>
                             <button type="reset" class="btn btn-outline-secondary">Cancel</button>
                         </div>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 </div>

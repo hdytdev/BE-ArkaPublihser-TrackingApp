@@ -15,6 +15,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('name');
             $table->string('file_url');
+            $table->boolean('customer_file')->default(false);
             $table->timestamps();
         });
     }

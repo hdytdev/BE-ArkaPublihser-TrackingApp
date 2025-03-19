@@ -2,7 +2,8 @@
     <div class="col-md-12">
         <div class="card mb-4">
             <h5 class="card-header pb-0">Isi Detail Pesanan</h5>
-            <div class="row px-4">
+            <form wire:submit.prevent="cek" class="row px-4">
+                @csrf
                 <div class="col-md-6">
                     <div class="card-body px-0">
                         <div class="mb-3">
@@ -22,7 +23,18 @@
                         </x-form.input>
                         <x-form.input type="date" name="submission_date" label="Tanggal Submit" />
                         <x-form.input type="date" name="estimated_publish_date" label="Estimasi Publish" />
-                        <x-form.input type="file" name="article_file" label="File Artikel" />
+                        <div x-data="{ uploading: false, progress: 0 }" x-on:livewire-upload-start="uploading = true"
+                            x-on:livewire-upload-finish="uploading = false"
+                            x-on:livewire-upload-cancel="uploading = false"
+                            x-on:livewire-upload-error="uploading = false"
+                            x-on:livewire-upload-progress="progress = $event.detail.progress">
+                            <x-form.input type="file" name="article_file" label="File Artikel" />
+                            <div x-show="uploading">
+                              <div class="progress-bar progress-bar-striped" role="progressbar" x-bind:style="`width: ${progress}%`;" x-bind:aria-valuenow="progress" aria-valuemin="0" aria-valuemax="100" x-text="`${progress}%`">
+                              </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -74,12 +86,13 @@
                             </x-slot>
                         </x-form.input>
                         <div class="mt-2 d-flex justify-content-end">
-                            <button wire:click="cek" type="submit" class="btn btn-primary me-2">Submit</button>
+                            <button wire:loading.attr="disabled" wire:target="article_file,cek" type="submit"
+                                class="btn btn-primary me-2">Submit</button>
                             <button type="reset" class="btn btn-outline-secondary">Cancel</button>
                         </div>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 </div>

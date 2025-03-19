@@ -14,6 +14,7 @@ class OrderStatusSeeder extends Seeder
   public function run(): void
   {
     $statusList = [
+      "Verification",
       "Screening",
       "Editing Queue",
       "Editing",

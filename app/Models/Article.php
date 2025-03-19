@@ -11,6 +11,14 @@ class Article extends Model
     /** @use HasFactory<\Database\Factories\ArticleFactory> */
     use HasFactory,HasUuids;
     public $fillable = [
-
+        'journal_id',
+        'order_id',
+        'title',
+        'article_link',
+        'authors',
+        'publish_date',
+        'estimated_publish_date',
+        'loa_file',
+        'submit_date'
     ];
 }
