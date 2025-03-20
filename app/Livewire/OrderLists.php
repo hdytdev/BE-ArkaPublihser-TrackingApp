@@ -14,7 +14,7 @@ class OrderLists extends Component
       'customer',
       'termin',
       'notes'
-    ])->get();
+    ])->paginate(10);
   }
   public function render()
   {

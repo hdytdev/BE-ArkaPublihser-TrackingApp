@@ -29,7 +29,9 @@
                                     <div class="d-flex notes-item">
                                         <h6>Progress:</h6>
                                         <h6 style="color:<?php echo e($item->orderStatus->color); ?>">
-                                            <?php echo e($item->orderStatus->name); ?></h6>
+                                            <?php echo e($item->orderStatus->name); ?>
+
+                                        </h6>
                                     </div>
                                     <div class="d-flex notes-item">
                                         <h6>Notes:</h6>
@@ -38,13 +40,11 @@
                                     <span wire:loading wire:target="delete('<?php echo e($item->id); ?>')">Deleting</span>
                                     <div class="notes-control d-flex justify-content-end">
                                         <button wire:click="edit('<?php echo e($item->id); ?>')" data-bs-toggle="modal"
-                                            data-bs-target="#editNote"
-                                            class="btn btn-edit text-primary d-flex items-center">
+                                            data-bs-target="#editNote" class="btn btn-edit text-primary d-flex items-center">
                                             <i class='bx bx-edit-alt'></i>
                                             <span>Edit</span>
                                         </button>
-                                        <button wire:konfirmasi="apakah anda yakin"
-                                            wire:click="delete('<?php echo e($item->id); ?>')"
+                                        <button wire:konfirmasi="apakah anda yakin" wire:click="delete('<?php echo e($item->id); ?>')"
                                             class="btn btn-delete text-danger d-flex items-center">
                                             <i class='bx bx-trash'></i>
                                             <span>Delete</span>
@@ -67,7 +67,7 @@
     </div>
 
 
-    <div class="modal fade" wire:ignore id="addNote" tabindex="-1" aria-hidden="true">
+    <div class="modal fade" wire:ignore.self id="addNote" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <form wire:submit.prevent="add" class="modal-content">
                 <div class="modal-header">
@@ -87,8 +87,8 @@
                             <select required wire:model="add_status_id" class="form-select"
                                 id="exampleFormControlSelect1" aria-label="Default select example">
                                 <option selected>Pilih status</option>
-                                <!--[if BLOCK]><![endif]--><?php $__currentLoopData = $this->statusess; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                    <option value="<?php echo e($item->id); ?>"><?php echo e($item->name); ?></option>
+                                <!--[if BLOCK]><![endif]--><?php $__currentLoopData = $this->statusess; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $status): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <option value="<?php echo e($status->id); ?>"><?php echo e($status->name); ?></option>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><!--[if ENDBLOCK]><![endif]-->
                             </select>
                         </div>
@@ -113,26 +113,25 @@
         $__scriptKey = '2032245598-0';
         ob_start();
     ?>
-        <script>
-            const modal = document.getElementById("addNote");
-            modalNotes = new bootstrap.Modal(modal)
-            $wire.on("re_render", () => {
-                if (modalNotes) {
-                    modalNotes.hide()
-                }
-            })
-            $wire.on('modal_edit_notes', function() {
-                modalNotes.show();
-            })
-            modal.addEventListener("hidden.bs.modal", function() {
-                  $wire.resetForm()
-            });
-        </script>
+    <script>
+        const modal = document.getElementById("addNote");
+        modalNotes = new bootstrap.Modal(modal)
+        $wire.on("re_render", () => {
+            if (modalNotes) {
+                modalNotes.hide()
+            }
+        })
+        $wire.on('modal_edit_notes', function () {
+            modalNotes.show();
+        })
+        modal.addEventListener("hidden.bs.modal", function () {
+            $wire.resetForm()
+        });
+    </script>
         <?php
         $__output = ob_get_clean();
 
         \Livewire\store($this)->push('scripts', $__output, $__scriptKey)
     ?>
 
-</div>
-<?php /**PATH D:\PROJ\Laravel\JurnalTrackingApp\resources\views/livewire/order-detail/notes-list.blade.php ENDPATH**/ ?>
+</div><?php /**PATH D:\PROJ\Laravel\JurnalTrackingApp\resources\views/livewire/order-detail/notes-list.blade.php ENDPATH**/ ?>

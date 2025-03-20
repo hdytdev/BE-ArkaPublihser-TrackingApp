@@ -60,6 +60,7 @@ class OrderInformation extends Component
         ]);
       }
       $this->dispatch("hide_modal");
+      $this->resetValidation();
     });
 
 
@@ -68,13 +69,12 @@ class OrderInformation extends Component
   public function mount()
   {
     $this->order = $this->getOrder();
-  }
-  public function render()
-  {
-
     foreach ($this->order->termin as $ter) {
       $this->termins[$ter->id] = $ter->is_paid;
     }
+  }
+  public function render()
+  {
 
     return view('livewire.order-detail.order-information', [
       'order' => $this->order,

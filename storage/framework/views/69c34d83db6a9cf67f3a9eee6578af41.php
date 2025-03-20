@@ -233,5 +233,4 @@ unset($__defined_vars); ?>
     </script>
 </body>
 
-</html>
-<?php /**PATH D:\PROJ\Laravel\JurnalTrackingApp\resources\views/layouts/app.blade.php ENDPATH**/ ?>
+</html><?php /**PATH D:\PROJ\Laravel\JurnalTrackingApp\resources\views/layouts/app.blade.php ENDPATH**/ ?>

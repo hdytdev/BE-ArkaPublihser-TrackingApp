@@ -28,7 +28,7 @@ foreach ($attributes->all() as $__key => $__value) {
 
 unset($__defined_vars); ?>
 <li class="menu-item <?php echo e(request()->fullUrlIs($link) ? 'active' : ''); ?>">
-    <a wire:navigate href="<?php echo e($link); ?>" class="menu-link">
+    <a href="<?php echo e($link); ?>" class="menu-link">
         <?php if($icon): ?>
             <i class="menu-icon tf-icons <?php echo e($icon); ?>"></i>
         <?php endif; ?>

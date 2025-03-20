@@ -131,11 +131,11 @@
                         @foreach ($order->termin as $item)
                             <div class="col mb-3">
                                 <label for="nameBasic" class="form-label">Status Termin {{$item->term}}</label>
-                                <select wire:model="termins.{{$item->id}}" class="form-select"
+                                <select wire:model.lazy="termins.{{$item->id}}" class="form-select"
                                     id="exampleFormControlSelect1" aria-label="Default select example">
                                     <option>Choose Option...</option>
-                                    <option value="1">PAID</option>
-                                    <option value="0">UNPAID</option>
+                                    <option {{ $termins[$item->id] == 1 ? 'selected' : '' }} value="1">PAID</option>
+                                    <option {{ $termins[$item->id] == 0 ? 'selected' : '' }} value="0">UNPAID</option>
                                 </select>
                             </div>
                         @endforeach

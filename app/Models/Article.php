@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class Article extends Model
 {
     /** @use HasFactory<\Database\Factories\ArticleFactory> */
-    use HasFactory,HasUuids;
+    use HasFactory, HasUuids;
     public $fillable = [
         'journal_id',
         'order_id',
@@ -21,20 +21,24 @@ class Article extends Model
         'loa_file',
         'submit_date'
     ];
-    public function casts(){
+    public function casts()
+    {
         return [
             'estimated_publish_date' => 'date',
             'submit_date' => 'date',
-            'publish_date' => "date:Y-m-d"
+            'publish_date' => "datetime:Y-m-d"
         ];
     }
-    public function order(){
+    public function order()
+    {
         return $this->belongsTo(Order::class);
     }
-    public function journal(){
+    public function journal()
+    {
         return $this->belongsTo(Journal::class);
     }
-    public function fileHistory(){
+    public function fileHistory()
+    {
         return $this->hasMany(FileHistory::class);
     }
 

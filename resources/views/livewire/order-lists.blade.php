@@ -69,79 +69,64 @@
 
 
               @if (!empty($orders))
-                @foreach ($orders as $item)
-                <tr>
-                  <th scope="row">1</th>
-                  <td>{{ $item->order_number }}</td>
-                  <td>
-                    {{$item->article->title}}
-                  </td>
-                  <td>
-                    {{$item->customer->name}}
-                  </td>
-                  <td>
-                    {{$item->created_at}}
-                  </td>
-                  <td>
-                    {{$item->package}}
-                  </td>
-                  <td>{{ $item->notes[0]?->orderStatus?->name }}</td>
-                  <td>
-                    @if ($item->statusPembayaran)
-                        <span class="badge bg-success">Berhasil</span>
-                        @else
-                        <span class="badge bg-warning">Pending</span>
+              @foreach ($orders as $item)
+            <tr>
+            <th scope="row">1</th>
+            <td>{{ $item->order_number }}</td>
+            <td>
+            {{$item->article->title}}
+            </td>
+            <td>
+            {{$item->customer->name}}
+            </td>
+            <td>
+            {{$item->created_at}}
+            </td>
+            <td>
+            {{$item->package}}
+            </td>
+            <td>{{ $item->notes[0]?->orderStatus?->name }}</td>
+            <td>
+            @if ($item->statusPembayaran)
+        <span class="badge bg-success">Berhasil</span>
+      @else
+    <span class="badge bg-warning">Pending</span>
 
-                    @endif
-                  </td>
-                  <td>
-                    <div class="dropdown">
-                      <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-                        data-bs-toggle="dropdown">
-                        <i class="bx bx-dots-vertical-rounded"></i>
-                      </button>
-                      <div class="dropdown-menu all-order_dropdown-menu">
-                        <a href="{{route('admin.order.detail',[
-                        'order_id'=>$item->id])}}" class="btn btn-detail text-primary d-flex items-center">
-                          <i class='bx bx-info-circle'></i>
-                          <span>Lihat Detail</span>
-                        </a>
-                        <a href="edit-order.html" class="btn btn-edit text-primary d-flex items-center">
-                          <i class='bx bx-edit-alt'></i>
-                          <span>Edit</span>
-                        </a>
-                        <button data-bs-toggle="modal" data-bs-target="#deleteOrder" class="btn btn-delete text-danger d-flex items-center w-100 w-100">
-                          <i class='bx bx-trash'></i>
-                          <span>Delete</span>
-                        </button>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-                @endforeach
-              @endif
+  @endif
+            </td>
+            <td>
+            <div class="dropdown">
+            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+              <i class="bx bx-dots-vertical-rounded"></i>
+            </button>
+            <div class="dropdown-menu all-order_dropdown-menu">
+              <a href="{{route('admin.order.detail', [
+          'order_id' => $item->id
+        ])}}" class="btn btn-detail text-primary d-flex items-center">
+              <i class='bx bx-info-circle'></i>
+              <span>Lihat Detail</span>
+              </a>
+              <a href="edit-order.html" class="btn btn-edit text-primary d-flex items-center">
+              <i class='bx bx-edit-alt'></i>
+              <span>Edit</span>
+              </a>
+              <button data-bs-toggle="modal" data-bs-target="#deleteOrder"
+              class="btn btn-delete text-danger d-flex items-center w-100 w-100">
+              <i class='bx bx-trash'></i>
+              <span>Delete</span>
+              </button>
+            </div>
+            </div>
+            </td>
+            </tr>
+        @endforeach
+        @endif
 
             </tbody>
           </table>
         </div>
         <div class="all-order_card-footer">
-          <nav aria-label="Order Pagination">
-            <ul class="pagination order-pagination">
-              <li class="page-item">
-                <a class="page-link prev" href="#" aria-label="Previous">
-                  <span aria-hidden="true">&laquo;</span>
-                </a>
-              </li>
-              <li class="page-item"><a class="page-link" href="#">1</a></li>
-              <li class="page-item"><a class="page-link" href="#">2</a></li>
-              <li class="page-item"><a class="page-link" href="#">3</a></li>
-              <li class="page-item">
-                <a class="page-link next" href="#" aria-label="Next">
-                  <span aria-hidden="true">&raquo;</span>
-                </a>
-              </li>
-            </ul>
-          </nav>
+          {{ $orders->links("livewire::bootstrap") }}
         </div>
       </div>
       <!--/ Responsive Table -->

@@ -69,87 +69,72 @@
 
 
               <!--[if BLOCK]><![endif]--><?php if(!empty($orders)): ?>
-                <!--[if BLOCK]><![endif]--><?php $__currentLoopData = $orders; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                <tr>
-                  <th scope="row">1</th>
-                  <td><?php echo e($item->order_number); ?></td>
-                  <td>
-                    <?php echo e($item->article->title); ?>
+              <!--[if BLOCK]><![endif]--><?php $__currentLoopData = $orders; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <tr>
+            <th scope="row">1</th>
+            <td><?php echo e($item->order_number); ?></td>
+            <td>
+            <?php echo e($item->article->title); ?>
 
-                  </td>
-                  <td>
-                    <?php echo e($item->customer->name); ?>
+            </td>
+            <td>
+            <?php echo e($item->customer->name); ?>
 
-                  </td>
-                  <td>
-                    <?php echo e($item->created_at); ?>
+            </td>
+            <td>
+            <?php echo e($item->created_at); ?>
 
-                  </td>
-                  <td>
-                    <?php echo e($item->package); ?>
+            </td>
+            <td>
+            <?php echo e($item->package); ?>
 
-                  </td>
-                  <td><?php echo e($item->notes[0]?->orderStatus?->name); ?></td>
-                  <td>
-                    <!--[if BLOCK]><![endif]--><?php if($item->statusPembayaran): ?>
-                        <span class="badge bg-success">Berhasil</span>
-                        <?php else: ?>
-                        <span class="badge bg-warning">Pending</span>
+            </td>
+            <td><?php echo e($item->notes[0]?->orderStatus?->name); ?></td>
+            <td>
+            <!--[if BLOCK]><![endif]--><?php if($item->statusPembayaran): ?>
+        <span class="badge bg-success">Berhasil</span>
+      <?php else: ?>
+    <span class="badge bg-warning">Pending</span>
 
-                    <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
-                  </td>
-                  <td>
-                    <div class="dropdown">
-                      <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-                        data-bs-toggle="dropdown">
-                        <i class="bx bx-dots-vertical-rounded"></i>
-                      </button>
-                      <div class="dropdown-menu all-order_dropdown-menu">
-                        <a href="<?php echo e(route('admin.order.detail',[
-                        'order_id'=>$item->id])); ?>" class="btn btn-detail text-primary d-flex items-center">
-                          <i class='bx bx-info-circle'></i>
-                          <span>Lihat Detail</span>
-                        </a>
-                        <a href="edit-order.html" class="btn btn-edit text-primary d-flex items-center">
-                          <i class='bx bx-edit-alt'></i>
-                          <span>Edit</span>
-                        </a>
-                        <button data-bs-toggle="modal" data-bs-target="#deleteOrder" class="btn btn-delete text-danger d-flex items-center w-100 w-100">
-                          <i class='bx bx-trash'></i>
-                          <span>Delete</span>
-                        </button>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><!--[if ENDBLOCK]><![endif]-->
-              <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
+  <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
+            </td>
+            <td>
+            <div class="dropdown">
+            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+              <i class="bx bx-dots-vertical-rounded"></i>
+            </button>
+            <div class="dropdown-menu all-order_dropdown-menu">
+              <a href="<?php echo e(route('admin.order.detail', [
+          'order_id' => $item->id
+        ])); ?>" class="btn btn-detail text-primary d-flex items-center">
+              <i class='bx bx-info-circle'></i>
+              <span>Lihat Detail</span>
+              </a>
+              <a href="edit-order.html" class="btn btn-edit text-primary d-flex items-center">
+              <i class='bx bx-edit-alt'></i>
+              <span>Edit</span>
+              </a>
+              <button data-bs-toggle="modal" data-bs-target="#deleteOrder"
+              class="btn btn-delete text-danger d-flex items-center w-100 w-100">
+              <i class='bx bx-trash'></i>
+              <span>Delete</span>
+              </button>
+            </div>
+            </div>
+            </td>
+            </tr>
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><!--[if ENDBLOCK]><![endif]-->
+        <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
 
             </tbody>
           </table>
         </div>
         <div class="all-order_card-footer">
-          <nav aria-label="Order Pagination">
-            <ul class="pagination order-pagination">
-              <li class="page-item">
-                <a class="page-link prev" href="#" aria-label="Previous">
-                  <span aria-hidden="true">&laquo;</span>
-                </a>
-              </li>
-              <li class="page-item"><a class="page-link" href="#">1</a></li>
-              <li class="page-item"><a class="page-link" href="#">2</a></li>
-              <li class="page-item"><a class="page-link" href="#">3</a></li>
-              <li class="page-item">
-                <a class="page-link next" href="#" aria-label="Next">
-                  <span aria-hidden="true">&raquo;</span>
-                </a>
-              </li>
-            </ul>
-          </nav>
+          <?php echo e($orders->links("livewire::bootstrap")); ?>
+
         </div>
       </div>
       <!--/ Responsive Table -->
     </div>
   </div>
-</div>
-<?php /**PATH D:\PROJ\Laravel\JurnalTrackingApp\resources\views/livewire/order-lists.blade.php ENDPATH**/ ?>
+</div><?php /**PATH D:\PROJ\Laravel\JurnalTrackingApp\resources\views/livewire/order-lists.blade.php ENDPATH**/ ?>

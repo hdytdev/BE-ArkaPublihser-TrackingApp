@@ -135,11 +135,11 @@
                         <!--[if BLOCK]><![endif]--><?php $__currentLoopData = $order->termin; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <div class="col mb-3">
                                 <label for="nameBasic" class="form-label">Status Termin <?php echo e($item->term); ?></label>
-                                <select wire:model="termins.<?php echo e($item->id); ?>" class="form-select"
+                                <select wire:model.lazy="termins.<?php echo e($item->id); ?>" class="form-select"
                                     id="exampleFormControlSelect1" aria-label="Default select example">
                                     <option>Choose Option...</option>
-                                    <option value="1">PAID</option>
-                                    <option value="0">UNPAID</option>
+                                    <option <?php echo e($termins[$item->id] == 1 ? 'selected' : ''); ?> value="1">PAID</option>
+                                    <option <?php echo e($termins[$item->id] == 0 ? 'selected' : ''); ?> value="0">UNPAID</option>
                                 </select>
                             </div>
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><!--[if ENDBLOCK]><![endif]-->

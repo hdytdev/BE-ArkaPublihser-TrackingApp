@@ -28,7 +28,8 @@
                                     <div class="d-flex notes-item">
                                         <h6>Progress:</h6>
                                         <h6 style="color:{{ $item->orderStatus->color }}">
-                                            {{ $item->orderStatus->name }}</h6>
+                                            {{ $item->orderStatus->name }}
+                                        </h6>
                                     </div>
                                     <div class="d-flex notes-item">
                                         <h6>Notes:</h6>
@@ -37,13 +38,11 @@
                                     <span wire:loading wire:target="delete('{{ $item->id }}')">Deleting</span>
                                     <div class="notes-control d-flex justify-content-end">
                                         <button wire:click="edit('{{ $item->id }}')" data-bs-toggle="modal"
-                                            data-bs-target="#editNote"
-                                            class="btn btn-edit text-primary d-flex items-center">
+                                            data-bs-target="#editNote" class="btn btn-edit text-primary d-flex items-center">
                                             <i class='bx bx-edit-alt'></i>
                                             <span>Edit</span>
                                         </button>
-                                        <button wire:konfirmasi="apakah anda yakin"
-                                            wire:click="delete('{{ $item->id }}')"
+                                        <button wire:konfirmasi="apakah anda yakin" wire:click="delete('{{ $item->id }}')"
                                             class="btn btn-delete text-danger d-flex items-center">
                                             <i class='bx bx-trash'></i>
                                             <span>Delete</span>
@@ -66,7 +65,7 @@
     </div>
 
 
-    <div class="modal fade" wire:ignore id="addNote" tabindex="-1" aria-hidden="true">
+    <div class="modal fade" wire:ignore.self id="addNote" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <form wire:submit.prevent="add" class="modal-content">
                 <div class="modal-header">
@@ -86,8 +85,8 @@
                             <select required wire:model="add_status_id" class="form-select"
                                 id="exampleFormControlSelect1" aria-label="Default select example">
                                 <option selected>Pilih status</option>
-                                @foreach ($this->statusess as $item)
-                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                @foreach ($this->statusess as $status)
+                                    <option value="{{ $status->id }}">{{ $status->name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -109,21 +108,21 @@
     </div>
 
     @script
-        <script>
-            const modal = document.getElementById("addNote");
-            modalNotes = new bootstrap.Modal(modal)
-            $wire.on("re_render", () => {
-                if (modalNotes) {
-                    modalNotes.hide()
-                }
-            })
-            $wire.on('modal_edit_notes', function() {
-                modalNotes.show();
-            })
-            modal.addEventListener("hidden.bs.modal", function() {
-                  $wire.resetForm()
-            });
-        </script>
+    <script>
+        const modal = document.getElementById("addNote");
+        modalNotes = new bootstrap.Modal(modal)
+        $wire.on("re_render", () => {
+            if (modalNotes) {
+                modalNotes.hide()
+            }
+        })
+        $wire.on('modal_edit_notes', function () {
+            modalNotes.show();
+        })
+        modal.addEventListener("hidden.bs.modal", function () {
+            $wire.resetForm()
+        });
+    </script>
     @endscript
 
 </div>
