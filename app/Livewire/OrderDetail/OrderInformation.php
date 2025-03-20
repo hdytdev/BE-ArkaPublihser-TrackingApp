@@ -4,17 +4,25 @@ namespace App\Livewire\OrderDetail;
 
 use App\Models\Order;
 use App\Models\OrderTermin;
+use DB;
 use Livewire\Attributes\Locked;
+use Livewire\Attributes\Rule;
+use Livewire\Attributes\Validate;
 use Livewire\Component;
+use Livewire\WithFileUploads;
+use Storage;
 
 class OrderInformation extends Component
 {
+  use WithFileUploads;
   #[Locked]
   public $order_id;
-
+  public $order;
   public $payment_link;
-  public $kwitansi_file;
-  public $invoice_file;
+  #[Rule("nullable|max:8192|file|extensions:pdf,doc,docx,pptx")]
+  public $kwitansi;
+  #[Rule("nullable|max:8192|file|extensions:pdf,doc,docx,pptx")]
+  public $invoices;
   public $termins = [];
 
   public function getOrder()
@@ -22,25 +30,54 @@ class OrderInformation extends Component
     return Order::with(['notes' => ["orderStatus"], 'termin'])->find($this->order_id);
   }
 
-  function save()
+  public function download_kwitansi()
   {
-    foreach ($this->termins as $key => $value) {
-      OrderTermin::find($key)->update([
-        'is_paid' => $value
-      ]);
-    }
+    $file = Storage::disk("local")->path($this->order->kwitansi_file);
+    return response()->download($file);
+  }
+  public function download_invoice()
+  {
+    $file = Storage::disk("local")->path($this->order->invoice_file);
+    return response()->download($file);
+  }
+  public function save()
+  {
+    $this->validate();
+    DB::transaction(function () {
+      if ($this->kwitansi || $this->invoices) {
+        $kwitansi = $this->kwitansi->store('order/kwitansi', 'local');
+        $invoices = $this->invoices->store('order/invoices', 'local');
+        $this->order->update([
+          'payment_link' => $this->payment_link,
+          'invoice_file' => $invoices,
+          'kwitansi_file' => $kwitansi
+        ]);
+      }
+      //save to termin order
+      foreach ($this->termins as $key => $value) {
+        OrderTermin::find($key)->update([
+          'is_paid' => $value
+        ]);
+      }
+      $this->dispatch("hide_modal");
+    });
+
+
   }
 
+  public function mount()
+  {
+    $this->order = $this->getOrder();
+  }
   public function render()
   {
-    $order = $this->getOrder();
 
-      foreach($order->termin as $ter){
-        $this->termins[$ter->id] = $ter->is_paid;
-      }
+    foreach ($this->order->termin as $ter) {
+      $this->termins[$ter->id] = $ter->is_paid;
+    }
 
     return view('livewire.order-detail.order-information', [
-      'order' => $this->getOrder(),
+      'order' => $this->order,
     ]);
   }
 }

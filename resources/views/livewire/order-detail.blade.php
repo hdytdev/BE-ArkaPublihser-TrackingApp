@@ -60,6 +60,7 @@
                                 </h6>
                             </div>
                         </li>
+                        
                         <li class="d-flex align-items-start">
                             <div class="journal_info-title">
                                 <h6 class="mb-0">Tanggal Publish</h6>

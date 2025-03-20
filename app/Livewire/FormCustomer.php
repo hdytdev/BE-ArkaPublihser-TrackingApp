@@ -36,7 +36,8 @@ class FormCustomer extends Component
   {
     return Institution::all();
   }
-
+  
+  
   public function save()
   {
     $rules = $this->getRules();
@@ -54,12 +55,10 @@ class FormCustomer extends Component
     } else {
       $saved = $this->data->update($validated);
     }
-
-
     if ($saved) {
       $this->dispatch(event: 'customer_saved', params: true);
-    }else{
-      $this->dispatch(event: 'customer_saved',params: false);
+    } else {
+      $this->dispatch(event: 'customer_saved', params: false);
     }
   }
   public function mount()
