@@ -75,4 +75,4 @@
 <?php $component = $__componentOriginal9f64f32e90b9102968f2bc548315018c; ?>
 <?php unset($__componentOriginal9f64f32e90b9102968f2bc548315018c); ?>
 <?php endif; ?>
-<?php /**PATH D:\PROJ\Laravel\JurnalTrackingApp\resources\views/livewire/journal-detail/file-history-list.blade.php ENDPATH**/ ?>
+<?php /**PATH D:\PROJ\Laravel\JurnalTrackingApp\resources\views/livewire/order-detail/file-history-list.blade.php ENDPATH**/ ?>

@@ -13,7 +13,7 @@ class OrderLists extends Component
       'article',
       'customer',
       'termin',
-      'notes' => ['orderStatus']
+      'notes'
     ])->get();
   }
   public function render()

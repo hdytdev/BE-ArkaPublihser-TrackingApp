@@ -8,43 +8,42 @@
         </div>
         <div class="card-body m-0 p-0">
             <div class="accordion mt-3" id="accordionExample">
-                <!--[if BLOCK]><![endif]--><?php if($notes && $notes->count() < 1): ?>
+                @if ($notes && $notes->count() < 1)
                     <p class="alert alert-info">
                         Belum ada notes
                     </p>
-                <?php else: ?>
-                    <!--[if BLOCK]><![endif]--><?php $__currentLoopData = $notes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                @else
+                    @foreach ($notes as $item)
                         <div class="card accordion-item detail-order_accordion-item">
                             <h2 class="accordion-header" id="headingTwo">
                                 <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse"
-                                    data-bs-target="#accordion-<?php echo e($loop->iteration); ?>" aria-expanded="false"
+                                    data-bs-target="#accordion-{{ $loop->iteration }}" aria-expanded="false"
                                     aria-controls="accordionTwo">
-                                    <?php echo e($item->createdAtFormated ?? ''); ?>
-
+                                    {{ $item->createdAtFormated ?? '' }}
                                 </button>
                             </h2>
-                            <div id="accordion-<?php echo e($loop->iteration); ?>" class="accordion-collapse collapse"
+                            <div id="accordion-{{ $loop->iteration }}" class="accordion-collapse collapse"
                                 aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                                 <div class="accordion-body journal-notes">
                                     <div class="d-flex notes-item">
                                         <h6>Progress:</h6>
-                                        <h6 style="color:<?php echo e($item->orderStatus->color); ?>">
-                                            <?php echo e($item->orderStatus->name); ?></h6>
+                                        <h6 style="color:{{ $item->orderStatus->color }}">
+                                            {{ $item->orderStatus->name }}</h6>
                                     </div>
                                     <div class="d-flex notes-item">
                                         <h6>Notes:</h6>
-                                        <p><?php echo e($item->note); ?></p>
+                                        <p>{{ $item->note }}</p>
                                     </div>
-                                    <span wire:loading wire:target="delete('<?php echo e($item->id); ?>')">Deleting</span>
+                                    <span wire:loading wire:target="delete('{{ $item->id }}')">Deleting</span>
                                     <div class="notes-control d-flex justify-content-end">
-                                        <button wire:click="edit('<?php echo e($item->id); ?>')" data-bs-toggle="modal"
+                                        <button wire:click="edit('{{ $item->id }}')" data-bs-toggle="modal"
                                             data-bs-target="#editNote"
                                             class="btn btn-edit text-primary d-flex items-center">
                                             <i class='bx bx-edit-alt'></i>
                                             <span>Edit</span>
                                         </button>
                                         <button wire:konfirmasi="apakah anda yakin"
-                                            wire:click="delete('<?php echo e($item->id); ?>')"
+                                            wire:click="delete('{{ $item->id }}')"
                                             class="btn btn-delete text-danger d-flex items-center">
                                             <i class='bx bx-trash'></i>
                                             <span>Delete</span>
@@ -53,8 +52,8 @@
                                 </div>
                             </div>
                         </div>
-                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><!--[if ENDBLOCK]><![endif]-->
-                <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
+                    @endforeach
+                @endif
             </div>
             <div class="d-flex justify-content-end mt-3">
                 <button data-bs-toggle="modal" data-bs-target="#addNote"
@@ -87,14 +86,14 @@
                             <select required wire:model="add_status_id" class="form-select"
                                 id="exampleFormControlSelect1" aria-label="Default select example">
                                 <option selected>Pilih status</option>
-                                <!--[if BLOCK]><![endif]--><?php $__currentLoopData = $this->statusess; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                    <option value="<?php echo e($item->id); ?>"><?php echo e($item->name); ?></option>
-                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><!--[if ENDBLOCK]><![endif]-->
+                                @foreach ($this->statusess as $item)
+                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="col mb-0">
                             <label for="dobBasic" class="form-label">Tanggal</label>
-                            <input required wire:model="add_date" type="date" id="dobBasic" class="form-control"
+                            <input required wire:model="add_time" type="date" id="dobBasic" class="form-control"
                                 placeholder="DD / MM / YY" />
                         </div>
                     </div>
@@ -109,10 +108,7 @@
         </div>
     </div>
 
-        <?php
-        $__scriptKey = '3602610748-0';
-        ob_start();
-    ?>
+    @script
         <script>
             const modal = document.getElementById("addNote");
             modalNotes = new bootstrap.Modal(modal)
@@ -128,11 +124,6 @@
                   $wire.resetForm()
             });
         </script>
-        <?php
-        $__output = ob_get_clean();
-
-        \Livewire\store($this)->push('scripts', $__output, $__scriptKey)
-    ?>
+    @endscript
 
 </div>
-<?php /**PATH D:\PROJ\Laravel\JurnalTrackingApp\resources\views/livewire/journal-detail/notes-list.blade.php ENDPATH**/ ?>

@@ -2,7 +2,8 @@
     <x-slot name="pageTitle">
         <div class="page-title pt-3 mb-1 d-flex justify-content-between align-items-center mb-4">
             <h4 class="mb-0">Daftar Jurnal Internal</h4>
-            <a wire:navigate href="{{route('admin.journal.new')}}" class="btn btn-primary px-3 all-order_btn-search w-auto">
+            <a wire:navigate href="{{ route('admin.journal.new') }}"
+                class="btn btn-primary px-3 all-order_btn-search w-auto">
                 <span class="align-middle">Tambah Jurnal</span>
             </a>
         </div>
@@ -32,10 +33,10 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @if($journals && $journals->count() > 0)
+                            @if ($journals && $journals->count() > 0)
                                 @foreach ($journals as $item)
                                     <tr>
-                                        <th scope="row">{{ $journals->firstItem() + $loop->iteration-1 }}</th>
+                                        <th scope="row">{{ $journals->firstItem() + $loop->iteration - 1 }}</th>
                                         <td>{{ $item->issn }}</td>
                                         <td>{{ $item->name }}</td>
                                         <th>{{ $item->publisher }}</th>
@@ -48,20 +49,14 @@
                                         <td>{{ $item->focus }}</td>
                                         <td>{{ $item->scope }}</td>
                                         <th>
-                                          <button
-                                            wire:click="delete('{{$item->id}}')"
-                                          wire:konfirmasi="Apakah anda yakin?"
-                                          class="btn btn-sm btn-danger">
-                                            Hapus
-                                          </button>
-                                          <a
-                                            wire:navigate
-
-                                            href="{{route('admin.journal.edit',['id'=>$item->id])}}"
-
-                                          class="btn btn-sm btn-warning">
-                                            Edit
-                                          </a>
+                                            <button wire:click="delete('{{ $item->id }}')"
+                                                wire:konfirmasi="Apakah anda yakin?" class="btn btn-sm btn-danger">
+                                                Hapus
+                                            </button>
+                                            <a wire:navigate href="{{ route('admin.journal.edit', ['id' => $item->id]) }}"
+                                                class="btn btn-sm btn-warning">
+                                                Edit
+                                            </a>
                                         </th>
                                     </tr>
                                 @endforeach
@@ -70,19 +65,19 @@
                                     <td class="text-center" colspan="10">Tidak ada data</td>
                                 </tr>
                             @endempty
-                        </tbody>
-                    </table>
-                </div>
-                <div class="all-order_card-footer">
+                    </tbody>
+                </table>
+            </div>
+            <div class="all-order_card-footer">
 
-                    @if ($journals)
-                        {{ $journals->links('livewire::bootstrap') }}
-                    @endif
+                @if ($journals)
+                    {{ $journals->links('livewire::bootstrap') }}
+                @endif
 
-                </div>
             </div>
         </div>
     </div>
+</div>
 
 
 </div>

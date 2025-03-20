@@ -94,7 +94,7 @@
                         </div>
                         <div class="col mb-0">
                             <label for="dobBasic" class="form-label">Tanggal</label>
-                            <input required wire:model="add_date" type="date" id="dobBasic" class="form-control"
+                            <input required wire:model="add_time" type="date" id="dobBasic" class="form-control"
                                 placeholder="DD / MM / YY" />
                         </div>
                     </div>
@@ -110,7 +110,7 @@
     </div>
 
         <?php
-        $__scriptKey = '3602610748-0';
+        $__scriptKey = '2032245598-0';
         ob_start();
     ?>
         <script>
@@ -135,4 +135,4 @@
     ?>
 
 </div>
-<?php /**PATH D:\PROJ\Laravel\JurnalTrackingApp\resources\views/livewire/journal-detail/notes-list.blade.php ENDPATH**/ ?>
+<?php /**PATH D:\PROJ\Laravel\JurnalTrackingApp\resources\views/livewire/order-detail/notes-list.blade.php ENDPATH**/ ?>
