@@ -93,7 +93,6 @@
                                     UNPAID
                                 </h6>
                             @endif
-
                         </div>
                     </li>
                 @endforeach
@@ -117,8 +116,7 @@
             </div>
         </div>
     </div>
-    {{-- Knowing others is intelligence; knowing yourself is true wisdom. --}}
-    <div class="modal fade" id="manageOrder" tabindex="-1" aria-hidden="true">
+    <div class="modal fade" wire:ignore id="manageOrder" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -127,33 +125,18 @@
                 </div>
                 <div class="modal-body">
                     <div class="row g-2">
-                        <div class="col mb-3">
-                            <label for="nameBasic" class="form-label">Status Termin 1</label>
-                            <select class="form-select" id="exampleFormControlSelect1"
-                                aria-label="Default select example">
-                                <option selected>Choose Option...</option>
-                                <option value="1">PAID</option>
-                                <option value="2">UNPAID</option>
-                            </select>
-                        </div>
-                        <div class="col mb-3">
-                            <label for="nameBasic" class="form-label">Status Termin 2</label>
-                            <select class="form-select" id="exampleFormControlSelect1"
-                                aria-label="Default select example">
-                                <option selected>Choose Option...</option>
-                                <option value="1">PAID</option>
-                                <option value="2">UNPAID</option>
-                            </select>
-                        </div>
-                        <div class="col mb-3">
-                            <label for="nameBasic" class="form-label">Status Termin 3</label>
-                            <select class="form-select" id="exampleFormControlSelect1"
-                                aria-label="Default select example">
-                                <option selected>Choose Option...</option>
-                                <option value="1">PAID</option>
-                                <option value="2">UNPAID</option>
-                            </select>
-                        </div>
+                      @foreach ($order->termin as $item)
+                      <div class="col mb-3">
+                        <label for="nameBasic" class="form-label">Status Termin {{$item->term}}</label>
+                        <select wire:model="termins.{{$item->id}}" class="form-select" id="exampleFormControlSelect1"
+                            aria-label="Default select example">
+                            <option selected>Choose Option...</option>
+                            <option value="1">PAID</option>
+                            <option value="0">UNPAID</option>
+                        </select>
+                    </div>
+                      @endforeach
+
                     </div>
                     <div class="row g-2">
                         <div class="col mb-0">
@@ -176,12 +159,19 @@
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                         Tutup
                     </button>
-                    <button type="button" class="btn btn-primary">Simpan</button>
+                    <button wire:click="save" type="button" class="btn btn-primary">Simpan</button>
                 </div>
             </div>
         </div>
     </div>
 
     @script
+
+    <script>
+      const modal = document.getElementById("manageOrder");
+      modalORderdetail = new bootstrap.Modal(modal);
+      alert(modalORderdetail)
+    </script>
+
     @endscript
 </div>

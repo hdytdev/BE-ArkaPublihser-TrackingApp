@@ -39,7 +39,7 @@ class NotesList extends Component
 
     $data = [
       'order_id' => $this->order_id,
-      'time' => now(),
+      'time' => $this->add_time ?? now(),
       'order_status_id' => $this->add_status_id,
       'note' => $this->add_notes,
     ];

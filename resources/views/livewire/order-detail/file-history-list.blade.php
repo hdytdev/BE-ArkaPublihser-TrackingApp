@@ -16,7 +16,7 @@
                         <p>{{ $file->createdAtFormated }}</p>
                     </div>
                     <div class="file-controller d-flex">
-                        <a href="" class="file-download">
+                        <a href="{{asset('storage')}}/{{$file->file_url}}" class="file-download">
                             <i class='bx bx-cloud-download'></i>
                         </a>
                         <button data-bs-toggle="modal" data-bs-target="#editFile" class="file-download">

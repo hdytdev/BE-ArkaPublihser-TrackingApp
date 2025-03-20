@@ -16,7 +16,7 @@
                         <p><?php echo e($file->createdAtFormated); ?></p>
                     </div>
                     <div class="file-controller d-flex">
-                        <a href="" class="file-download">
+                        <a href="<?php echo e(asset('storage')); ?>/<?php echo e($file->file_url); ?>" class="file-download">
                             <i class='bx bx-cloud-download'></i>
                         </a>
                         <button data-bs-toggle="modal" data-bs-target="#editFile" class="file-download">

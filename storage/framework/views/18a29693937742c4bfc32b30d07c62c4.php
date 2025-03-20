@@ -97,7 +97,6 @@
                                     UNPAID
                                 </h6>
                             <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
-
                         </div>
                     </li>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><!--[if ENDBLOCK]><![endif]-->
@@ -121,8 +120,7 @@
             </div>
         </div>
     </div>
-    
-    <div class="modal fade" id="manageOrder" tabindex="-1" aria-hidden="true">
+    <div class="modal fade" wire:ignore id="manageOrder" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -131,33 +129,18 @@
                 </div>
                 <div class="modal-body">
                     <div class="row g-2">
-                        <div class="col mb-3">
-                            <label for="nameBasic" class="form-label">Status Termin 1</label>
-                            <select class="form-select" id="exampleFormControlSelect1"
-                                aria-label="Default select example">
-                                <option selected>Choose Option...</option>
-                                <option value="1">PAID</option>
-                                <option value="2">UNPAID</option>
-                            </select>
-                        </div>
-                        <div class="col mb-3">
-                            <label for="nameBasic" class="form-label">Status Termin 2</label>
-                            <select class="form-select" id="exampleFormControlSelect1"
-                                aria-label="Default select example">
-                                <option selected>Choose Option...</option>
-                                <option value="1">PAID</option>
-                                <option value="2">UNPAID</option>
-                            </select>
-                        </div>
-                        <div class="col mb-3">
-                            <label for="nameBasic" class="form-label">Status Termin 3</label>
-                            <select class="form-select" id="exampleFormControlSelect1"
-                                aria-label="Default select example">
-                                <option selected>Choose Option...</option>
-                                <option value="1">PAID</option>
-                                <option value="2">UNPAID</option>
-                            </select>
-                        </div>
+                      <!--[if BLOCK]><![endif]--><?php $__currentLoopData = $order->termin; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                      <div class="col mb-3">
+                        <label for="nameBasic" class="form-label">Status Termin <?php echo e($item->term); ?></label>
+                        <select wire:model="termins.<?php echo e($item->id); ?>" class="form-select" id="exampleFormControlSelect1"
+                            aria-label="Default select example">
+                            <option selected>Choose Option...</option>
+                            <option value="1">PAID</option>
+                            <option value="0">UNPAID</option>
+                        </select>
+                    </div>
+                      <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><!--[if ENDBLOCK]><![endif]-->
+
                     </div>
                     <div class="row g-2">
                         <div class="col mb-0">
@@ -180,7 +163,7 @@
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                         Tutup
                     </button>
-                    <button type="button" class="btn btn-primary">Simpan</button>
+                    <button wire:click="save" type="button" class="btn btn-primary">Simpan</button>
                 </div>
             </div>
         </div>
@@ -190,6 +173,13 @@
         $__scriptKey = '1433788992-0';
         ob_start();
     ?>
+
+    <script>
+      const modal = document.getElementById("manageOrder");
+      modalORderdetail = new bootstrap.Modal(modal);
+      alert(modalORderdetail)
+    </script>
+
         <?php
         $__output = ob_get_clean();
 
