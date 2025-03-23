@@ -7,7 +7,10 @@
             </span>
         </div>
         <div class="card-body m-0 p-0">
-            <div class="accordion mt-3" id="accordionExample">
+            <div wire:loading class="spinner-border align-middle mt-4  text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <div wire:loading.class='d-none' class="accordion mt-3" id="accordionExample">
                 <!--[if BLOCK]><![endif]--><?php if($notes && $notes->count() < 1): ?>
                     <p class="alert alert-info">
                         Belum ada notes
@@ -67,71 +70,50 @@
     </div>
 
 
-    <div class="modal fade" wire:ignore.self id="addNote" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <form wire:submit.prevent="add" class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel1">Tambah Notes</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col mb-3">
-                            <label for="nameBasic" class="form-label">Notes</label>
-                            <textarea required wire:model="add_notes" class="form-control"></textarea>
-                        </div>
-                    </div>
-                    <div class="row g-2">
-                        <div class="col mb-0">
-                            <label class="form-label">Status</label>
-                            <select required wire:model="add_status_id" class="form-select"
-                                id="exampleFormControlSelect1" aria-label="Default select example">
-                                <option selected>Pilih status</option>
-                                <!--[if BLOCK]><![endif]--><?php $__currentLoopData = $this->statusess; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $status): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                    <option value="<?php echo e($status->id); ?>"><?php echo e($status->name); ?></option>
-                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><!--[if ENDBLOCK]><![endif]-->
-                            </select>
-                        </div>
-                        <div class="col mb-0">
-                            <label for="dobBasic" class="form-label">Tanggal</label>
-                            <input required wire:model="add_time" type="date" id="dobBasic" class="form-control"
-                                placeholder="DD / MM / YY" />
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-                        Tutup
-                    </button>
-                    <button type="submit" class="btn btn-primary">Simpan</button>
-                </div>
-            </form>
+    <?php if (isset($component)) { $__componentOriginal9f64f32e90b9102968f2bc548315018c = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal9f64f32e90b9102968f2bc548315018c = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.modal','data' => ['action' => 'add','target' => 'addNote','title' => 'Tambah Notes']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('modal'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['action' => 'add','target' => 'addNote','title' => 'Tambah Notes']); ?>
+        <div class="row">
+            <div class="col mb-3">
+                <label for="nameBasic" class="form-label">Notes</label>
+                <textarea required wire:model="add_notes" class="form-control"></textarea>
+            </div>
         </div>
-    </div>
+        <div class="row g-2">
+            <div class="col mb-0">
+                <label class="form-label">Status</label>
+                <select required wire:model="add_status_id" class="form-select" id="exampleFormControlSelect1"
+                    aria-label="Default select example">
+                    <option selected>Pilih status</option>
+                    <!--[if BLOCK]><![endif]--><?php $__currentLoopData = $this->statusess; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $status): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <option value="<?php echo e($status->id); ?>"><?php echo e($status->name); ?></option>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><!--[if ENDBLOCK]><![endif]-->
+                </select>
+            </div>
+            <div class="col mb-0">
+                <label for="dobBasic" class="form-label">Tanggal</label>
+                <input required wire:model="add_time" type="date" id="dobBasic" class="form-control"
+                    placeholder="DD / MM / YY" />
+            </div>
+        </div>
+     <?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal9f64f32e90b9102968f2bc548315018c)): ?>
+<?php $attributes = $__attributesOriginal9f64f32e90b9102968f2bc548315018c; ?>
+<?php unset($__attributesOriginal9f64f32e90b9102968f2bc548315018c); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal9f64f32e90b9102968f2bc548315018c)): ?>
+<?php $component = $__componentOriginal9f64f32e90b9102968f2bc548315018c; ?>
+<?php unset($__componentOriginal9f64f32e90b9102968f2bc548315018c); ?>
+<?php endif; ?>
 
-        <?php
-        $__scriptKey = '2032245598-0';
-        ob_start();
-    ?>
-    <script>
-        const modal = document.getElementById("addNote");
-        modalNotes = new bootstrap.Modal(modal)
-        $wire.on("re_render", () => {
-            if (modalNotes) {
-                modalNotes.hide()
-            }
-        })
-        $wire.on('modal_edit_notes', function () {
-            modalNotes.show();
-        })
-        modal.addEventListener("hidden.bs.modal", function () {
-            $wire.resetForm()
-        });
-    </script>
-        <?php
-        $__output = ob_get_clean();
 
-        \Livewire\store($this)->push('scripts', $__output, $__scriptKey)
-    ?>
 
 </div><?php /**PATH D:\PROJ\Laravel\JurnalTrackingApp\resources\views/livewire/order-detail/notes-list.blade.php ENDPATH**/ ?>

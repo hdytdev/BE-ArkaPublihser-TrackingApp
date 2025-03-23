@@ -39,11 +39,11 @@
         </div>
     </div>
 
-    <x-modal action="update" target="addFile">
+    <x-modal action="new" target="addFile">
         <div class="row">
             <div class="col mb-3">
                 <label class="form-label">Nama File</label>
-                <input class="form-control">
+                <input wire:model='filename' class="form-control">
             </div>
         </div>
         <div class="row g-2">
@@ -53,7 +53,7 @@
             </div>
             <div class="col mb-0">
                 <label for="dobBasic" class="form-label">Upload File</label>
-                <input type="file" id="dobBasic" class="form-control" />
+                <input wire:model='file' type="file" id="dobBasic" class="form-control" />
             </div>
         </div>
     </x-modal>

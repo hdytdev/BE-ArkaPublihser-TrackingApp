@@ -41,18 +41,18 @@
 
     <?php if (isset($component)) { $__componentOriginal9f64f32e90b9102968f2bc548315018c = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal9f64f32e90b9102968f2bc548315018c = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.modal','data' => ['action' => 'update','target' => 'addFile']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.modal','data' => ['action' => 'new','target' => 'addFile']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('modal'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['action' => 'update','target' => 'addFile']); ?>
+<?php $component->withAttributes(['action' => 'new','target' => 'addFile']); ?>
         <div class="row">
             <div class="col mb-3">
                 <label class="form-label">Nama File</label>
-                <input class="form-control">
+                <input wire:model='filename' class="form-control">
             </div>
         </div>
         <div class="row g-2">
@@ -62,7 +62,7 @@
             </div>
             <div class="col mb-0">
                 <label for="dobBasic" class="form-label">Upload File</label>
-                <input type="file" id="dobBasic" class="form-control" />
+                <input wire:model='file' type="file" id="dobBasic" class="form-control" />
             </div>
         </div>
      <?php echo $__env->renderComponent(); ?>
@@ -74,5 +74,4 @@
 <?php if (isset($__componentOriginal9f64f32e90b9102968f2bc548315018c)): ?>
 <?php $component = $__componentOriginal9f64f32e90b9102968f2bc548315018c; ?>
 <?php unset($__componentOriginal9f64f32e90b9102968f2bc548315018c); ?>
-<?php endif; ?>
-<?php /**PATH D:\PROJ\Laravel\JurnalTrackingApp\resources\views/livewire/order-detail/file-history-list.blade.php ENDPATH**/ ?>
+<?php endif; ?><?php /**PATH D:\PROJ\Laravel\JurnalTrackingApp\resources\views/livewire/order-detail/file-history-list.blade.php ENDPATH**/ ?>

@@ -1,44 +1,58 @@
- @props(['target' => null, 'action'])
- <div class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" wire:ignore.self id="{{ $target }}"
-     tabindex="-1" aria-hidden="true">
-     <div class="modal-dialog" role="document">
-         <form wire:submit.prevent="{{ $action }}" class="modal-content">
-             <div class="modal-header">
-                 <h5 class="modal-title" id="exampleModalLabel1">Tambah Notes</h5>
-                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-             </div>
-             <div class="modal-body">
-                 {{ $slot }}
-             </div>
-             <div class="modal-footer">
-                 <button wire:click="hideModal" type="button" class="btn btn-outline-secondary"
-                     data-bs-dismiss="modal">
-                     Tutup
-                 </button>
-                 <button type="submit" class="btn btn-primary">Simpan</button>
-             </div>
-         </form>
-     </div>
- </div>
- @script
-     <script>
-         const modal = document.getElementById("{{ $target }}");
-         var modals = {}
-         modalInstance = new bootstrap.Modal(modal)
-         modals['{{ $target }}'] = modalInstance;
-         //for re render
-         $wire.on("re_render", () => {
-             // $wire.$refresh();
-             // $wire.$commit();
-             if (modals) {
-                 modals['{{ $target }}'].hide()
-                 modals['{{ $target }}'].dispose();
-             }
-         })
-         //for editable modal
-         $wire.on('show_edit_modal', function() {
-             modals['{{ $target }}'].show();
-         })
+@props(['target' => null, 'action', 'title' => null])
+<div x-modal="@js([
+    'action' => $action,
+    'target' => $target,
+])" class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" wire:ignore.self id="{{ $target }}"
+    tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <form data-form class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel1">
+                    {{ $title }}
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                {{ $slot }}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                    Tutup
+                </button>
+                <button data-btn-action type="submit" class="btn btn-primary">Simpan</button>
+            </div>
+        </form>
+    </div>
+</div>
+@script
 
-     </script>
- @endscript
+
+<script>
+    Alpine.directive("modal", (el, { modifiers, expression }, { cleanup, effect, evaluate, evaluateLater }) => {
+        const exp = evaluate(expression)
+        const instance = new bootstrap.Modal(el);
+        const form = el.querySelector('form[data-form]')
+        console.log(form)
+        function actionHandler(e) {
+            e.preventDefault();
+            let input = form.querySelectorAll('input,button,select');
+            input.forEach((e) => {
+                e.disabled = true;
+            })
+            $wire.call(exp.action)
+        }
+        form.addEventListener('submit', actionHandler)
+        $wire.on('modal_close', () => {
+            $wire.$refresh();
+            $wire.$refresh();
+            instance.hide();
+        })
+        $wire.on('show_modal', () => {
+            instance.show()
+        })
+        el.addEventListener('hidden.bs.modal', async () => {
+            $wire.set('on_editable', null);
+        })
+    })
+</script>
+@endscript

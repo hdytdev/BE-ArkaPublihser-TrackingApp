@@ -7,7 +7,10 @@
             </span>
         </div>
         <div class="card-body m-0 p-0">
-            <div class="accordion mt-3" id="accordionExample">
+            <div wire:loading class="spinner-border align-middle mt-4  text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <div wire:loading.class='d-none' class="accordion mt-3" id="accordionExample">
                 @if ($notes && $notes->count() < 1)
                     <p class="alert alert-info">
                         Belum ada notes
@@ -65,64 +68,32 @@
     </div>
 
 
-    <div class="modal fade" wire:ignore.self id="addNote" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <form wire:submit.prevent="add" class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel1">Tambah Notes</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col mb-3">
-                            <label for="nameBasic" class="form-label">Notes</label>
-                            <textarea required wire:model="add_notes" class="form-control"></textarea>
-                        </div>
-                    </div>
-                    <div class="row g-2">
-                        <div class="col mb-0">
-                            <label class="form-label">Status</label>
-                            <select required wire:model="add_status_id" class="form-select"
-                                id="exampleFormControlSelect1" aria-label="Default select example">
-                                <option selected>Pilih status</option>
-                                @foreach ($this->statusess as $status)
-                                    <option value="{{ $status->id }}">{{ $status->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="col mb-0">
-                            <label for="dobBasic" class="form-label">Tanggal</label>
-                            <input required wire:model="add_time" type="date" id="dobBasic" class="form-control"
-                                placeholder="DD / MM / YY" />
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-                        Tutup
-                    </button>
-                    <button type="submit" class="btn btn-primary">Simpan</button>
-                </div>
-            </form>
+    <x-modal action="add" target="addNote" title="Tambah Notes">
+        <div class="row">
+            <div class="col mb-3">
+                <label for="nameBasic" class="form-label">Notes</label>
+                <textarea required wire:model="add_notes" class="form-control"></textarea>
+            </div>
         </div>
-    </div>
+        <div class="row g-2">
+            <div class="col mb-0">
+                <label class="form-label">Status</label>
+                <select required wire:model="add_status_id" class="form-select" id="exampleFormControlSelect1"
+                    aria-label="Default select example">
+                    <option selected>Pilih status</option>
+                    @foreach ($this->statusess as $status)
+                        <option value="{{ $status->id }}">{{ $status->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="col mb-0">
+                <label for="dobBasic" class="form-label">Tanggal</label>
+                <input required wire:model="add_time" type="date" id="dobBasic" class="form-control"
+                    placeholder="DD / MM / YY" />
+            </div>
+        </div>
+    </x-modal>
 
-    @script
-    <script>
-        const modal = document.getElementById("addNote");
-        modalNotes = new bootstrap.Modal(modal)
-        $wire.on("re_render", () => {
-            if (modalNotes) {
-                modalNotes.hide()
-            }
-        })
-        $wire.on('modal_edit_notes', function () {
-            modalNotes.show();
-        })
-        modal.addEventListener("hidden.bs.modal", function () {
-            $wire.resetForm()
-        });
-    </script>
-    @endscript
+
 
 </div>

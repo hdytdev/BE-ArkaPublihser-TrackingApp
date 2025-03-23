@@ -50,7 +50,7 @@ class NotesList extends Component
     } else {
       OrderNotes::create($data);
     }
-    $this->dispatch(event: "re_render");
+    $this->dispatch(event: "modal_close");
     $this->resetForm();
   }
 
@@ -64,7 +64,7 @@ class NotesList extends Component
       $this->add_notes = $note->note;
       $this->add_time = $note->time ?? $note->created_at;
     }
-    $this->dispatch("modal_edit_notes", $id);
+    $this->dispatch("show_modal", $id);
   }
 
   public function delete($id)
