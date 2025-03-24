@@ -31,7 +31,10 @@ class CustomerList extends Component
 
   private function getCustomer()
   {
-    $customer = Customer::with('institution')
+    $customer = Customer::with([
+      'institution',
+      'position'
+    ])
       ->whereHas('institution', function ($query) {
         $query->orWhere('name', 'like', "%{$this->searchQuery}%");
       })
@@ -42,7 +45,7 @@ class CustomerList extends Component
   }
   public function resetCache()
   {
-    Cache::delete(key: $this->key.$this->getId());
+    Cache::delete(key: $this->key . $this->getId());
   }
   public function delete($key)
   {
@@ -59,7 +62,7 @@ class CustomerList extends Component
     if ($this->getPage()) {
       $this->resetCache();
     }
-    $customer = Cache::remember($this->key.$this->getId(), 3600, function () {
+    $customer = Cache::remember($this->key . $this->getId(), 3600, function () {
       return $this->getCustomer();
     });
     return view('livewire.customer-list', [

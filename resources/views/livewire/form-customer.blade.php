@@ -18,10 +18,14 @@
                 <div class="mb-3">
                   <livewire:form.select-instansi wire:model="institution_id" />
                   @error('institution_id')
-                  <span class="invalid-feedback d-block">{{ $message }}</span>
-                  @enderror
+            <span class="invalid-feedback d-block">{{ $message }}</span>
+          @enderror
                 </div>
-                <x-form.input name="position" label="Jabatan" placeholder="Asal Daerah" />
+                <livewire:form.select-position wire:model="position_id" />
+                @error('position_id')
+          <span class="invalid-feedback d-block">{{ $message }}</span>
+        @enderror
+                {{-- <x-form.input name="position" label="Jabatan" placeholder="Asal Daerah" /> --}}
                 <div class="mt-2 d-flex justify-content-end">
                   <button type="submit" class="btn btn-primary me-2">Submit</button>
                   <button wire:click="$wire.redirect('/login')" type="reset"

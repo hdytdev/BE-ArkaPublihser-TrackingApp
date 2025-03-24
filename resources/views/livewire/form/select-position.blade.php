@@ -1,13 +1,13 @@
 <div x-data="{ useManual: @entangle('useManualInput') }">
-    <label for="instansi" class="form-label">Instansi</label>
+    <label for="position_id" class="form-label">Instansi</label>
     <div class="input-group">
         <template x-if="useManual">
-            <input wire:model="manual_instansi" type="text" class="form-control">
+            <input wire:model="new_name" type="text" class="form-control">
         </template>
         <template x-if="!useManual">
-            <select wire:model="institution_id" class="form-control" name="" id="">
-                <option value="" selected>--Pilih Instansi--</option>
-                @foreach ($instansi as $item)
+            <select wire:model="position_id" class="form-control" name="" id="">
+                <option value="" selected>--Pilih Position--</option>
+                @foreach ($positions as $item)
                     <option value="{{ $item->id }}">
                         {{ $item->name }}
                     </option>

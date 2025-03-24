@@ -11,8 +11,7 @@
     <div class="row mb-3">
         <div class="col-lg-12 col-md-4">
             <div class="card p-4">
-                <form wire:submit="search" action=""
-                    class="all-order_form-search d-flex justify-content-between w-100">
+                <form wire:submit="search" action="" class="all-order_form-search d-flex justify-content-between w-100">
                     <div class="search-bar w-100">
                         <div>
                             <h6 class="mb-2">Nyari siapa gaiss?</h6>
@@ -61,53 +60,53 @@
                         <tbody>
 
                             <!--[if BLOCK]><![endif]--><?php if($customers && $customers->count() > 0): ?>
-                                <!--[if BLOCK]><![endif]--><?php $__currentLoopData = $customers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                    <tr>
-                                        <th scope="row">
-                                          <?php echo e($customers->firstItem() + $loop->iteration -  1); ?>
+                            <!--[if BLOCK]><![endif]--><?php $__currentLoopData = $customers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <tr>
+                                <th scope="row">
+                                    <?php echo e($customers->firstItem() + $loop->iteration - 1); ?>
 
-                                        </th>
-                                        <td>
-                                            <span class="badge bg-primary"><?php echo e($item->customer_id); ?></span>
-                                        </td>
-                                        <td><?php echo e($item->registered_date); ?></td>
-                                        <td><?php echo e($item->name); ?></td>
-                                        <td><?php echo e($item->phone_number); ?></td>
-                                        <td><?php echo e($item->email); ?></td>
-                                        <td><?php echo e($item->regional_origin); ?></td>
-                                        <td><?php echo e($item->institution->name); ?></td>
-                                        <td>Panglima</td>
-                                        <td class="text-center">
-                                            <span class="badge bg-primary"><?php echo e(12); ?></span>
-                                        </td>
-                                        <td>
-                                            <div class="dropdown">
-                                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-                                                    data-bs-toggle="dropdown">
-                                                    <i class="bx bx-dots-vertical-rounded"></i>
-                                                </button>
-                                                <div class="dropdown-menu all-order_dropdown-menu">
-                                                    <a wire:navigate href="<?php echo e(route('admin.customer.edit',[
+                                </th>
+                                <td>
+                                    <span class="badge bg-primary"><?php echo e($item->customer_id); ?></span>
+                                </td>
+                                <td><?php echo e($item->registered_date); ?></td>
+                                <td><?php echo e($item->name); ?></td>
+                                <td><?php echo e($item->phone_number); ?></td>
+                                <td><?php echo e($item->email); ?></td>
+                                <td><?php echo e($item->regional_origin); ?></td>
+                                <td><?php echo e($item->institution->name); ?></td>
+                                <td><?php echo e($item->position?->name); ?></td>
+                                <td class="text-center">
+                                    <span class="badge bg-primary"><?php echo e(12); ?></span>
+                                </td>
+                                <td>
+                                    <div class="dropdown">
+                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                            data-bs-toggle="dropdown">
+                                            <i class="bx bx-dots-vertical-rounded"></i>
+                                        </button>
+                                        <div class="dropdown-menu all-order_dropdown-menu">
+                                            <a wire:navigate href="<?php echo e(route('admin.customer.edit',[
                                                     'id'=> $item->id])); ?>"
-                                                        class="btn btn-edit text-primary d-flex items-center">
-                                                        <i class='bx bx-edit-alt'></i>
-                                                        <span>Edit</span>
-                                                    </a>
-                                                    <button wire:konfirmasi="Apakah anda yakin?"
-                                                        wire:click="delete('<?php echo e($item->id); ?>')"
-                                                        class="btn btn-delete text-danger d-flex items-center w-100">
-                                                        <i class='bx bx-trash'></i>
-                                                        <span>Delete</span>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><!--[if ENDBLOCK]><![endif]-->
+                                                class="btn btn-edit text-primary d-flex items-center">
+                                                <i class='bx bx-edit-alt'></i>
+                                                <span>Edit</span>
+                                            </a>
+                                            <button wire:konfirmasi="Apakah anda yakin?"
+                                                wire:click="delete('<?php echo e($item->id); ?>')"
+                                                class="btn btn-delete text-danger d-flex items-center w-100">
+                                                <i class='bx bx-trash'></i>
+                                                <span>Delete</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><!--[if ENDBLOCK]><![endif]-->
                             <?php else: ?>
-                                <tr>
-                                    <td colspan="12">Tidak Ada Data</td>
-                                </tr>
+                            <tr>
+                                <td colspan="12">Tidak Ada Data</td>
+                            </tr>
                             <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
 
                         </tbody>
@@ -122,5 +121,4 @@
 
         </div>
     </div>
-</div>
-<?php /**PATH D:\PROJ\Laravel\JurnalTrackingApp\resources\views/livewire/customer-list.blade.php ENDPATH**/ ?>
+</div><?php /**PATH D:\PROJ\Laravel\JurnalTrackingApp\resources\views/livewire/customer-list.blade.php ENDPATH**/ ?>

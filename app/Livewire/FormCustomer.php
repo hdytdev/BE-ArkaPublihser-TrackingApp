@@ -29,18 +29,19 @@ class FormCustomer extends Component
 
   public $institution_id;
   #[Rule("required|string|max:100")]
-  public $position;
+  public $position_id;
 
   #[Computed]
   public function institution()
   {
     return Institution::all();
   }
-  
-  
+
+
   public function save()
   {
     $rules = $this->getRules();
+
     if ($this->data && ($this->data->email === $this->email)) {
       $rules['email'] = "required|string";
     }
