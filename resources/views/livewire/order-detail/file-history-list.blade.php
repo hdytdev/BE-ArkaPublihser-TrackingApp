@@ -43,17 +43,22 @@
         <div class="row">
             <div class="col mb-3">
                 <label class="form-label">Nama File</label>
-                <input wire:model='filename' class="form-control">
+                <input wire:model='filename' class="form-control @error('filename') is-invalid @enderror">
+
+                @error('filename')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+
             </div>
         </div>
         <div class="row g-2">
             <div class="col mb-0">
-                <label for="dobBasic" class="form-label">Tanggal</label>
-                <input type="date" id="dobBasic" class="form-control" placeholder="DD / MM / YY" />
-            </div>
-            <div class="col mb-0">
                 <label for="dobBasic" class="form-label">Upload File</label>
-                <input wire:model='file' type="file" id="dobBasic" class="form-control" />
+                <input wire:model='file' type="file" id="dobBasic" class="form-control
+                    @error('file') is-invalid @enderror" />
+                @error('file')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
             </div>
         </div>
     </x-modal>

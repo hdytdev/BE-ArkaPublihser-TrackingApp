@@ -22,7 +22,18 @@ class FileHistoryList extends Component
 
   public function new()
   {
-    // $this->dispatch('modal_close');
+    $this->validate([
+      'file' => ['required', 'file', "extensions:pdf,docx,doc", 'max:30720'],
+      'filename' => "required"
+    ]);
+    $file = $this->file->storePublicly('file_histories', 'public');
+    FileHistory::create([
+      'file_url' => $file,
+      'name' => $this->filename,
+      'article_id' => $this->article_id,
+      'customer_file' => false,
+    ]);
+    $this->dispatch('modal_close');
   }
 
   public function render()

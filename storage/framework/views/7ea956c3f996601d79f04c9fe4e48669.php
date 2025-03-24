@@ -83,7 +83,8 @@
         <div class="row">
             <div class="col mb-3">
                 <label for="nameBasic" class="form-label">Notes</label>
-                <textarea required wire:model="add_notes" class="form-control"></textarea>
+                <textarea placeholder="Ketikan notes apapaun" required wire:model="add_notes"
+                    class="form-control"></textarea>
             </div>
         </div>
         <div class="row g-2">
@@ -96,11 +97,6 @@
                         <option value="<?php echo e($status->id); ?>"><?php echo e($status->name); ?></option>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><!--[if ENDBLOCK]><![endif]-->
                 </select>
-            </div>
-            <div class="col mb-0">
-                <label for="dobBasic" class="form-label">Tanggal</label>
-                <input required wire:model="add_time" type="date" id="dobBasic" class="form-control"
-                    placeholder="DD / MM / YY" />
             </div>
         </div>
      <?php echo $__env->renderComponent(); ?>

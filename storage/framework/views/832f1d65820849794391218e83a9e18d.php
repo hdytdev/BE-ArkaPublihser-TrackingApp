@@ -52,17 +52,50 @@
         <div class="row">
             <div class="col mb-3">
                 <label class="form-label">Nama File</label>
-                <input wire:model='filename' class="form-control">
+                <input wire:model='filename' class="form-control <?php $__errorArgs = ['filename'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>">
+
+                <!--[if BLOCK]><![endif]--><?php $__errorArgs = ['filename'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                    <div class="invalid-feedback"><?php echo e($message); ?></div>
+                <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?><!--[if ENDBLOCK]><![endif]-->
+
             </div>
         </div>
         <div class="row g-2">
             <div class="col mb-0">
-                <label for="dobBasic" class="form-label">Tanggal</label>
-                <input type="date" id="dobBasic" class="form-control" placeholder="DD / MM / YY" />
-            </div>
-            <div class="col mb-0">
                 <label for="dobBasic" class="form-label">Upload File</label>
-                <input wire:model='file' type="file" id="dobBasic" class="form-control" />
+                <input wire:model='file' type="file" id="dobBasic" class="form-control
+                    <?php $__errorArgs = ['file'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" />
+                <!--[if BLOCK]><![endif]--><?php $__errorArgs = ['file'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                    <div class="invalid-feedback"><?php echo e($message); ?></div>
+                <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?><!--[if ENDBLOCK]><![endif]-->
             </div>
         </div>
      <?php echo $__env->renderComponent(); ?>

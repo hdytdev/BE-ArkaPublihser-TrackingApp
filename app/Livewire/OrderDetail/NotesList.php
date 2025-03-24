@@ -19,9 +19,7 @@ class NotesList extends Component
   #[Rule('required')]
 
   public $add_status_id;
-  #[Rule('required')]
 
-  public $add_time;
   public $on_editable = false;
   #[Computed]
   public function statusess()
@@ -39,7 +37,7 @@ class NotesList extends Component
 
     $data = [
       'order_id' => $this->order_id,
-      'time' => $this->add_time ?? now(),
+      'time' => now(),
       'order_status_id' => $this->add_status_id,
       'note' => $this->add_notes,
     ];
@@ -62,7 +60,6 @@ class NotesList extends Component
     if ($note) {
       $this->add_status_id = $note->order_status_id;
       $this->add_notes = $note->note;
-      $this->add_time = $note->time ?? $note->created_at;
     }
     $this->dispatch("show_modal", $id);
   }
@@ -82,7 +79,6 @@ class NotesList extends Component
       "on_editable",
       "add_status_id",
       "add_notes",
-      "add_time",
     );
 
   }
