@@ -47,10 +47,6 @@ class FormJournal extends Component
         }
       }
     }
-
-    if (!$this->journal) {
-      redirect()->route('admin.journal.new');
-    }
   }
 
   public function save()
@@ -76,6 +72,7 @@ class FormJournal extends Component
       }
     } else {
       if (Journal::create($validated)) {
+        $this->reset();
         $this->dispatch('saved', [
           "success" => true,
           "message" => "Journal berhasil ditambahkan"
