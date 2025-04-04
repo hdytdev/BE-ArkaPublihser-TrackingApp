@@ -16,10 +16,12 @@
                 {{ $slot }}
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                <button wire:loading.attr='disabled' type="button" class="btn btn-outline-secondary"
+                    data-bs-dismiss="modal">
                     Tutup
                 </button>
-                <button data-btn-action type="submit" class="btn btn-primary">Simpan</button>
+                <button wire:loading.attr='disabled' data-btn-action type="submit"
+                    class="btn btn-primary">Simpan</button>
             </div>
         </form>
     </div>

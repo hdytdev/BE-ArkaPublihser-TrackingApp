@@ -5,12 +5,13 @@ namespace App\Livewire\OrderDetail;
 use App\Models\Order;
 use App\Models\OrderTermin;
 use DB;
+use Illuminate\Support\Facades\Storage;
+use Jantinnerezo\LivewireAlert\Facades\LivewireAlert;
 use Livewire\Attributes\Locked;
 use Livewire\Attributes\Rule;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use Storage;
 
 class OrderInformation extends Component
 {
@@ -29,16 +30,24 @@ class OrderInformation extends Component
   {
     return Order::with(['notes' => ["orderStatus"], 'termin'])->find($this->order_id);
   }
-
+  public function download_file($path)
+  {
+    if (file_exists($path)) {
+      LivewireAlert::title("Berhasil")->text("File akan segera terdownload")->success()->show();
+      return response()->download($path);
+    } else {
+      LivewireAlert::title("Gagal")->text("Opps file gagal di download. Mungkin file tidak ada atau sudah terhapus di server")->warning()->show();
+    }
+  }
   public function download_kwitansi()
   {
-    $file = Storage::disk("local")->path($this->order->kwitansi_file);
-    return response()->download($file);
+    $path = Storage::disk("local")->path($this->order->kwitansi_file);
+    return $this->download_file($path);
   }
   public function download_invoice()
   {
-    $file = Storage::disk("local")->path($this->order->invoice_file);
-    return response()->download($file);
+    $path = Storage::disk("local")->path($this->order->invoice_file);
+    return $this->download_file($path);
   }
   public function save()
   {

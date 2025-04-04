@@ -50,7 +50,6 @@
             <div class="col mb-3">
                 <label class="form-label">Nama File</label>
                 <input wire:model='filename' class="form-control @error('filename') is-invalid @enderror">
-
                 @error('filename')
                 <div class="invalid-feedback">{{ $message }}</div>
                 @enderror

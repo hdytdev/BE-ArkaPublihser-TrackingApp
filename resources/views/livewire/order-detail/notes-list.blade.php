@@ -11,51 +11,51 @@
                 <span class="visually-hidden">Loading...</span>
             </div>
             <div wire:loading.class='d-none' class="accordion mt-3" id="accordionExample">
-                @if ($notes && $notes->count() < 1)
-                    <p class="alert alert-info">
-                        Belum ada notes
+                @if ($notes && $notes->count() < 1) <p class="alert alert-info">
+                    Belum ada notes
                     </p>
-                @else
+                    @else
                     @foreach ($notes as $item)
-                        <div class="card accordion-item detail-order_accordion-item">
-                            <h2 class="accordion-header" id="headingTwo">
-                                <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse"
-                                    data-bs-target="#accordion-{{ $loop->iteration }}" aria-expanded="false"
-                                    aria-controls="accordionTwo">
-                                    {{ $item->createdAtFormated ?? '' }}
-                                </button>
-                            </h2>
-                            <div id="accordion-{{ $loop->iteration }}" class="accordion-collapse collapse"
-                                aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                                <div class="accordion-body journal-notes">
-                                    <div class="d-flex notes-item">
-                                        <h6>Progress:</h6>
-                                        <h6 style="color:{{ $item->orderStatus->color }}">
-                                            {{ $item->orderStatus->name }}
-                                        </h6>
-                                    </div>
-                                    <div class="d-flex notes-item">
-                                        <h6>Notes:</h6>
-                                        <p>{{ $item->note }}</p>
-                                    </div>
-                                    <span wire:loading wire:target="delete('{{ $item->id }}')">Deleting</span>
-                                    <div class="notes-control d-flex justify-content-end">
-                                        <button wire:click="edit('{{ $item->id }}')" data-bs-toggle="modal"
-                                            data-bs-target="#editNote" class="btn btn-edit text-primary d-flex items-center">
-                                            <i class='bx bx-edit-alt'></i>
-                                            <span>Edit</span>
-                                        </button>
-                                        <button wire:konfirmasi="apakah anda yakin" wire:click="delete('{{ $item->id }}')"
-                                            class="btn btn-delete text-danger d-flex items-center">
-                                            <i class='bx bx-trash'></i>
-                                            <span>Delete</span>
-                                        </button>
-                                    </div>
+                    <div class="card accordion-item detail-order_accordion-item">
+                        <h2 class="accordion-header" id="headingTwo">
+                            <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse"
+                                data-bs-target="#accordion-{{ $loop->iteration }}" aria-expanded="false"
+                                aria-controls="accordionTwo">
+                                {{ $item->createdAtFormated ?? '' }}
+                            </button>
+                        </h2>
+                        <div wire:ignore id="accordion-{{ $loop->iteration }}" class="accordion-collapse collapse"
+                            aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                            <div class="accordion-body journal-notes">
+                                <div class="d-flex notes-item">
+                                    <h6>Progress:</h6>
+                                    <h6 style="color:{{ $item->orderStatus->color }}">
+                                        {{ $item->orderStatus->name }}
+                                    </h6>
+                                </div>
+                                <div class="d-flex notes-item">
+                                    <h6>Notes:</h6>
+                                    <p>{{ $item->note }}</p>
+                                </div>
+                                <span wire:loading wire:target="delete('{{ $item->id }}')">Deleting</span>
+                                <div class="notes-control d-flex justify-content-end">
+                                    <button wire:click="edit('{{ $item->id }}')" data-bs-toggle="modal"
+                                        data-bs-target="#editNote"
+                                        class="btn btn-edit text-primary d-flex items-center">
+                                        <i class='bx bx-edit-alt'></i>
+                                        <span>Edit</span>
+                                    </button>
+                                    <button wire:konfirmasi="apakah anda yakin" wire:click="delete('{{ $item->id }}')"
+                                        class="btn btn-delete text-danger d-flex items-center">
+                                        <i class='bx bx-trash'></i>
+                                        <span>Delete</span>
+                                    </button>
                                 </div>
                             </div>
                         </div>
+                    </div>
                     @endforeach
-                @endif
+                    @endif
             </div>
             <div class="d-flex justify-content-end mt-3">
                 <button data-bs-toggle="modal" data-bs-target="#addNote"
@@ -83,7 +83,7 @@
                     aria-label="Default select example">
                     <option selected>Pilih status</option>
                     @foreach ($this->statusess as $status)
-                        <option value="{{ $status->id }}">{{ $status->name }}</option>
+                    <option value="{{ $status->id }}">{{ $status->name }}</option>
                     @endforeach
                 </select>
             </div>

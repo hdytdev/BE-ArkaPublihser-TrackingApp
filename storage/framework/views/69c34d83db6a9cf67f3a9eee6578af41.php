@@ -38,8 +38,14 @@ unset($__defined_vars); ?>
     <?php echo $__env->make('shared.layout-asset', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <?php echo \Livewire\Mechanisms\FrontendAssets\FrontendAssets::scriptConfig(); ?>
+
     <?php echo \Livewire\Mechanisms\FrontendAssets\FrontendAssets::styles(); ?>
 
+    <?php echo app('Illuminate\Foundation\Vite')([
+    'resources/js/app.js',
+    'resources/css/app.css'
+    ]); ?>
     <link data-navigate-track href="<?php echo e(asset('assets/css/select2.css')); ?>" rel="stylesheet" />
     <link data-navigate-track rel="stylesheet" href="<?php echo e(asset('assets/css/select2bs.css')); ?>">
 </head>
@@ -122,14 +128,14 @@ unset($__defined_vars); ?>
             <div class="content-wrapper">
                 <div class="container-xxl flex-grow-1 container-p-y">
                     <?php if($pageTitle): ?>
-                        <?php echo e($pageTitle); ?>
+                    <?php echo e($pageTitle); ?>
 
                     <?php else: ?>
-                        <?php if($title ?? false): ?>
-                            <div class="page-title py-2">
-                                <h4><?php echo e($title); ?></h4>
-                            </div>
-                        <?php endif; ?>
+                    <?php if($title ?? false): ?>
+                    <div class="page-title py-2">
+                        <h4><?php echo e($title); ?></h4>
+                    </div>
+                    <?php endif; ?>
                     <?php endif; ?>
                     <?php echo e($slot); ?>
 
@@ -167,69 +173,11 @@ unset($__defined_vars); ?>
 <?php $component = $__componentOriginal1b146e3afc1ef6b4e147d23ecf53ba8e; ?>
 <?php unset($__componentOriginal1b146e3afc1ef6b4e147d23ecf53ba8e); ?>
 <?php endif; ?>
-
     <?php echo $__env->make('shared.layout-js-assets', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
-    <?php echo \Livewire\Mechanisms\FrontendAssets\FrontendAssets::scripts(); ?>
-
     <script data-navigate-track src="<?php echo e(asset('assets/js/select-2.js')); ?>"></script>
 
     <script data-navigate-track>
-        Livewire.directive('konfirmasi', ({
-            el,
-            directive,
-            component,
-            cleanup
-        }) => {
-            let content = directive.expression;
-            async function confirmation(e) {
-                e.preventDefault()
-                e.stopImmediatePropagation()
-                $conf = await Swal.fire({
-                    showClass: {
-                        popup: `
-                        animate__animated
-                        animate__flipInX
-                        animate__faster
-                        `
-                    },
-                    allowOutsideClick: false,
-                    hideClass: {
-                        popup: `animate__animated animate__flipOutX animate__faster`
-                    },
-                    title: "Konfirmasi",
-                    text: content,
-                    icon: "question",
-                    showCancelButton: true,
-                    confirmButtonText: "Ya",
-                    cancelButtonText: "Tidak"
-                })
 
-                if ($conf.isConfirmed) {
-                    let WireCompoennt = Livewire.find(component.id)
-                    if (!WireCompoennt) {
-                        console.error("Livewire component not found!");
-                        return;
-                    }
-                    let methodWithParams = el.getAttribute("wire:click");
-                    let match = methodWithParams.match(/^([\w]+)\((.*)\)$/);
-                    if (match) {
-                        let method = match[1];
-                        let params = match[2].split(',').map(param => param.trim().replace(/['"]/g,
-                            '')); // Parsing parameter
-                        WireCompoennt.call(method, ...params);
-                    } else {
-                        WireCompoennt.call(methodWithParams);
-                    }
-                }
-
-            }
-            el.addEventListener('click', confirmation, {
-                capture: true
-            });
-            cleanup(() => {
-                el.removeEventListener("click", confirmation)
-            })
-        })
     </script>
 </body>
 

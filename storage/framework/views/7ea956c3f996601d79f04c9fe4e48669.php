@@ -11,53 +11,53 @@
                 <span class="visually-hidden">Loading...</span>
             </div>
             <div wire:loading.class='d-none' class="accordion mt-3" id="accordionExample">
-                <!--[if BLOCK]><![endif]--><?php if($notes && $notes->count() < 1): ?>
-                    <p class="alert alert-info">
-                        Belum ada notes
+                <!--[if BLOCK]><![endif]--><?php if($notes && $notes->count() < 1): ?> <p class="alert alert-info">
+                    Belum ada notes
                     </p>
-                <?php else: ?>
+                    <?php else: ?>
                     <!--[if BLOCK]><![endif]--><?php $__currentLoopData = $notes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                        <div class="card accordion-item detail-order_accordion-item">
-                            <h2 class="accordion-header" id="headingTwo">
-                                <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse"
-                                    data-bs-target="#accordion-<?php echo e($loop->iteration); ?>" aria-expanded="false"
-                                    aria-controls="accordionTwo">
-                                    <?php echo e($item->createdAtFormated ?? ''); ?>
+                    <div class="card accordion-item detail-order_accordion-item">
+                        <h2 class="accordion-header" id="headingTwo">
+                            <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse"
+                                data-bs-target="#accordion-<?php echo e($loop->iteration); ?>" aria-expanded="false"
+                                aria-controls="accordionTwo">
+                                <?php echo e($item->createdAtFormated ?? ''); ?>
 
-                                </button>
-                            </h2>
-                            <div id="accordion-<?php echo e($loop->iteration); ?>" class="accordion-collapse collapse"
-                                aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                                <div class="accordion-body journal-notes">
-                                    <div class="d-flex notes-item">
-                                        <h6>Progress:</h6>
-                                        <h6 style="color:<?php echo e($item->orderStatus->color); ?>">
-                                            <?php echo e($item->orderStatus->name); ?>
+                            </button>
+                        </h2>
+                        <div wire:ignore id="accordion-<?php echo e($loop->iteration); ?>" class="accordion-collapse collapse"
+                            aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                            <div class="accordion-body journal-notes">
+                                <div class="d-flex notes-item">
+                                    <h6>Progress:</h6>
+                                    <h6 style="color:<?php echo e($item->orderStatus->color); ?>">
+                                        <?php echo e($item->orderStatus->name); ?>
 
-                                        </h6>
-                                    </div>
-                                    <div class="d-flex notes-item">
-                                        <h6>Notes:</h6>
-                                        <p><?php echo e($item->note); ?></p>
-                                    </div>
-                                    <span wire:loading wire:target="delete('<?php echo e($item->id); ?>')">Deleting</span>
-                                    <div class="notes-control d-flex justify-content-end">
-                                        <button wire:click="edit('<?php echo e($item->id); ?>')" data-bs-toggle="modal"
-                                            data-bs-target="#editNote" class="btn btn-edit text-primary d-flex items-center">
-                                            <i class='bx bx-edit-alt'></i>
-                                            <span>Edit</span>
-                                        </button>
-                                        <button wire:konfirmasi="apakah anda yakin" wire:click="delete('<?php echo e($item->id); ?>')"
-                                            class="btn btn-delete text-danger d-flex items-center">
-                                            <i class='bx bx-trash'></i>
-                                            <span>Delete</span>
-                                        </button>
-                                    </div>
+                                    </h6>
+                                </div>
+                                <div class="d-flex notes-item">
+                                    <h6>Notes:</h6>
+                                    <p><?php echo e($item->note); ?></p>
+                                </div>
+                                <span wire:loading wire:target="delete('<?php echo e($item->id); ?>')">Deleting</span>
+                                <div class="notes-control d-flex justify-content-end">
+                                    <button wire:click="edit('<?php echo e($item->id); ?>')" data-bs-toggle="modal"
+                                        data-bs-target="#editNote"
+                                        class="btn btn-edit text-primary d-flex items-center">
+                                        <i class='bx bx-edit-alt'></i>
+                                        <span>Edit</span>
+                                    </button>
+                                    <button wire:konfirmasi="apakah anda yakin" wire:click="delete('<?php echo e($item->id); ?>')"
+                                        class="btn btn-delete text-danger d-flex items-center">
+                                        <i class='bx bx-trash'></i>
+                                        <span>Delete</span>
+                                    </button>
                                 </div>
                             </div>
                         </div>
+                    </div>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><!--[if ENDBLOCK]><![endif]-->
-                <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
+                    <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
             </div>
             <div class="d-flex justify-content-end mt-3">
                 <button data-bs-toggle="modal" data-bs-target="#addNote"
@@ -94,7 +94,7 @@
                     aria-label="Default select example">
                     <option selected>Pilih status</option>
                     <!--[if BLOCK]><![endif]--><?php $__currentLoopData = $this->statusess; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $status): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                        <option value="<?php echo e($status->id); ?>"><?php echo e($status->name); ?></option>
+                    <option value="<?php echo e($status->id); ?>"><?php echo e($status->name); ?></option>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><!--[if ENDBLOCK]><![endif]-->
                 </select>
             </div>

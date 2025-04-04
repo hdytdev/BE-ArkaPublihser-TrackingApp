@@ -13,7 +13,7 @@ class AppLayout extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct(string $pageTitle = null, string $title = null)
+    public function __construct(?string $pageTitle = null, ?string $title = null)
     {
         $this->title = $title ? $title . " " . config('app.name') : config('app.name');
         $this->pageTitle = $pageTitle;
