@@ -2,30 +2,29 @@
   <div class="row mb-3">
     <div class="col-lg-12 col-md-4">
       <div class="card p-4">
-        <form action="" class="all-order_form-search d-flex w-100">
+        <form wire:submit.prevent='filter' action="" class="all-order_form-search d-flex w-100">
           <div class="search-bar">
             <div>
               <h6 class="mb-2">Nyari apa gaiss?</h6>
-              <input type="text" class="form-control" placeholder="Cari Order">
+              <input wire:model='byName' type="text" class="form-control" placeholder="Cari Order">
             </div>
           </div>
           <div class="search-controller d-flex">
             <div class="w-100">
               <h6 class="mb-2">Status Publikasi</h6>
-              <select class="form-select" id="inputGroupSelect01">
+              <select wire:model='publication_status' class="form-select" id="inputGroupSelect01">
                 <option selected>Choose...</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
+                <!--[if BLOCK]><![endif]--><?php $__currentLoopData = $status; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <option value="<?php echo e($item->id); ?>"><?php echo e($item->name); ?></option>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><!--[if ENDBLOCK]><![endif]-->
               </select>
             </div>
             <div class="w-100">
               <h6 class="mb-2">Status Pembayaran</h6>
-              <select class="form-select" id="inputGroupSelect01">
+              <select wire:model='status_pembayaran' class="form-select" id="inputGroupSelect01">
                 <option selected>Choose...</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
+                <option value="1">PAID</option>
+                <option value="0">UNPAID</option>
               </select>
             </div>
             <div class="d-flex flex-direction-end align-items-end">
@@ -44,10 +43,16 @@
         <div class="card-header d-flex justify-content-between">
           <h5 class="mb-0">Daftar Order</h5>
           <div class="d-flex order-controller">
-            <form action="" class="d-flex h-fit month-filter">
-              <input type="month" class="form-control h-fit">
+            <form wire:submit.prevent="filter" class="d-flex h-fit month-filter gap-2">
+              <input type="month" class="form-control h-fit" wire:model="month">
               <button type="submit" class="btn btn-primary h-fit text-nowrap">Filter by Month</button>
+              <!--[if BLOCK]><![endif]--><?php if($month): ?>
+              <button type="button" class="btn btn-outline-secondary ms-2"
+                wire:click="$set('month', null)">Reset</button>
+              <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
+
             </form>
+
           </div>
         </div>
         <div class="table-responsive text-nowrap">
