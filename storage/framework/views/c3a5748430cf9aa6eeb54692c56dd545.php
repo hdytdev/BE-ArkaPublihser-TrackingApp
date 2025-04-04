@@ -77,7 +77,7 @@
                                 <td><?php echo e($item->institution->name); ?></td>
                                 <td><?php echo e($item->position?->name); ?></td>
                                 <td class="text-center">
-                                    <span class="badge bg-primary"><?php echo e(12); ?></span>
+                                    <span class="badge bg-primary"><?php echo e($item->order_count ?? 0); ?></span>
                                 </td>
                                 <td>
                                     <div class="dropdown">

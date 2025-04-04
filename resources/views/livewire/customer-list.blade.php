@@ -76,7 +76,7 @@
                                 <td>{{ $item->institution->name }}</td>
                                 <td>{{ $item->position?->name }}</td>
                                 <td class="text-center">
-                                    <span class="badge bg-primary">{{ 12 }}</span>
+                                    <span class="badge bg-primary">{{ $item->order_count ?? 0 }}</span>
                                 </td>
                                 <td>
                                     <div class="dropdown">

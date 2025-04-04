@@ -17,7 +17,7 @@
                     <?php else: ?>
                     <!--[if BLOCK]><![endif]--><?php $__currentLoopData = $notes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <div class="card accordion-item detail-order_accordion-item">
-                        <h2 class="accordion-header" id="headingTwo">
+                        <h2 class="accordion-header" id="<?php echo e($loop->iteration); ?>-<?php echo e($item->id); ?>">
                             <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse"
                                 data-bs-target="#accordion-<?php echo e($loop->iteration); ?>" aria-expanded="false"
                                 aria-controls="accordionTwo">
@@ -25,8 +25,8 @@
 
                             </button>
                         </h2>
-                        <div wire:ignore id="accordion-<?php echo e($loop->iteration); ?>" class="accordion-collapse collapse"
-                            aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                        <div wire:ignore.self id="accordion-<?php echo e($loop->iteration); ?>" class="accordion-collapse collapse"
+                            aria-labelledby="<?php echo e($loop->iteration); ?>-<?php echo e($item->id); ?>" data-bs-parent="#accordionExample">
                             <div class="accordion-body journal-notes">
                                 <div class="d-flex notes-item">
                                     <h6>Progress:</h6>

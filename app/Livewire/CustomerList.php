@@ -33,14 +33,17 @@ class CustomerList extends Component
   {
     $customer = Customer::with([
       'institution',
-      'position'
-    ])
+      'position',
+      'order',
+    ])->withCount('order')
       ->whereHas('institution', function ($query) {
         $query->orWhere('name', 'like', "%{$this->searchQuery}%");
       })
       ->where(function ($query) {
         $query->orWhere('name', 'like', "%{$this->searchQuery}%");
       })->paginate(19);
+
+
     return $customer;
   }
   public function resetCache()

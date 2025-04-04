@@ -4,6 +4,7 @@ namespace App\Livewire\OrderDetail;
 
 use App\Models\OrderNotes;
 use App\Models\OrderStatus;
+use Jantinnerezo\LivewireAlert\Facades\LivewireAlert;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Locked;
 use Livewire\Attributes\Rule;
@@ -34,7 +35,6 @@ class NotesList extends Component
   {
     $this->validate();
 
-
     $data = [
       'order_id' => $this->order_id,
       'time' => now(),
@@ -44,8 +44,10 @@ class NotesList extends Component
 
     if ($this->on_editable) {
       $note = OrderNotes::find($this->on_editable);
+      LivewireAlert::success()->title("Berhasil")->text("Note berhasil di perbaharui!")->show();
       $note?->update($data);
     } else {
+      LivewireAlert::success()->title("Berhasil")->text("Note berhasil di tambahkan!")->show();
       OrderNotes::create($data);
     }
     $this->dispatch(event: "modal_close");
