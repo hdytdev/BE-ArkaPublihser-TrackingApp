@@ -24,9 +24,7 @@
                             <span class="visually-hidden">Loading...</span>
                         </div>
                     </button>
-                    <button data-bs-toggle="modal" data-bs-target="#editFile" class="file-download">
-                        <i class='bx bx-edit-alt'></i>
-                    </button>
+                    
                     <button wire:konfirmasi wire:click="delete('<?php echo e($file->id); ?>')" data-bs-toggle="modal"
                         data-bs-target="#deleteFile" href="" class="file-delete">
                         <i class='bx bx-trash'></i>

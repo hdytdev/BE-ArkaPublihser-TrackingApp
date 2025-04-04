@@ -79,23 +79,23 @@
                     </div>
                 </li>
                 @foreach ($order->termin as $termin)
-                    <li class="d-flex align-items-start">
-                        <div class="journal_info-title">
-                            <h6 class="mb-0">Termin {{ $termin->term }}</h6>
-                            <p class="mb-0">:</p>
-                        </div>
-                        <div class="journal_info-info">
-                            @if ($termin->is_paid)
-                                <h6 class="mb-0 text-success">
-                                    PAID
-                                </h6>
-                            @else
-                                <h6 class="mb-0 text-danger">
-                                    UNPAID
-                                </h6>
-                            @endif
-                        </div>
-                    </li>
+                <li class="d-flex align-items-start">
+                    <div class="journal_info-title">
+                        <h6 class="mb-0">Termin {{ $termin->term }}</h6>
+                        <p class="mb-0">:</p>
+                    </div>
+                    <div class="journal_info-info">
+                        @if ($termin->is_paid)
+                        <h6 class="mb-0 text-success">
+                            PAID
+                        </h6>
+                        @else
+                        <h6 class="mb-0 text-danger">
+                            UNPAID
+                        </h6>
+                        @endif
+                    </div>
+                </li>
                 @endforeach
             </ul>
             <div class="separator stretched-dashed"></div>
@@ -129,17 +129,20 @@
                 <div class="modal-body">
                     <div class="row g-2">
                         @foreach ($order->termin as $item)
-                            <div class="col mb-3">
-                                <label for="nameBasic" class="form-label">Status Termin {{$item->term}}</label>
-                                <select wire:model.lazy="termins.{{$item->id}}" class="form-select"
-                                    id="exampleFormControlSelect1" aria-label="Default select example">
-                                    <option>Choose Option...</option>
-                                    <option {{ $termins[$item->id] == 1 ? 'selected' : '' }} value="1">PAID</option>
-                                    <option {{ $termins[$item->id] == 0 ? 'selected' : '' }} value="0">UNPAID</option>
-                                </select>
+                        <div class="col mb-3">
+                            <label for="select-{{ $item->id }}" class="form-label">Status Termin
+                                {{$item->term}}</label>
+                            <select wire:model="termins.{{$item->id}}" class="form-select" id="select-{{ $item->id }}"
+                                aria-label="Default select example">
+                                <option>Choose Option...</option>
+                                <option @selected($item->is_paid) value="1">PAID</option>
+                                <option @selected($item->is_paid) value="0">UNPAID</option>
+                            </select>
+                            <div class="form-text">
+                                {{ $item->is_paid ? "PAID" : "UNPAID" }}
                             </div>
+                        </div>
                         @endforeach
-
                     </div>
                     <div class="row g-2">
                         <div class="col-md-6" x-data="{ uploading: false, progress: 0 }"

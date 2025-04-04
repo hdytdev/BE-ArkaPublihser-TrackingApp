@@ -4,7 +4,8 @@ namespace App\Livewire\OrderDetail;
 
 use App\Models\Order;
 use App\Models\OrderTermin;
-use DB;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Jantinnerezo\LivewireAlert\Facades\LivewireAlert;
 use Livewire\Attributes\Locked;
@@ -52,10 +53,21 @@ class OrderInformation extends Component
   public function save()
   {
     $this->validate();
+
     DB::transaction(function () {
       if ($this->kwitansi || $this->invoices) {
         $kwitansi = $this->kwitansi->store('order/kwitansi', 'local');
         $invoices = $this->invoices->store('order/invoices', 'local');
+
+        $old_invoices = Storage::disk('local')->path($this->order->invoice_file);
+        $old_kwitansi_file = Storage::disk('local')->path($this->order->kwitansi_file);
+
+        if (file_exists($old_invoices) || file_exists($old_kwitansi_file)) {
+          File::delete($old_invoices);
+          File::delete($old_kwitansi_file);
+
+        }
+
         $this->order->update([
           'payment_link' => $this->payment_link,
           'invoice_file' => $invoices,

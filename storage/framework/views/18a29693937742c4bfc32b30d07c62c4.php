@@ -83,23 +83,23 @@
                     </div>
                 </li>
                 <!--[if BLOCK]><![endif]--><?php $__currentLoopData = $order->termin; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $termin): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                    <li class="d-flex align-items-start">
-                        <div class="journal_info-title">
-                            <h6 class="mb-0">Termin <?php echo e($termin->term); ?></h6>
-                            <p class="mb-0">:</p>
-                        </div>
-                        <div class="journal_info-info">
-                            <!--[if BLOCK]><![endif]--><?php if($termin->is_paid): ?>
-                                <h6 class="mb-0 text-success">
-                                    PAID
-                                </h6>
-                            <?php else: ?>
-                                <h6 class="mb-0 text-danger">
-                                    UNPAID
-                                </h6>
-                            <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
-                        </div>
-                    </li>
+                <li class="d-flex align-items-start">
+                    <div class="journal_info-title">
+                        <h6 class="mb-0">Termin <?php echo e($termin->term); ?></h6>
+                        <p class="mb-0">:</p>
+                    </div>
+                    <div class="journal_info-info">
+                        <!--[if BLOCK]><![endif]--><?php if($termin->is_paid): ?>
+                        <h6 class="mb-0 text-success">
+                            PAID
+                        </h6>
+                        <?php else: ?>
+                        <h6 class="mb-0 text-danger">
+                            UNPAID
+                        </h6>
+                        <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
+                    </div>
+                </li>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><!--[if ENDBLOCK]><![endif]-->
             </ul>
             <div class="separator stretched-dashed"></div>
@@ -133,17 +133,21 @@
                 <div class="modal-body">
                     <div class="row g-2">
                         <!--[if BLOCK]><![endif]--><?php $__currentLoopData = $order->termin; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                            <div class="col mb-3">
-                                <label for="nameBasic" class="form-label">Status Termin <?php echo e($item->term); ?></label>
-                                <select wire:model.lazy="termins.<?php echo e($item->id); ?>" class="form-select"
-                                    id="exampleFormControlSelect1" aria-label="Default select example">
-                                    <option>Choose Option...</option>
-                                    <option <?php echo e($termins[$item->id] == 1 ? 'selected' : ''); ?> value="1">PAID</option>
-                                    <option <?php echo e($termins[$item->id] == 0 ? 'selected' : ''); ?> value="0">UNPAID</option>
-                                </select>
-                            </div>
-                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><!--[if ENDBLOCK]><![endif]-->
+                        <div class="col mb-3">
+                            <label for="select-<?php echo e($item->id); ?>" class="form-label">Status Termin
+                                <?php echo e($item->term); ?></label>
+                            <select wire:model="termins.<?php echo e($item->id); ?>" class="form-select" id="select-<?php echo e($item->id); ?>"
+                                aria-label="Default select example">
+                                <option>Choose Option...</option>
+                                <option <?php if($item->is_paid): echo 'selected'; endif; ?> value="1">PAID</option>
+                                <option <?php if($item->is_paid): echo 'selected'; endif; ?> value="0">UNPAID</option>
+                            </select>
+                            <div class="form-text">
+                                <?php echo e($item->is_paid ? "PAID" : "UNPAID"); ?>
 
+                            </div>
+                        </div>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><!--[if ENDBLOCK]><![endif]-->
                     </div>
                     <div class="row g-2">
                         <div class="col-md-6" x-data="{ uploading: false, progress: 0 }"

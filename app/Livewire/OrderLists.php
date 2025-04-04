@@ -2,7 +2,9 @@
 
 namespace App\Livewire;
 
+use App\Models\Article;
 use App\Models\Order;
+use Jantinnerezo\LivewireAlert\Facades\LivewireAlert;
 use Livewire\Component;
 
 class OrderLists extends Component
@@ -15,6 +17,29 @@ class OrderLists extends Component
       'termin',
       'notes'
     ])->paginate(10);
+  }
+  public function delete(string $id)
+  {
+    $order = Order::find($id);
+    if (!$order) {
+      LivewireAlert::title("Gagal")->text("Order data tidak ditemukan")->warning()->show();
+    } else {
+      if ($order->article()->exists()) {
+        return LivewireAlert::title("Gagal")->text("Tidak bisa hapus data ini karena ada tabel lain yang nge relasi.")->warning()->withCancelButton("Jangan deh")->onConfirm("forceDelete", [
+          'id' => $order->id,
+        ])->withConfirmButton("Hapus Aja")->show();
+      }
+      if ($order->delete()) {
+        LivewireAlert::title("Berhasil")->text("Order berhasil di hapus")->success()->show();
+      }
+    }
+  }
+  public function forceDelete($data)
+  {
+    $order = Order::find($data['id']);
+    if ($order) {
+      $order->delete();
+    }
   }
   public function render()
   {
