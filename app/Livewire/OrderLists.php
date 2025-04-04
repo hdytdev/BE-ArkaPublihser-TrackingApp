@@ -9,6 +9,10 @@ use Livewire\Component;
 
 class OrderLists extends Component
 {
+  /**
+   * Summary of getOrders
+   * @return \Illuminate\Pagination\LengthAwarePaginator
+   */
   public function getOrders()
   {
     return Order::select("*")->with([
@@ -18,6 +22,10 @@ class OrderLists extends Component
       'notes'
     ])->paginate(10);
   }
+  /**
+   * Summary of delete
+   * @param string $id
+   */
   public function delete(string $id)
   {
     $order = Order::find($id);
@@ -34,6 +42,11 @@ class OrderLists extends Component
       }
     }
   }
+  /**
+   * Summary of forceDelete
+   * @param mixed $data
+   * @return void
+   */
   public function forceDelete($data)
   {
     $order = Order::find($data['id']);
@@ -41,6 +54,10 @@ class OrderLists extends Component
       $order->delete();
     }
   }
+  /**
+   * Summary of render
+   * @return \Illuminate\Contracts\View\View
+   */
   public function render()
   {
     return view('livewire.order-lists', [
