@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Institution;
+use App\Models\Position;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,12 +19,12 @@ class CustomerFactory extends Factory
     public function definition(): array
     {
         return [
-            'customer_id' => strtoupper("C".rand()),
+            'customer_id' => strtoupper("C" . rand()),
             'name' => fake()->name,
             'email' => fake()->safeEmail(),
             'phone_number' => fake()->phoneNumber(),
+            'position_id' => Position::inRandomOrder()->first()->id,
             'regional_origin' => fake()->streetAddress(),
-            'position' => fake()->companySuffix(),
             'institution_id' => Institution::inRandomOrder()->first()->id,
         ];
     }

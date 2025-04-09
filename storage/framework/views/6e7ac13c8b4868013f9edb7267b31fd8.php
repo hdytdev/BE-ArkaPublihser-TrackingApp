@@ -279,14 +279,14 @@
 <?php endif; ?>
 <?php if (isset($component)) { $__componentOriginal53d595a95a61fd6b7162a9a817bc0539 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal53d595a95a61fd6b7162a9a817bc0539 = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.layouts.nav-link','data' => ['icon' => ' tf-icons bx bx-user','link' => '']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.layouts.nav-link','data' => ['icon' => ' tf-icons bx bx-user','link' => ''.e(route('admin.user')).'']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('layouts.nav-link'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['icon' => ' tf-icons bx bx-user','link' => '']); ?>User Management <?php echo $__env->renderComponent(); ?>
+<?php $component->withAttributes(['icon' => ' tf-icons bx bx-user','link' => ''.e(route('admin.user')).'']); ?>User Management <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginal53d595a95a61fd6b7162a9a817bc0539)): ?>
 <?php $attributes = $__attributesOriginal53d595a95a61fd6b7162a9a817bc0539; ?>

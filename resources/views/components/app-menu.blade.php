@@ -25,5 +25,5 @@
 </x-layouts.menu-dropdown>
 <!-- Misc -->
 <x-menu-header>Manage Admin</x-menu-header>
-<x-layouts.nav-link icon=" tf-icons bx bx-user" link="">User Management</x-layouts.nav-link>
+<x-layouts.nav-link icon=" tf-icons bx bx-user" link="{{ route('admin.user') }}">User Management</x-layouts.nav-link>
 <x-layouts.nav-link icon=" tf-icons bx bx-cog" link="">Pengaturan</x-layouts.nav-link>
