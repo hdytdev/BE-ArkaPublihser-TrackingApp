@@ -30,7 +30,7 @@
                         <tr>
                             <td><?php echo e($loop->index+1); ?></td>
                             <td><?php echo e($item->name); ?></td>
-                            <td><?php echo e($item->role); ?></td>
+                            <td><?php echo e($item->email); ?></td>
                             <td><?php echo e($item->role); ?></td>
                             <td>
                                 <!--[if BLOCK]><![endif]--><?php if($item->active): ?>

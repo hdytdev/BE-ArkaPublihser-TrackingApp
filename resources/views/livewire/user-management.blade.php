@@ -30,7 +30,7 @@
                         <tr>
                             <td>{{ $loop->index+1 }}</td>
                             <td>{{ $item->name }}</td>
-                            <td>{{ $item->role }}</td>
+                            <td>{{ $item->email }}</td>
                             <td>{{ $item->role }}</td>
                             <td>
                                 @if ($item->active)
