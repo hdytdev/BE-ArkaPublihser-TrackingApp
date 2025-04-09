@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Livewire;
-
 use App\Models\Article;
 use App\Models\FileHistory;
 use App\Models\Order;
@@ -104,6 +103,7 @@ class FormOrder extends Component
         'order_status_id' => $this->getFirstOrderStatus(),
         'note' => "Order sedang di verifikasi dan di validatsi oleh tim",
         'order_id' => $order->id,
+        'time' => now(),
       ]);
       return $order;
 
