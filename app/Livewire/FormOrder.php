@@ -57,7 +57,10 @@ class FormOrder extends Component
   {
     $validated = $this->validate();
     $createOrder = DB::transaction(function () {
-      $orderNumber = Str::upper(Str::uuid());
+      $lastOrder = Order::latest('id')->first();
+      $lastOrderNumber = $lastOrder ? intval(substr($lastOrder->order_number, -6)) : 0;
+      $newOrderNumber = str_pad($lastOrderNumber + 1, 6, '0', STR_PAD_LEFT);
+      $orderNumber = 'TRX-' . date('Y') . '-' . $newOrderNumber;
       $order = Order::create([
         'order_number' => $orderNumber,
         'package' => $this->package,
