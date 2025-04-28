@@ -53,38 +53,42 @@ class OrderInformation extends Component
   public function save()
   {
     $this->validate();
-
     DB::transaction(function () {
-      if ($this->kwitansi || $this->invoices) {
+      $kwitansi = null;
+      $invoices = null;
+      if ($this->kwitansi) {
         $kwitansi = $this->kwitansi->store('order/kwitansi', 'local');
-        $invoices = $this->invoices->store('order/invoices', 'local');
-
-        $old_invoices = Storage::disk('local')->path($this->order->invoice_file);
-        $old_kwitansi_file = Storage::disk('local')->path($this->order->kwitansi_file);
-
-        if (file_exists($old_invoices) || file_exists($old_kwitansi_file)) {
-          File::delete($old_invoices);
-          File::delete($old_kwitansi_file);
-
+        if ($this->order->invoice_file) {
+          $old_invoices = Storage::disk('local')->path($this->order->invoice_file);
+          if (file_exists($old_invoices)) {
+            File::delete($old_invoices);
+          }
         }
-
-        $this->order->update([
-          'payment_link' => $this->payment_link,
-          'invoice_file' => $invoices,
-          'kwitansi_file' => $kwitansi
-        ]);
       }
-      //save to termin order
-      foreach ($this->termins as $key => $value) {
-        OrderTermin::find($key)->update([
-          'is_paid' => $value
-        ]);
+      if ($this->invoices) {
+        $invoices = $this->invoices->store('order/invoices', 'local');
+        if ($this->order->kwitansi_file) {
+          $old_kwitansi_file = Storage::disk('local')->path($this->order->kwitansi_file);
+          if (file_exists($old_kwitansi_file)) {
+            File::delete($old_kwitansi_file);
+          }
+        }
       }
-      $this->dispatch("hide_modal");
-      $this->resetValidation();
+      $this->order->update([
+        'payment_link' => $this->payment_link,
+        'invoice_file' => $invoices,
+        'kwitansi_file' => $kwitansi
+      ]);
     });
-
-
+    //save to termin order
+    foreach ($this->termins as $key => $value) {
+      OrderTermin::find($key)->update([
+        'is_paid' => $value
+      ]);
+    }
+    $this->dispatch("hide_modal");
+    $this->resetValidation();
+    LivewireAlert::title("Berhasil")->text("Berhasil mengupdate data")->success()->show();
   }
 
   public function mount()
