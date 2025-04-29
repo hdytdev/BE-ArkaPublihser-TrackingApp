@@ -1,22 +1,29 @@
 <?php
 
 namespace App\Livewire;
+
 use App\Models\Article;
+use App\Models\Customer;
 use App\Models\FileHistory;
+use App\Models\Journal;
 use App\Models\Order;
 use App\Models\OrderNotes;
 use App\Models\OrderStatus;
 use App\Models\OrderTermin;
 use DB;
-use Illuminate\Support\Str;
-use Livewire\Attributes\Rule;
-use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-#[Title("New Order")]
+use Livewire\Attributes\Rule;
+use Livewire\Attributes\Title;
+
+#[Title("Form Order")]
 class FormOrder extends Component
 {
   use WithFileUploads;
+  public $customers;
+  public $journals;
+  public $order_id = null;
+
   #[Rule("required|string")]
   public $journal_id;
   #[Rule("required|string")]
@@ -31,7 +38,7 @@ class FormOrder extends Component
   public $publish_date;
   #[Rule("required|string")]
   public $estimated_publish_date;
-  #[Rule("required|file|extensions:pdf,docx,doc|max:30720")]
+  #[Rule("nullable|file|extensions:pdf,docx,doc|max:30720")]
   public $article_file;
   #[Rule("required|string")]
   public $package;
@@ -40,8 +47,25 @@ class FormOrder extends Component
   #[Rule("required|string")]
   public $submission_date;
 
-  protected function createOrder()
+  public function mount($order_id = null)
   {
+    $this->order_id = $order_id;
+    $this->customers = Customer::all();
+    $this->journals = Journal::all();
+    if ($order_id) {
+      $order = Order::with('article')->findOrFail($order_id);
+      $article = $order->article;
+
+      $this->journal_id = $article->journal_id;
+      $this->customer_id = $order->customer_id;
+      $this->title = $article->title;
+      $this->publish_link = $article->article_link;
+      $this->authors = $article->authors;
+      $this->publish_date = $article->publish_date;
+      $this->estimated_publish_date = $article->estimated_publish_date;
+      $this->package = $order->package;
+      $this->submission_date = $article->submit_date;
+    }
   }
 
   public function uploadArticle()
@@ -53,14 +77,17 @@ class FormOrder extends Component
   {
     return OrderStatus::where('name', 'Verification')->limit(1)->first()->id;
   }
-  public function cek()
+
+  public function createOrder()
   {
-    $validated = $this->validate();
-    $createOrder = DB::transaction(function () {
+    $this->validate();
+
+    $order = DB::transaction(function () {
       $lastOrder = Order::latest('id')->first();
       $lastOrderNumber = $lastOrder ? intval(substr($lastOrder->order_number, -6)) : 0;
       $newOrderNumber = str_pad($lastOrderNumber + 1, 6, '0', STR_PAD_LEFT);
       $orderNumber = 'TRX-' . date('Y') . '-' . $newOrderNumber;
+
       $order = Order::create([
         'order_number' => $orderNumber,
         'package' => $this->package,
@@ -69,16 +96,15 @@ class FormOrder extends Component
         'total_termin' => 3,
       ]);
 
-
       foreach (range(1, 3) as $term) {
-        $tr = OrderTermin::create([
+        OrderTermin::create([
           'order_id' => $order->id,
           'term' => $term,
           'is_paid' => false,
         ]);
       }
 
-      $loaa_file = "loca.pdf";
+      $loa_file_name = $this->loa_file ? $this->loa_file->storePublicly('order/loa', 'public') : null;
 
       $article = Article::create([
         'journal_id' => $this->journal_id,
@@ -88,11 +114,9 @@ class FormOrder extends Component
         'authors' => $this->authors,
         'publish_date' => $this->publish_date,
         'estimated_publish_date' => $this->estimated_publish_date,
-        'loa_file' => $loaa_file,
+        'loa_file' => $loa_file_name,
         'submit_date' => $this->submission_date,
       ]);
-
-      //save article
 
       FileHistory::create([
         'article_id' => $article->id,
@@ -101,25 +125,65 @@ class FormOrder extends Component
         'name' => "Naskah Awal"
       ]);
 
-      //insert order status
       OrderNotes::create([
         'order_status_id' => $this->getFirstOrderStatus(),
-        'note' => "Order sedang di verifikasi dan di validatsi oleh tim",
+        'note' => "Order sedang diverifikasi oleh tim",
         'order_id' => $order->id,
         'time' => now(),
       ]);
+
       return $order;
-
-
     });
 
-    if ($createOrder) {
-      return redirect()->route('admin.order.detail', [
-        'order_id' => $createOrder->id,
-      ]);
-    }
-
+    return redirect()->route('admin.order.detail', ['order_id' => $order->id]);
   }
+
+  public function updateOrder()
+  {
+    $this->validate();
+
+    DB::transaction(function () {
+      $order = Order::findOrFail($this->order_id);
+      $article = $order->article;
+
+      $order->update([
+        'package' => $this->package,
+        'customer_id' => $this->customer_id,
+      ]);
+
+      $article->update([
+        'journal_id' => $this->journal_id,
+        'title' => $this->title,
+        'article_link' => $this->publish_link,
+        'authors' => $this->authors,
+        'publish_date' => $this->publish_date,
+        'estimated_publish_date' => $this->estimated_publish_date,
+        'submit_date' => $this->submission_date,
+      ]);
+
+      if ($this->article_file) {
+        FileHistory::create([
+          'article_id' => $article->id,
+          'file_url' => $this->uploadArticle(),
+          'customer_file' => true,
+          'name' => "Revisi Naskah"
+        ]);
+      }
+    });
+
+    session()->flash('success', 'Order berhasil diperbarui.');
+    return redirect()->route('admin.order.detail', ['order_id' => $this->order_id]);
+  }
+
+  public function submit()
+  {
+    if ($this->order_id) {
+      $this->updateOrder();
+    } else {
+      $this->createOrder();
+    }
+  }
+
   public function render()
   {
     return view('livewire.form-order');

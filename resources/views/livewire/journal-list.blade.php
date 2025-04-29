@@ -27,8 +27,7 @@
                                 <th>Kategori</th>
                                 <th>Link Jurnal</th>
                                 <th>Akreditasi</th>
-                                <th>Focus</th>
-                                <th>Scope</th>
+                                <th>Focus And Scope</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -46,11 +45,10 @@
                                         <td>{{ $item->category }}</td>
                                         <td>{{ $item->journal_link }}</td>
                                         <td>{{ $item->accreditation }}</td>
-                                        <td>{{ $item->focus }}</td>
-                                        <td>{{ $item->scope }}</td>
+                                        <td>{{ $item->total_termin }}</td>
                                         <th>
-                                            <button wire:click="delete('{{ $item->id }}')"
-                                                wire:konfirmasi="Apakah anda yakin?" class="btn btn-sm btn-danger">
+                                            <button wire:click="delete('{{ $item->id }}')" wire:konfirmasi="Apakah anda yakin?"
+                                                class="btn btn-sm btn-danger">
                                                 Hapus
                                             </button>
                                             <a wire:navigate href="{{ route('admin.journal.edit', ['id' => $item->id]) }}"
@@ -61,23 +59,23 @@
                                     </tr>
                                 @endforeach
                             @else
-                                <tr>
-                                    <td class="text-center" colspan="10">Tidak ada data</td>
-                                </tr>
+                            <tr>
+                                <td class="text-center" colspan="10">Tidak ada data</td>
+                            </tr>
                             @endempty
-                    </tbody>
-                </table>
-            </div>
-            <div class="all-order_card-footer">
+                        </tbody>
+                    </table>
+                </div>
+                <div class="all-order_card-footer">
 
-                @if ($journals)
-                    {{ $journals->links('livewire::bootstrap') }}
-                @endif
+                    @if ($journals)
+                        {{ $journals->links('livewire::bootstrap') }}
+                    @endif
 
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 
 </div>

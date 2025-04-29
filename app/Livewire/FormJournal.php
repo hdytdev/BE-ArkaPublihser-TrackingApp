@@ -22,9 +22,7 @@ class FormJournal extends Component
   #[Rule("required|string")]
   public string $category;
   #[Rule("required|string")]
-  public string $focus;
-  #[Rule("required|string")]
-  public string $scope;
+  public string $focus_and_scope;
   #[Rule("required|string")]
   public string $index;
   #[Rule("required|string")]

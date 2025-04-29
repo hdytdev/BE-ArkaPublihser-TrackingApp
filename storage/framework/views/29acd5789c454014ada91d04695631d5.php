@@ -20,7 +20,7 @@
                     </div>
 
                     <div class="journal_info-info">
-                        <h6 class="mb-0">{{ $order->order_number }}</h6>
+                        <h6 class="mb-0"><?php echo e($order->order_number); ?></h6>
                     </div>
                 </li>
                 <li class="d-flex align-items-start">
@@ -30,7 +30,8 @@
                     </div>
                     <div class="journal_info-info">
                         <h6 class="mb-0">
-                            {{ $order->customer->name }}
+                            <?php echo e($order->customer->name); ?>
+
                         </h6>
                     </div>
                 </li>
@@ -41,7 +42,8 @@
                     </div>
                     <div class="journal_info-info">
                         <h6 class="mb-0">
-                            {{ $order->created_at }}
+                            <?php echo e($order->created_at); ?>
+
                         </h6>
                     </div>
                 </li>
@@ -52,7 +54,8 @@
                     </div>
                     <div class="journal_info-info">
                         <h6 class="mb-0">
-                            {{ $order->package }}
+                            <?php echo e($order->package); ?>
+
                         </h6>
                     </div>
                 </li>
@@ -74,29 +77,30 @@
                     </div>
                     <div class="journal_info-info">
                         <h6 class="mb-0">
-                            {{ ucfirst($order->status) }}
+                            <?php echo e(ucfirst($order->status)); ?>
+
                         </h6>
                     </div>
                 </li>
-                @foreach ($order->termin as $termin)
+                <!--[if BLOCK]><![endif]--><?php $__currentLoopData = $order->termin; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $termin): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <li class="d-flex align-items-start">
                         <div class="journal_info-title">
-                            <h6 class="mb-0">Termin {{ $termin->term }}</h6>
+                            <h6 class="mb-0">Termin <?php echo e($termin->term); ?></h6>
                             <p class="mb-0">:</p>
                         </div>
                         <div class="journal_info-info">
-                            @if ($termin->is_paid)
+                            <!--[if BLOCK]><![endif]--><?php if($termin->is_paid): ?>
                                 <h6 class="mb-0 text-success">
                                     PAID
                                 </h6>
-                            @else
+                            <?php else: ?>
                                 <h6 class="mb-0 text-danger">
                                     UNPAID
                                 </h6>
-                            @endif
+                            <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
                         </div>
                     </li>
-                @endforeach
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><!--[if ENDBLOCK]><![endif]-->
             </ul>
             <div class="separator stretched-dashed"></div>
             <div class="journal-info_btn-group d-flex justify-content-end mt-4">
@@ -110,7 +114,7 @@
                     <span wire:loading wire:target="download_invoice">Loading...</span>
                     <span wire:loading.class="d-none" wire:target="download_invoice">Download Invoice</span>
                 </button>
-                <a href="{{ $order->payment_link }}" target="__blank" class="btn active">
+                <a href="<?php echo e($order->payment_link); ?>" target="__blank" class="btn active">
                     <i class='bx bx-wallet'></i>
                     <span>
                         Lakukan Pembayaran
@@ -128,21 +132,22 @@
                 </div>
                 <div class="modal-body">
                     <div class="row g-2">
-                        @foreach ($order->termin as $item)
+                        <!--[if BLOCK]><![endif]--><?php $__currentLoopData = $order->termin; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <div class="col mb-3">
-                                <label for="select-{{ $item->id }}" class="form-label">Status Termin
-                                    {{$item->term}}</label>
-                                <select wire:model="termins.{{$item->id}}" class="form-select" id="select-{{ $item->id }}"
+                                <label for="select-<?php echo e($item->id); ?>" class="form-label">Status Termin
+                                    <?php echo e($item->term); ?></label>
+                                <select wire:model="termins.<?php echo e($item->id); ?>" class="form-select" id="select-<?php echo e($item->id); ?>"
                                     aria-label="Default select example">
                                     <option>Choose Option...</option>
-                                    <option @selected($item->is_paid) value="1">PAID</option>
-                                    <option @selected($item->is_paid) value="0">UNPAID</option>
+                                    <option <?php if($item->is_paid): echo 'selected'; endif; ?> value="1">PAID</option>
+                                    <option <?php if($item->is_paid): echo 'selected'; endif; ?> value="0">UNPAID</option>
                                 </select>
                                 <div class="form-text">
-                                    {{ $item->is_paid ? "PAID" : "UNPAID" }}
+                                    <?php echo e($item->is_paid ? "PAID" : "UNPAID"); ?>
+
                                 </div>
                             </div>
-                        @endforeach
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><!--[if ENDBLOCK]><![endif]-->
                     </div>
                     <div class="row g-2">
                         <div class="col-md-6" x-data="{ uploading: false, progress: 0 }"
@@ -151,7 +156,26 @@
                             x-on:livewire-upload-cancel="uploading = false"
                             x-on:livewire-upload-error="uploading = false"
                             x-on:livewire-upload-progress="progress = $event.detail.progress">
-                            <x-form.input label="Upload Kwitansi" name="kwitansi" type="file" class="form-control" />
+                            <?php if (isset($component)) { $__componentOriginalc1d2405c7f8100d77292f2d0299ccd96 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginalc1d2405c7f8100d77292f2d0299ccd96 = $attributes; } ?>
+<?php $component = App\View\Components\Form\Input::resolve(['label' => 'Upload Kwitansi','name' => 'kwitansi','type' => 'file'] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('form.input'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\App\View\Components\Form\Input::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['class' => 'form-control']); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginalc1d2405c7f8100d77292f2d0299ccd96)): ?>
+<?php $attributes = $__attributesOriginalc1d2405c7f8100d77292f2d0299ccd96; ?>
+<?php unset($__attributesOriginalc1d2405c7f8100d77292f2d0299ccd96); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginalc1d2405c7f8100d77292f2d0299ccd96)): ?>
+<?php $component = $__componentOriginalc1d2405c7f8100d77292f2d0299ccd96; ?>
+<?php unset($__componentOriginalc1d2405c7f8100d77292f2d0299ccd96); ?>
+<?php endif; ?>
                             <div x-show="uploading">
                                 <div class="progress-bar progress-bar-striped" role="progressbar"
                                     x-bind:style="`width: ${progress}%`;" x-bind:aria-valuenow="progress"
@@ -165,7 +189,26 @@
                             x-on:livewire-upload-cancel="uploading = false"
                             x-on:livewire-upload-error="uploading = false"
                             x-on:livewire-upload-progress="progress = $event.detail.progress">
-                            <x-form.input label="Upload Invoice" name="invoices" type="file" class="form-control" />
+                            <?php if (isset($component)) { $__componentOriginalc1d2405c7f8100d77292f2d0299ccd96 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginalc1d2405c7f8100d77292f2d0299ccd96 = $attributes; } ?>
+<?php $component = App\View\Components\Form\Input::resolve(['label' => 'Upload Invoice','name' => 'invoices','type' => 'file'] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('form.input'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\App\View\Components\Form\Input::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['class' => 'form-control']); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginalc1d2405c7f8100d77292f2d0299ccd96)): ?>
+<?php $attributes = $__attributesOriginalc1d2405c7f8100d77292f2d0299ccd96; ?>
+<?php unset($__attributesOriginalc1d2405c7f8100d77292f2d0299ccd96); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginalc1d2405c7f8100d77292f2d0299ccd96)): ?>
+<?php $component = $__componentOriginalc1d2405c7f8100d77292f2d0299ccd96; ?>
+<?php unset($__componentOriginalc1d2405c7f8100d77292f2d0299ccd96); ?>
+<?php endif; ?>
                             <div x-show="uploading">
                                 <div class="progress-bar progress-bar-striped" role="progressbar"
                                     x-bind:style="`width: ${progress}%`;" x-bind:aria-valuenow="progress"
@@ -191,7 +234,10 @@
         </div>
     </div>
 
-    @script
+        <?php
+        $__scriptKey = '736395264-0';
+        ob_start();
+    ?>
 
     <script>
         const modal = document.getElementById("manageOrder");
@@ -200,5 +246,9 @@
         $wire.on("hide_modal", () => modalORderdetail.hide())
     </script>
 
-    @endscript
-</div>
+        <?php
+        $__output = ob_get_clean();
+
+        \Livewire\store($this)->push('scripts', $__output, $__scriptKey)
+    ?>
+</div><?php /**PATH D:\MyProjects\P-007-TRACKING-APP\resources\views/livewire/order-detail/order-information.blade.php ENDPATH**/ ?>

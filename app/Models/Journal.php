@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class Journal extends Model
 {
   /** @use HasFactory<\Database\Factories\JournalFactory> */
-  use HasFactory,HasUuids;
+  use HasFactory, HasUuids;
 
   public $fillable = [
     'abbreviation',
@@ -17,22 +17,21 @@ class Journal extends Model
     'apc_charge',
     'processing_time',
     'category',
-    'focus',
-    'scope',
+    'focus_and_scope',
     'index',
     'accreditation',
     'journal_link',
     'issn',
     'publisher'
   ];
-  public function article(){
+  public function article()
+  {
     return $this->hasMany(Article::class);
-}
+  }
 
-public function getJournalFullNameAttribute(){
-  return sprintf("%s:%s",$this->abbreviation,$this->name);
-}
-public function getFocusAndScopeAttribute(){
-  return sprintf("%s & %s",$this->focus,$this->scope);
-}
+  public function getJournalFullNameAttribute()
+  {
+    return sprintf("%s:%s", $this->abbreviation, $this->name);
+  }
+
 }

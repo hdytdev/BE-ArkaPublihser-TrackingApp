@@ -7,29 +7,29 @@
         @endforeach
     </select>
     @script
-        <script>
-            $(document).ready(function() {
-                $('.select_journal').select2({
-                    theme: "bootstrap-5"
-                });
-                $('.select_journal').on('select2:select', (e) => {
-                    $wire.$set("journal_id", e.params.data.id)
-                })
-                Livewire.hook('morph.updating', ({
-                    el,
-                    component,
-                    toEl,
-                    skip,
-                    childrenOnly
-                }) => {
-                    attr = toEl.getAttribute('class')
-                    if (String(attr).includes('select_journal')) {
-                        $(el).select2({
-                            theme: "bootstrap-5"
-                        })
-                    }
-                })
+    <script>
+        $(document).ready(function () {
+            $('.select_journal').select2({
+                theme: "bootstrap-5"
+            });
+            $('.select_journal').on('select2:select', (e) => {
+                $wire.$set("journal_id", e.params.data.id)
             })
-        </script>
+            Livewire.hook('morph.updating', ({
+                el,
+                component,
+                toEl,
+                skip,
+                childrenOnly
+            }) => {
+                attr = toEl.getAttribute('class')
+                if (String(attr).includes('select_journal')) {
+                    $(el).select2({
+                        theme: "bootstrap-5"
+                    })
+                }
+            })
+        })
+    </script>
     @endscript
 </div>

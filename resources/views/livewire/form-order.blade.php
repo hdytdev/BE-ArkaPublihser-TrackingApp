@@ -2,16 +2,21 @@
     <div class="col-md-12">
         <div class="card mb-4">
             <h5 class="card-header pb-0">Isi Detail Pesanan</h5>
-            <form wire:submit.prevent="cek" class="row px-4">
+            <form wire:submit.prevent="createOrder" class="row px-4">
                 @csrf
                 <div class="col-md-6">
                     <div class="card-body px-0">
                         <div class="mb-3">
-                            <livewire:form.select-journal wire:model="journal_id" />
-                            @error('journal_id')
-                                <div class="invalid-feedback d-block">{{ $message }}</div>
-                            @enderror
+                            <label for="exampleDataList" class="form-label">Nama Jurnal</label>
+                            <select wire:model='journal_id' class="form-control select_journal">
+                                <option value="">-- Select Journal ---</option>
+                                @foreach ($journals as $item)
+                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                @endforeach
+                            </select>
+
                         </div>
+
                         <x-form.input name="title" label="Judul Artikel" />
                         <x-form.input name="authors" label="Author" />
                         <x-form.input type="date" name="publish_date" label="Tanggal Publish">
@@ -30,8 +35,10 @@
                             x-on:livewire-upload-progress="progress = $event.detail.progress">
                             <x-form.input type="file" name="article_file" label="File Artikel" />
                             <div x-show="uploading">
-                              <div class="progress-bar progress-bar-striped" role="progressbar" x-bind:style="`width: ${progress}%`;" x-bind:aria-valuenow="progress" aria-valuemin="0" aria-valuemax="100" x-text="`${progress}%`">
-                              </div>
+                                <div class="progress-bar progress-bar-striped" role="progressbar"
+                                    x-bind:style="`width: ${progress}%`;" x-bind:aria-valuenow="progress"
+                                    aria-valuemin="0" aria-valuemax="100" x-text="`${progress}%`">
+                                </div>
                             </div>
                         </div>
 
@@ -40,10 +47,14 @@
                 <div class="col-md-6">
                     <div class="card-body px-0">
                         <div class="mb-3">
-                            <livewire:form.select-customer wire:model="customer_id" />
-                            @error('customer_id')
-                                <div class="invalid-feedback d-block">{{ $message }}</div>
-                            @enderror
+                            <label for="exampleDataList" class="form-label">Nama Jurnal</label>
+                            <select wire:model='customer_id' class="form-control select_journal">
+                                <option value="">-- Select Customers ---</option>
+                                @foreach ($customers as $item)
+                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                @endforeach
+                            </select>
+
                         </div>
                         <div class="mb-3">
                             <label for="" class="form-label">Paket</label>

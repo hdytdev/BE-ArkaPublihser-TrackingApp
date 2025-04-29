@@ -30,10 +30,12 @@ Route::prefix("admin")->middleware(AuthMiddleware::class)->name('admin.')->group
     Route::get('/edit-journal/{id?}', FormJournal::class)->name('journal.edit');
     Route::get('/journal/{category?}', JournalList::class)->name('journal');
     Route::get('/order', OrderLists::class)->name('order');
-    Route::get('/new-order', FormOrder::class)->name('order.new');
+    Route::get('/new-order', action: FormOrder::class)->name('order.new');
+    Route::get('/order/{order_id}/edit', action: FormOrder::class)->name('order.edit');
     Route::get('/order-detail/{order_id}', OrderDetail::class)->name('order.detail');
     Route::get('/user_management', UserManagement::class)->name('user');
     Route::get('/user/edit/{id}', FormUser::class)->name('user.edit');
     Route::get('/user/new', FormUser::class)->name('user.new');
+
 });
 
